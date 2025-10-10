@@ -16,6 +16,23 @@ body{
     align-items: center;
     gap:60px;
 }
+.getStarted:hover{
+    background-color: hsl(261 41 31);
+    cursor: pointer;
+}
+#signUp:hover{
+    background-color: hsl(261 41 31);
+    cursor: pointer;
+}
+#login:hover{
+    background-color: hsl(261 41 31);
+    color: white;
+    cursor: pointer;
+}
+#getStarted1:hover{
+    background-color: hsl(261 41 21);
+    cursor: pointer;
+}
 .right > div > p{
     max-width: 90%;
     margin-top: 0;
