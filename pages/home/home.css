@@ -1,0 +1,210 @@
+body{
+    padding: 0;
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    overflow-x:hidden;
+}
+.right{
+    display: flex;
+    margin-top: 100px;
+    flex-direction: row;
+    max-width: 100%;
+    padding: 20px 80px;
+    justify-content:space-around;
+    align-items: center;
+    gap:60px;
+}
+.right > div > p{
+    max-width: 90%;
+    margin-top: 0;
+}
+.left > div > p{
+    max-width: 90%;
+    margin-top: 0;
+}
+.left > div > p{
+    max-width: 90%;
+    margin-top: 0;
+}
+.right > div > h2{
+    margin-bottom: 10px;
+}
+.left{
+    display: flex;
+    margin-top: 100px;
+    flex-direction: row;
+    max-width: 100%;
+    padding: 20px 80px;
+    justify-content:space-around;
+    align-items: center;
+    gap:60px;
+}
+.join-addition > div{
+    display: flex;
+    margin-bottom: 8px;
+    flex-direction: column;
+}
+.join-addition > div > h1{
+    text-align: center;
+    margin-bottom: 5px;
+    font-size: 2rem;
+}
+.join-addition > div > p{
+    margin:0;
+    padding: 0;
+}
+.join-addition{
+    padding-top: 25px;
+    padding-bottom: 25px;
+    background-color: #F4F4F4;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+nav > img{
+    width:16rem;
+    height: 5.0625rem;
+}
+#intro{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 80px;
+}
+#startBox{
+    width: 59px;
+    height: 50px;
+    border-left: 1px solid black;
+    margin: 0;
+    padding: 0;
+    border-top:1px solid black;
+}
+#endBoxHolder{
+    height: 21vw;
+    display: flex;
+    align-items: end;
+    max-height: 100%;
+    width: 50px;
+}
+#video1{
+    width: 749px;
+    height: 369px;
+}
+#endBox{
+    width: 59px;
+    height: 50px;
+    border-right: 1px solid black;
+    margin: 0;
+    padding: 0;
+    border-bottom:1px solid black;
+}
+#hero{
+    min-height: 21vw;
+    display: flex;
+    width: 100%;
+    padding-bottom: 70px;
+    height: fit-content;
+    justify-content: center;
+    padding-top: 40px;
+}
+#info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#info > h1{
+    text-align: center;
+    margin-bottom: 8px;
+    font-size: 2.5rem;
+}
+#info > p{
+    text-align: center;
+    margin-top: 6px;
+    max-width: 75%;
+    margin-bottom: 14px;
+    font-size: 1.125rem;
+}
+nav{
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    padding-bottom:0;
+    background-color: white;
+    padding-top: 0;
+    position: sticky;
+    top:0;
+    justify-content: space-between;
+    align-items: center;
+    padding-right:1.875rem;
+}
+#getStarted1{
+    font-size: 0.9rem;
+    background-color:#5C3E94;
+    display: flex;
+    gap:2px;
+    border: none;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-radius:20px;
+    padding-left: 14px;
+    padding-right: 14px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    color: white;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+}
+.getStarted{
+    font-size: 1rem;
+    background-color:#5C3E94;
+    display: flex;
+    gap:2px;
+    border: none;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-radius:10px;
+    padding-left: 18px;
+    padding-right: 18px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    color: white;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+}
+#login{
+    font-size: 1rem;
+    border-color:#5C3E94;
+    border-width: 2px;
+    border-radius:10px;
+    padding-left: 22px;
+    padding-right: 22px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    background-color: transparent;
+    color: black;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+}
+#signUp{
+    font-size: 1rem;
+    background-color:#5C3E94;
+    border:none;
+    border-radius:10px;
+    padding-left: 16px;
+    padding-right: 16px;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: white;
+    font-family: "Poppins", sans-serif;
+}
+#buttons{
+    display: flex;
+    gap:20px;
+}
