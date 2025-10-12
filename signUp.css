@@ -1,0 +1,188 @@
+#mainBody {
+    display: flex;
+    padding-top: 0;
+    padding-bottom: 0;
+    justify-content: space-around;
+    max-height: 110vh;
+    height: 120vh;
+
+}
+#buttonsSignUp{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:7px;
+    margin-top: 8px;
+}
+#signUpActual{
+    font-size: 0.95rem;
+    background-color:#5C3E94;
+    border:none;
+    border-radius:8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: white;
+    font-weight: 300;
+    width: 70%;
+    font-family: "Poppins", sans-serif;
+}
+#signUpG{
+    font-size: 0.95rem;
+    border:1px solid #5C3E94;
+    border-radius:8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    text-align: center;
+    padding-top: 5px;
+    background-color: transparent;
+    padding-bottom: 5px;
+    color: black;
+    display: flex;
+    justify-content: center;
+    gap:30px;
+    align-items: center;
+    font-weight: 300;
+    width: 70%;
+    font-family: "Poppins", sans-serif;
+}
+#signUpG > #image{
+    display: flex;
+    margin: 0;
+    padding: 0;
+    width: 40%;
+}
+#signUpG > div:not(#image){
+    display: flex;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+input[type="checkbox"]{
+    accent-color: #5C3E94;
+}
+#profilePicture {
+    padding-top: 60px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    width: 35%;
+    overflow-x: hidden;
+    overflow-y: auto
+}
+.header{
+    width: 100%;
+}
+.select {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 16px;
+    border-radius: 6px;
+    gap: 8px;
+    width: 100%;
+    max-height: 140px;
+    min-height: 140px;
+    background-color: #F4F4F4;
+}
+
+.pp:hover {
+    border-radius: 20px;
+    border: solid 1px gree;
+}
+
+.pp {
+    width: 70px;
+    height: 70px;
+    background-image: url("https://pbs.twimg.com/media/ETuhXTNU0AAY8Mk.jpg:large");
+    background-size: cover;
+    border-radius: 100%;
+}
+
+#mainPP {
+    width: 180px;
+    min-width: 180px;
+    height: 180px;
+    min-height: 180px;
+    background-image: url("assets/Anime.jpg");
+    background-size: cover;
+    border-radius: 100%;
+    background-repeat: no-repeat;
+}
+
+hr {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+#tandc{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap:2px;
+}
+.bottomBar{
+    display: flex;
+    justify-content: space-between;
+}
+#userInfo {
+    display: flex;
+    height: 100%;
+    width: 50%;
+    align-items: center;
+    flex-direction: column;
+}
+
+.input {
+    display: flex;
+    flex-direction: column;
+    width: 98%;
+}
+label{
+    font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 1rem;
+}
+input {
+    background-color: #EFEFEF;
+    border: none;
+    padding: 12px 6px;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    outline: none;
+}
+select {
+    background-color: #EFEFEF;
+    border: none;
+    padding: 12px 6px;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    outline: none;
+}
+input:focus{
+    border: solid 1px #5C3E94;
+}
+select:focus{
+    border: solid 1px #5C3E94;
+}
+#form{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap:20px;
+}
+.schoolInfo{
+    display: flex;
+    width: 100%;
+    gap:20px;
+}

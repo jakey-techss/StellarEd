@@ -82,7 +82,7 @@ body{
     flex-direction: column;
     align-items: center;
 }
-nav > img{
+nav img{
     width:16rem;
     height: 5.0625rem;
 }
@@ -134,6 +134,9 @@ nav > img{
     justify-content: center;
     align-items: center;
 }
+a{
+    text-decoration: none;
+}
 #info > h1{
     text-align: center;
     margin-bottom: 8px;
@@ -149,6 +152,7 @@ nav > img{
 nav{
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
     display: flex;
+    z-index: 20000px;
     padding-bottom:0;
     background-color: white;
     padding-top: 0;
