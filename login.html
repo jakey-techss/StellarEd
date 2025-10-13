@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Stellar Ed | Log In</title>
+    <link rel="icon" href="assets/Stellar-removebg-preview.png">
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="pages/login/login.css">
+    <link rel="stylesheet" href="assets/fonts/fonts.css">
+    <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore-compat.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <nav id="nav">
+        <a href="index.html"><img src="assets/logo-transparent-png.png"></a>
+        <div id="buttons">
+            <a href="signup.html"><button id="signUp">Sign Up</button></a>
+        </div>
+    </nav>
+    <div id="mainBody">
+        <div id="userInfo">
+            <h1 class="poppins-semibold">Log In</h1>
+            <div id="form">
+                <div class="input">
+                    <label for="email">Email</label>
+                    <input name="email" type="text" id="emailInput" placeholder="example@example.com">
+                </div>
+                <div class="input">
+                    <label for="password">Password</label>
+                    <input name="password" type="password" id="password" placeholder="**************">
+                </div>
+                <a style="font-family: 'Poppins', sans-serif; font-weight: 400; font-style: normal; font-size:0.8rem; text-decoration: underline; color: #5C3E94;"
+                    href="signup.html">Create an account</a>
+            </div>
+            <div id="errors">
+            </div>
+            <div id="buttonsSignUp">
+                <button id="signUpActual">Log in</button>
+            </div>
+        </div>
+    </div>
+    <div id="animationLoad">
+        <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.1/dist/dotlottie-wc.js" type="module"></script>
+<dotlottie-wc src="https://lottie.host/679ee98c-f460-4075-b73f-55093be6d4f1/Px5wccrnpH.lottie" style="width: 350px;height: 350px" autoplay loop></dotlottie-wc>
+        <p id="loadingText">Validating information.....</p>
+    </div>
+    <script src="pages/login/login.js"></script>
+</body>
+
+</html>

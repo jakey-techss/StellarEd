@@ -4,7 +4,7 @@
 <head>
     <title>Stellar Ed | Sign Up</title>
     <link rel="icon" href="assets/Stellar-removebg-preview.png">
-    <link rel="stylesheet" href="pages/home/home.css">
+    <link rel="stylesheet" href="home.css">
     <link rel="stylesheet" href="signUp.css">
     <link rel="stylesheet" href="assets/fonts/fonts.css">
     <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-app-compat.js"></script>
@@ -13,10 +13,10 @@
 </head>
 
 <body>
-    <nav>
-        <a><img src="assets/logo-transparent-png.png"></a>
+    <nav id="nav">
+        <a href="index.html"><img src="assets/logo-transparent-png.png"></a>
         <div id="buttons">
-            <button id="login">Log In</button>
+            <a href="login.html"><button id="login">Log In</button></a>
         </div>
     </nav>
     <div id="mainBody">
@@ -165,17 +165,13 @@
                             to terms and conditions</label>
                     </div>
                     <a
-                        style="font-family: 'Poppins', sans-serif; font-weight: 400; font-style: normal; font-size:0.8rem; text-decoration: underline; color: #5C3E94;">Log
+                        style="font-family: 'Poppins', sans-serif; font-weight: 400; font-style: normal; font-size:0.8rem; text-decoration: underline; color: #5C3E94;" href="login.html">Log
                         in instead</a>
                 </div>
                 <div id="errors">
                 </div>
                 <div id="buttonsSignUp">
                     <button id="signUpActual">Sign up</button>
-                    <button id="signUpG">
-                        <div id="image"><img src="assets/google-svgrepo-com.svg" width="25px" height="25px"></div>
-                        <div>Sign up with Google</div>
-                    </button>
                 </div>
             </div>
         </div>

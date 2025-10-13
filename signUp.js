@@ -1,5 +1,8 @@
+let userInfo = window.localStorage.getItem("currentUserInfo")
+if (userInfo != null){
+    window.location.assign("dashboard.html")
+}
 
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
     apiKey: "AIzaSyBQ5BFUUYHArWG4nFd89maEs-MUlvFKXBA",
     authDomain: "stellared-81001.firebaseapp.com",
@@ -12,6 +15,56 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 let profilePictures = [
+    "Anime.png",
+    "Anime6.jpeg",
+    "Anime7.jpeg",
+    "Anime8.jpeg",
+    "Anime9.jpeg",
+    "Anime10.jpeg",
+    "Anime11.jpeg",
+    "Anime12.jpeg",
+    "Anime13.jpeg",
+    "Anime14.jpeg",
+    "Anime15.jpeg",
+    "Anime16.jpeg",
+    "Anime17.jpeg",
+    "Anime18.jpg",
+    "Anime19.jpeg",
+    "Anime20.jpeg",
+    "Anime21.jpeg",
+    "Anime22.jpeg",
+    "Anime23.jpeg",
+    "Minecraft4.jpeg",
+    "Minecraft5.jpeg",
+    "Minecraft6.jpeg",
+    "Minecraft7.jpeg",
+    "Minecraft8.jpeg",
+    "Minecraft9.jpeg",
+    "Minecraft10.jpeg",
+    "Others3.jpg",
+    "Others4.jpg",
+    "Person3.jpeg",
+    "Person5.jpg",
+    "Person6.jpg",
+    "Person7.jpg",
+    "Person8.jpg",
+    "Person9.jpg",
+    "Person10.jpg",
+    "Person11.jpg",
+    "Space1.jpeg",
+    "Space2.jpeg",
+    "Space3.jpeg",
+    "Space4.jpeg",
+    "Space5.jpeg",
+    "Space8.jpeg",
+    "Space9.jpeg",
+    "Space10.jpeg",
+    "Space11.jpeg",
+    "Space12.jpeg",
+    "Space13.jpeg",
+    "Space14.jpeg",
+    "Space15.jpeg",
+    "Space16.jpeg",
     "Mario3.jpeg",
     "Person1.jpeg",
     "Mario3.jpg",
@@ -83,7 +136,7 @@ profilePictures.forEach((pp) => {
     let picture = document.createElement("div");
     picture.classList.add("pp");
     picture.id = pp;
-    picture.style.backgroundImage = `url(assets/${pp})`;
+    picture.style.backgroundImage = `url(assets/${pp}`;
     if (pp.substring(0, 4) != "Book") {
         document.getElementById(pp.substring(0, 5)).appendChild(picture);
     } else {
@@ -94,7 +147,7 @@ profilePictures.forEach((pp) => {
 let crossCheck = {
     name: false,
     email: false,
-    emailExists: false,
+    emailExists: true,
     password: false,
     passwordLength: false,
     specialCharacter: false,
@@ -156,7 +209,6 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                 crossCheck.emailExists = false;
                 if (emailValue.length > 5 && emailValue.includes("@") && emailValue.includes(".")) {
                     Errors.splice("Invalid Email", 1)
-                    Errors.splice("Email already in use", 1)
                     crossCheck.email = true;
                 } else {
                     Errors.push("Invalid Email")
@@ -278,17 +330,18 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                     ProfilePicture: selectedPP,
                 }))
                 window.clearInterval()
+                document.getElementById("loadingText").style.fontWeight = "bold"
                 document.getElementById("loadingText").innerText = `Welcome to Stellar Ed ${nameValue}`
                 setTimeout(()=>{window.location.assign("dashboard.html")},2000)
                 })
                 
             } else {
                 window.scrollTo(0, 1)
-                document.getElementById("mainBody").style.filter = "blur(0px)";
+                document.getElementById("mainBody").style.filter = "none";
                 document.getElementById("animationLoad").style.visibility = "hidden";
                 document.body.style.overflowY = "auto"
+                document.getElementById("nav").style.display.backgroundColor = "white";
                 let errorBox = document.getElementById("errors")
-                console.log(crossCheck)
                 if (!crossCheck.address && document.getElementById("Invalid address") == undefined) {
                     let errorNode = document.createElement("p")
                     errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Invalid address`
@@ -515,16 +568,16 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                 }))
                 window.clearInterval()
                 document.getElementById("loadingText").innerText = `Welcome to Stellar Ed ${nameValue}`
-                setTimeout(()=>{window.location.assign("dashboard.html")},60000) 
+                setTimeout(()=>{window.location.assign("dashboard.html")},2000)
                 })
                 
             } else {
                 window.scrollTo(0, 1)
-                document.getElementById("mainBody").style.filter = "blur(0px)";
+                document.getElementById("mainBody").style.filter = "none";
                 document.getElementById("animationLoad").style.visibility = "hidden";
                 document.body.style.overflowY = "auto"
+                document.getElementById("nav").style.display.backgroundColor = "white";
                 let errorBox = document.getElementById("errors")
-                console.log(crossCheck)
                 if (!crossCheck.address && document.getElementById("Invalid address") == undefined) {
                     let errorNode = document.createElement("p")
                     errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Invalid address`
@@ -573,13 +626,13 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                 } else if (crossCheck.emailExists && document.getElementById("Email already in use") != undefined) {
                     errorBox.removeChild(document.getElementById("Email already in use"))
                 }
-                if (!crossCheck.name && document.getElementById("Invalid name") == undefined) {
+                if (!crossCheck.name && document.getElementById("Name must include last and first name") == undefined) {
                     let errorNode = document.createElement("p")
-                    errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Invalid name`
-                    errorNode.id = "Invalid name"
+                    errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Name must include last and first name`
+                    errorNode.id = "Name must include last and first name"
                     errorBox.appendChild(errorNode)
-                } else if (crossCheck.name && document.getElementById("Invalid name") != undefined) {
-                    errorBox.removeChild(document.getElementById("Invalid name"))
+                } else if (crossCheck.name && document.getElementById("Name must include last and first name") != undefined) {
+                    errorBox.removeChild(document.getElementById("Name must include last and first name"))
                 }
                 if (!crossCheck.password && document.getElementById("Invalid password") == undefined) {
                     let errorNode = document.createElement("p")
