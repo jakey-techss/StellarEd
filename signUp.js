@@ -113,11 +113,10 @@ function updateMainPP(pp) {
     selectedPP = `assets/${pp}`
 }
 let index = 0;
-
 document.getElementById("signUpActual").addEventListener("click", () => {
     var Errors = [];
     let nameValue = document.getElementById("name").value
-    let emailValue = document.getElementById("email").value
+    let emailValue = document.getElementById("emailInput").value
     let passwordValue = document.getElementById("password").value
     let cPasswordValue = document.getElementById("cPassword").value
     let addressValue = document.getElementById("address").value
@@ -139,6 +138,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
         }
         document.getElementById("loadingText").innerHTML = loadingMessages[index]; index++
     }, 6300)
+
     if (nameValue.includes(" ") && nameValue.length > 3) {
         Errors.splice("Full name must consist of first and last name", 1)
         crossCheck.name = true;
@@ -147,12 +147,21 @@ document.getElementById("signUpActual").addEventListener("click", () => {
         crossCheck.name = false;
     }
 
-    if (emailValue.length > 5 && emailValue.includes("@") && emailValue.includes(".")) {
+
+    if (emailValue.length > 5) {
         var docRef = db.collection("users").doc(emailValue);
         docRef.get().then((doc) => {
             if (doc.exists) {
                 Errors.push("Email already in use")
                 crossCheck.emailExists = false;
+                if (emailValue.length > 5 && emailValue.includes("@") && emailValue.includes(".")) {
+                    Errors.splice("Invalid Email", 1)
+                    Errors.splice("Email already in use", 1)
+                    crossCheck.email = true;
+                } else {
+                    Errors.push("Invalid Email")
+                    crossCheck.email = false;
+                }
             } else {
                 if (emailValue.length > 5 && emailValue.includes("@") && emailValue.includes(".")) {
                     Errors.splice("Invalid Email", 1)
@@ -166,13 +175,6 @@ document.getElementById("signUpActual").addEventListener("click", () => {
             }
         }).then(
             () => {
-                if (nameValue.includes(" ") && nameValue.length > 3) {
-                    Errors.splice("Full name must consist of first and last name", 1)
-                    crossCheck.name = true;
-                } else {
-                    Errors.push("Full name must consist of first and last name")
-                    crossCheck.name = false;
-                }
                 if (passwordValue.length > 0) {
                     Errors.splice("Invalid Password", 1)
                     crossCheck.password = true
@@ -201,6 +203,13 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                 } else {
                     Errors.push("Invalid Password")
                     crossCheck.password = false
+                }
+                if (cPasswordValue.length > 0) {
+                    Errors.splice("Confirm password must be more than 1 character", 1)
+                    crossCheck.confirmPassword = true
+                } else {
+                    Errors.push("Confirm password must be more than 1 character")
+                    crossCheck.confirmPassword = false
                 }
                 if (cPasswordValue == passwordValue) {
                     Errors.splice("Password do not match", 1)
@@ -247,20 +256,153 @@ document.getElementById("signUpActual").addEventListener("click", () => {
             }
         ).then(() => {
             setTimeout(() => {
-                if (crossCheck.address && crossCheck.cPasswordMatch && crossCheck.city && crossCheck.confirmPassword && crossCheck.email && crossCheck.emailExists && crossCheck.name && crossCheck.password && crossCheck.passwordLength && crossCheck.passwordSecurity && crossCheck.schoolName) {
-
-                } else {
-                    let errorBox = document.getElementById("errors")
-                    Errors.forEach((error) => {
-                        let errorNode = document.createElement("p")
-                        errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>${error}`
-                        errorBox.appendChild(errorNode)
-                    })
-                }
+            if (crossCheck.address && crossCheck.cPasswordMatch && crossCheck.city && crossCheck.confirmPassword && crossCheck.email && crossCheck.emailExists && crossCheck.name && crossCheck.password && crossCheck.passwordLength && crossCheck.passwordSecurity && crossCheck.schoolName && crossCheck.specialCharacter && crossCheck.state && crossCheck.terms) {
+                db.collection("users").doc(emailValue).set({
+                    Name: nameValue,
+                    Password: passwordValue,
+                    SchoolAddress: addressValue,
+                    GradeLevel: glValue,
+                    SchoolName: SchoolnameValue,
+                    State: stateValue,
+                    City:cityValue,
+                    Tasks: {},
+                    Friends: [],
+                    Streak: 0,
+                    ProfilePicture: selectedPP,
+                }).then(() => {
+                    window.localStorage.setItem("currentUserInfo", JSON.stringify({
+                    Email: emailValue,
+                    Name: nameValue,
+                    Tasks: {},
+                    Streak: 0,
+                    ProfilePicture: selectedPP,
+                }))
+                window.clearInterval()
+                document.getElementById("loadingText").innerText = `Welcome to Stellar Ed ${nameValue}`
+                setTimeout(()=>{window.location.assign("dashboard.html")},2000)
+                })
+                
+            } else {
+                window.scrollTo(0, 1)
                 document.getElementById("mainBody").style.filter = "blur(0px)";
                 document.getElementById("animationLoad").style.visibility = "hidden";
                 document.body.style.overflowY = "auto"
-            }, 12000)
+                let errorBox = document.getElementById("errors")
+                console.log(crossCheck)
+                if (!crossCheck.address && document.getElementById("Invalid address") == undefined) {
+                    let errorNode = document.createElement("p")
+                    errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Invalid address`
+                    errorNode.id = "Invalid address"
+                    errorBox.appendChild(errorNode)
+                } else if (crossCheck.address && document.getElementById("Invalid address") != undefined) {
+                    errorBox.removeChild(document.getElementById("Invalid address"))
+                }
+                if (!crossCheck.cPasswordMatch && document.getElementById("Passwords do not match") == undefined) {
+                    let errorNode = document.createElement("p")
+                    errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Passwords do not match`
+                    errorNode.id = "Passwords do not match"
+                    errorBox.appendChild(errorNode)
+                } else if (crossCheck.cPasswordMatch && document.getElementById("Passwords do not match") != undefined) {
+                    errorBox.removeChild(document.getElementById("Passwords do not match"))
+                }
+                if (!crossCheck.city && document.getElementById("Invalid city") == undefined) {
+                    let errorNode = document.createElement("p")
+                    errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Invalid city`
+                    errorNode.id = "Invalid city"
+                    errorBox.appendChild(errorNode)
+                } else if (crossCheck.city && document.getElementById("Invalid city") != undefined) {
+                    errorBox.removeChild(document.getElementById("Invalid city"))
+                }
+                if (!crossCheck.confirmPassword && document.getElementById("Confirm password must be more than 1 character") == undefined) {
+                    let errorNode = document.createElement("p")
+                    errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Confirm password must be more than 1 character`
+                    errorNode.id = "Confirm password must be more than 1 character"
+                    errorBox.appendChild(errorNode)
+                } else if (crossCheck.confirmPassword && document.getElementById("Confirm password must be more than 1 character") != undefined) {
+                    errorBox.removeChild(document.getElementById("Confirm password must be more than 1 character"))
+                }
+                if (!crossCheck.email && document.getElementById("Invalid email") == undefined) {
+                    let errorNode = document.createElement("p")
+                    errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Invalid email`
+                    errorNode.id = "Invalid email"
+                    errorBox.appendChild(errorNode)
+                } else if (crossCheck.email && document.getElementById("Invalid email") != undefined) {
+                    errorBox.removeChild(document.getElementById("Invalid email"))
+                }
+                if (!crossCheck.emailExists && document.getElementById("Email already in use") == undefined) {
+                    let errorNode = document.createElement("p")
+                    errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Email already in use`
+                    errorNode.id = "Email already in use"
+                    errorBox.appendChild(errorNode)
+                } else if (crossCheck.emailExists && document.getElementById("Email already in use") != undefined) {
+                    errorBox.removeChild(document.getElementById("Email already in use"))
+                }
+                if (!crossCheck.name && document.getElementById("Name must include last and first name") == undefined) {
+                    let errorNode = document.createElement("p")
+                    errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Name must include last and first name`
+                    errorNode.id = "Name must include last and first name"
+                    errorBox.appendChild(errorNode)
+                } else if (crossCheck.name && document.getElementById("Name must include last and first name") != undefined) {
+                    errorBox.removeChild(document.getElementById("Name must include last and first name"))
+                }
+                if (!crossCheck.password && document.getElementById("Invalid password") == undefined) {
+                    let errorNode = document.createElement("p")
+                    errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Invalid password`
+                    errorNode.id = "Invalid password"
+                    errorBox.appendChild(errorNode)
+                } else if (crossCheck.password && document.getElementById("Invalid password") != undefined) {
+                    errorBox.removeChild(document.getElementById("Invalid password"))
+                }
+                if (!crossCheck.passwordLength && document.getElementById("Password must be more than 8 characters") != undefined) {
+                    let errorNode = document.createElement("p")
+                    errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Password must be more than 8 characters`
+                    errorNode.id = "Password must be more than 8 characters"
+                    errorBox.appendChild(errorNode)
+                } else if (crossCheck.passwordLength && document.getElementById("Password must be more than 8 characters") != undefined) {
+                    errorBox.removeChild(document.getElementById("Password must be more than 8 characters"))
+                }
+                if (!crossCheck.passwordSecurity && document.getElementById("Password must include a number") == undefined) {
+                    let errorNode = document.createElement("p")
+                    errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Password must include a number`
+                    errorNode.id = "Password must include a number"
+                    errorBox.appendChild(errorNode)
+                } else if (crossCheck.passwordSecurity && document.getElementById("Password must include a number") != undefined) {
+                    errorBox.removeChild(document.getElementById("Password must include a number"))
+                }
+                if (!crossCheck.schoolName && document.getElementById("Invalid school name") == undefined) {
+                    let errorNode = document.createElement("p")
+                    errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Invalid school name`
+                    errorNode.id = "Invalid school name"
+                    errorBox.appendChild(errorNode)
+                } else if (crossCheck.schoolName && document.getElementById("Invalid school name") != undefined) {
+                    errorBox.removeChild(document.getElementById("Invalid school name"))
+                }
+                if (!crossCheck.specialCharacter && document.getElementById("Password must include a special character '@,&,<,/'") == undefined) {
+                    let errorNode = document.createElement("p")
+                    errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Password must include a special character '@,&,<,/'`
+                    errorNode.id = "Password must include a special character '@,&,<,/'"
+                    errorBox.appendChild(errorNode)
+                } else if (crossCheck.specialCharacter && document.getElementById("Password must include a special character '@,&,<,/'") != undefined) {
+                    errorBox.removeChild(document.getElementById("Password must include a special character '@,&,<,/'"))
+                }
+                if (!crossCheck.state && document.getElementById("Invalid state") == undefined) {
+                    let errorNode = document.createElement("p")
+                    errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Invalid state`
+                    errorNode.id = "Invalid state"
+                    errorBox.appendChild(errorNode)
+                } else if (crossCheck.state && document.getElementById("Invalid state") != undefined) {
+                    errorBox.removeChild(document.getElementById("Invalid state"))
+                }
+                if (!crossCheck.terms && document.getElementById("Agree to terms and conditions") == undefined) {
+                    let errorNode = document.createElement("p")
+                    errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Agree to terms and conditions`
+                    errorNode.id = "Agree to terms and conditions"
+                    errorBox.appendChild(errorNode)
+                } else if (crossCheck.terms && document.getElementById("Agree to terms and conditions") != undefined) {
+                    errorBox.removeChild(document.getElementById("Agree to terms and conditions"))
+                }
+            }
+        }, 15000)
         })
     } else {
         Errors.push("Invalid Email")
@@ -306,7 +448,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
             crossCheck.confirmPassword = true
         } else {
             Errors.push("Confirm password must be more than 1 character")
-            crossCheck.cPasswordMatch = false
+            crossCheck.confirmPassword = false
         }
         if (cPasswordValue == passwordValue) {
             Errors.splice("Password do not match", 1)
@@ -350,9 +492,37 @@ document.getElementById("signUpActual").addEventListener("click", () => {
             crossCheck.terms = false
         }
         setTimeout(() => {
-            if (crossCheck.address && crossCheck.cPasswordMatch && crossCheck.city && crossCheck.confirmPassword && crossCheck.email && crossCheck.emailExists && crossCheck.name && crossCheck.password && crossCheck.passwordLength && crossCheck.passwordSecurity && crossCheck.schoolName && crossCheck.specialCharacter && crossCheck.state &&crossCheck.terms) {
-
+            if (crossCheck.address && crossCheck.cPasswordMatch && crossCheck.city && crossCheck.confirmPassword && crossCheck.email && crossCheck.emailExists && crossCheck.name && crossCheck.password && crossCheck.passwordLength && crossCheck.passwordSecurity && crossCheck.schoolName && crossCheck.specialCharacter && crossCheck.state && crossCheck.terms) {
+                db.collection("users").doc(emailValue).set({
+                    Name: nameValue,
+                    Password: passwordValue,
+                    SchoolAddress: addressValue,
+                    GradeLevel: glValue,
+                    SchoolName: SchoolnameValue,
+                    State: stateValue,
+                    City:cityValue,
+                    Tasks: {},
+                    Friends: [],
+                    Streak: 0,
+                    ProfilePicture: selectedPP,
+                }).then(() => {
+                    window.localStorage.setItem("currentUserInfo", JSON.stringify({
+                    Email: emailValue,
+                    Name: nameValue,
+                    Tasks: {},
+                    Streak: 0,
+                    ProfilePicture: selectedPP,
+                }))
+                window.clearInterval()
+                document.getElementById("loadingText").innerText = `Welcome to Stellar Ed ${nameValue}`
+                setTimeout(()=>{window.location.assign("dashboard.html")},60000) 
+                })
+                
             } else {
+                window.scrollTo(0, 1)
+                document.getElementById("mainBody").style.filter = "blur(0px)";
+                document.getElementById("animationLoad").style.visibility = "hidden";
+                document.body.style.overflowY = "auto"
                 let errorBox = document.getElementById("errors")
                 console.log(crossCheck)
                 if (!crossCheck.address && document.getElementById("Invalid address") == undefined) {
@@ -385,7 +555,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                     errorNode.id = "Confirm password must be more than 1 character"
                     errorBox.appendChild(errorNode)
                 } else if (crossCheck.confirmPassword && document.getElementById("Confirm password must be more than 1 character") != undefined) {
-                    errorBox.removeChild(document.getElementById("IConfirm password must be more than 1 character"))
+                    errorBox.removeChild(document.getElementById("Confirm password must be more than 1 character"))
                 }
                 if (!crossCheck.email && document.getElementById("Invalid email") == undefined) {
                     let errorNode = document.createElement("p")
@@ -419,7 +589,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                 } else if (crossCheck.password && document.getElementById("Invalid password") != undefined) {
                     errorBox.removeChild(document.getElementById("Invalid password"))
                 }
-                if (!crossCheck.passwordLength && document.getElementById("Password must be more than 8 characters") == undefined) {
+                if (!crossCheck.passwordLength && document.getElementById("Password must be more than 8 characters") != undefined) {
                     let errorNode = document.createElement("p")
                     errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Password must be more than 8 characters`
                     errorNode.id = "Password must be more than 8 characters"
@@ -459,19 +629,15 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                 } else if (crossCheck.state && document.getElementById("Invalid state") != undefined) {
                     errorBox.removeChild(document.getElementById("Invalid state"))
                 }
-                if (!crossCheck.schoolName && document.getElementById("Invalid school name") == undefined) {
+                if (!crossCheck.terms && document.getElementById("Agree to terms and conditions") == undefined) {
                     let errorNode = document.createElement("p")
-                    errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Invalid school name`
-                    errorNode.id = "Invalid school name"
+                    errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Agree to terms and conditions`
+                    errorNode.id = "Agree to terms and conditions"
                     errorBox.appendChild(errorNode)
-                } else if (crossCheck.schoolName && document.getElementById("Invalid school name") != undefined) {
-                    errorBox.removeChild(document.getElementById("Invalid school name"))
+                } else if (crossCheck.terms && document.getElementById("Agree to terms and conditions") != undefined) {
+                    errorBox.removeChild(document.getElementById("Agree to terms and conditions"))
                 }
             }
-            window.scrollTo(0, 1)
-            document.getElementById("mainBody").style.filter = "blur(0px)";
-            document.getElementById("animationLoad").style.visibility = "hidden";
-            document.body.style.overflowY = "auto"
-        }, 12000)
+        }, 15000)
     }
 })
