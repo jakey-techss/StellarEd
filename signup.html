@@ -7,11 +7,13 @@
     <link rel="stylesheet" href="pages/home/home.css">
     <link rel="stylesheet" href="signUp.css">
     <link rel="stylesheet" href="assets/fonts/fonts.css">
+    <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore-compat.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
-    <nav>
+    <nav style="background-color: white;">
         <a><img src="assets/logo-transparent-png.png"></a>
         <div id="buttons">
             <button id="login">Log In</button>
@@ -49,24 +51,24 @@
             <div id="form">
                 <div class="input">
                     <label for="fullName">Full Name</label>
-                    <input name="fullName" type="text" placeholder="John Doe">
+                    <input name="fullName" type="text" id="name" placeholder="John Doe">
                 </div>
                 <div class="input">
                     <label for="email">Email</label>
-                    <input name="email" type="text" placeholder="example@example.com">
+                    <input name="email" type="text" id="email" placeholder="example@example.com">
                 </div>
                 <div class="input">
                     <label for="password">Password</label>
-                    <input name="password" type="password" placeholder="**************">
+                    <input name="password" type="password" id="password" placeholder="**************">
                 </div>
                 <div class="input">
                     <label for="cpassword">Confirm Password</label>
-                    <input name="cpassword" type="password" placeholder="**************">
+                    <input name="cpassword" type="password" id="cPassword" placeholder="**************">
                 </div>
                 <div class="schoolInfo">
                     <div class="input">
                         <label for="gl">Grade Level</label>
-                        <select name="gl">
+                        <select name="gl" id="gl">
                             <option value="5">Grade 5</option>
                             <option value="6">Grade 6</option>
                             <option value="7">Grade 7</option>
@@ -80,17 +82,17 @@
                     </div>
                     <div class="input">
                         <label for="schoolName">School Name</label>
-                        <input name="schoolName" type="text" placeholder="Technology High School">
+                        <input name="schoolName" type="text" placeholder="Technology High School" id="school">
                     </div>
                 </div>
                 <div class="input">
                     <label for="Address">Address</label>
-                    <input name="Address" type="text" placeholder="123 Ann Street">
+                    <input name="Address" type="text" id="address" placeholder="123 Ann Street">
                 </div>
                 <div class="schoolInfo">
                     <div class="input">
                         <label for="state">State/Territory</label>
-                        <select name="state">
+                        <select name="state" id="state">
                             <option value=""></option>
                             <option value="AL">Alabama</option>
                             <option value="AK">Alaska</option>
@@ -152,22 +154,36 @@
                     </div>
                     <div class="input">
                         <label for="city">City</label>
-                        <input name="city" type="text" placeholder="San Francisco">
+                        <input name="city" type="text" placeholder="San Francisco" id="city">
                     </div>
                 </div>
                 <div class="bottomBar">
                     <div id="tandc">
-                        <input name="t&c" type="checkbox">
-                        <label for="t&c" style="font-family: 'Poppins', sans-serif; font-weight: 400; font-style: normal; font-size:0.8rem;">Agree to terms and conditions</label>   
+                        <input name="t&c" type="checkbox" id="tandcinput">
+                        <label for="t&c"
+                            style="font-family: 'Poppins', sans-serif; font-weight: 400; font-style: normal; font-size:0.8rem;">Agree
+                            to terms and conditions</label>
                     </div>
-                    <a style="font-family: 'Poppins', sans-serif; font-weight: 400; font-style: normal; font-size:0.8rem; text-decoration: underline; color: #5C3E94;">Log in instead</a>
+                    <a
+                        style="font-family: 'Poppins', sans-serif; font-weight: 400; font-style: normal; font-size:0.8rem; text-decoration: underline; color: #5C3E94;">Log
+                        in instead</a>
+                </div>
+                <div id="errors">
                 </div>
                 <div id="buttonsSignUp">
-                <button id="signUpActual">Sign up</button>
-                <button id="signUpG"><div id="image"><img src="assets/google-svgrepo-com.svg" width="25px" height="25px"></div><div>Sign up with Google</div></button>
+                    <button id="signUpActual">Sign up</button>
+                    <button id="signUpG">
+                        <div id="image"><img src="assets/google-svgrepo-com.svg" width="25px" height="25px"></div>
+                        <div>Sign up with Google</div>
+                    </button>
                 </div>
             </div>
         </div>
+    </div>
+    <div id="animationLoad">
+        <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.1/dist/dotlottie-wc.js" type="module"></script>
+<dotlottie-wc src="https://lottie.host/383efc7a-cc4c-484f-bb8b-90b67d2e1baa/E0K8xr8yBG.lottie" style="width: 400px;height: 400px" autoplay loop></dotlottie-wc>
+        <p id="loadingText">Validating information.....</p>
     </div>
     <script src="signUp.js"></script>
 </body>

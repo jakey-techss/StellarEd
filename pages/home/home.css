@@ -19,19 +19,23 @@ body{
 .getStarted:hover{
     background-color: hsl(261 41 31);
     cursor: pointer;
+    transition: background-color 2s;
 }
 #signUp:hover{
     background-color: hsl(261 41 31);
     cursor: pointer;
+    transition: background-color 2s;
 }
 #login:hover{
     background-color: hsl(261 41 31);
     color: white;
     cursor: pointer;
+    transition: background-color 1s;
 }
 #getStarted1:hover{
     background-color: hsl(261 41 21);
     cursor: pointer;
+    transition: background-color 2s;
 }
 .right > div > p{
     max-width: 90%;
