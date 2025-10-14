@@ -1,3 +1,5 @@
+
+
 let userInfo = window.localStorage.getItem("currentUserInfo")
 if (userInfo != null) {
     window.location.assign("dashboard.html")
@@ -112,11 +114,19 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                         Tasks: userInfo.Tasks,
                         Streak: userInfo.Streak,
                         ProfilePicture: userInfo.ProfilePicture,
+                        Onboard: userInfo.Onboard
                     }))
                     window.clearInterval()
                     document.getElementById("loadingText").style.fontWeight = "bold"
-                    document.getElementById("loadingText").innerText = `Welcome to Stellar Ed ${nameValue}`
-                    setTimeout(() => { window.location.assign("dashboard.html") }, 2000)
+                    document.getElementById("loadingText").innerText = `Welcome to Stellar Ed ${userInfo.Name}`
+                    setTimeout(() => { 
+                        if(userInfo.Onboard){
+                        window.location.assign("dashboard.html")}
+                        else{
+                            window.location.assign("onboard.html")
+                        }
+                     }, 
+                        2000)
 
                 } else {
                     window.scrollTo(0, 1)
@@ -183,7 +193,11 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                 window.clearInterval()
                 document.getElementById("loadingText").style.fontWeight = "bold"
                 document.getElementById("loadingText").innerText = `Welcome to Stellar Ed ${userInfo.Name}`
-                setTimeout(() => { window.location.assign("dashboard.html") }, 2000)
+                setTimeout(() => {if(userInfo.Onboard){
+                        window.location.assign("dashboard.html")}
+                        else{
+                            window.location.assign("onboard.html")
+                        } }, 2000)
 
             } else {
                 window.scrollTo(0, 1)

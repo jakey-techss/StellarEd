@@ -317,6 +317,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                     SchoolName: SchoolnameValue,
                     State: stateValue,
                     City:cityValue,
+                    Onboard:false,
                     Tasks: {},
                     Friends: [],
                     Streak: 0,
@@ -325,6 +326,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                     window.localStorage.setItem("currentUserInfo", JSON.stringify({
                     Email: emailValue,
                     Name: nameValue,
+                    Onboard:false,
                     Tasks: {},
                     Streak: 0,
                     ProfilePicture: selectedPP,
@@ -332,7 +334,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                 window.clearInterval()
                 document.getElementById("loadingText").style.fontWeight = "bold"
                 document.getElementById("loadingText").innerText = `Welcome to Stellar Ed ${nameValue}`
-                setTimeout(()=>{window.location.assign("dashboard.html")},2000)
+                setTimeout(()=>{window.location.assign("onboard.html")},2000)
                 })
                 
             } else {
@@ -557,6 +559,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                     Tasks: {},
                     Friends: [],
                     Streak: 0,
+                    Onboard: false,
                     ProfilePicture: selectedPP,
                 }).then(() => {
                     window.localStorage.setItem("currentUserInfo", JSON.stringify({
@@ -564,11 +567,12 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                     Name: nameValue,
                     Tasks: {},
                     Streak: 0,
+                    Onboard: false,
                     ProfilePicture: selectedPP,
                 }))
                 window.clearInterval()
                 document.getElementById("loadingText").innerText = `Welcome to Stellar Ed ${nameValue}`
-                setTimeout(()=>{window.location.assign("dashboard.html")},2000)
+                setTimeout(()=>{window.location.assign("onboard.html")},2000)
                 })
                 
             } else {

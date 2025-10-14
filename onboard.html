@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Stellar Ed | Onboarding</title>
+    <link rel="icon" href="assets/Stellar-removebg-preview.png">
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="pages/login/login.css">
+    <link rel="stylesheet" href="pages/Onboard/onboard.css">
+    <link rel="stylesheet" href="assets/fonts/fonts.css">
+    <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore-compat.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <nav id="nav">
+        <a href="index.html"><img src="assets/logo-transparent-png.png"></a>
+    </nav>
+    <div id="AllContentBox">
+        <h1 class="poppins-semibold">Onboarding</h1>
+        <div id="Halves">
+            <div id="Questions">
+                <div id="form">
+                    <div class="input">
+                        <label for="classNumber">Number Of Classes</label>
+                        <select id="classNumber">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                        </select>
+                    </div>
+                    <div class="input">
+                        <label for="hobbies">Hobbies</label>
+                        <input name="hobbies" type="text" id="hobbies" placeholder="Press enter to add a new item">
+                        <div id="HobbiesHolder">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="Options">
+                <div class="class">
+                    <div class="input" style="width: 80%;">
+                        <label for="hobbies">Class #1 Name</label>
+                        <input name="hobbies" type="text" placeholder="AP Language and Composition">
+                    </div>
+                    <div class="input">
+                        <label for="days">When</label>
+                        <div id="days" name="days">
+                            <div class="day">
+                                <input type="checkbox" name="Monday">Monday
+                            </div>
+                            <div class="day">
+                                <input type="checkbox" name="Tuesday">Tuesday
+                            </div>
+                            <div class="day">
+                                <input type="checkbox" name="Wednesday">Wednesday
+                            </div>
+                            <div class="day">
+                                <input type="checkbox" name="Thursday">Thursday
+                            </div>
+                            <div class="day">
+                                <input type="checkbox" name="Friday">Friday
+                            </div>
+                            <div class="day">
+                                <input type="checkbox" name="Saturday">Saturday
+                            </div>
+                            <div class="day">
+                                <input type="checkbox" name="Sunday">Sunday
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input">
+                        <label for="time">Class #1 Start Time</label>
+                        <div>
+                            <input type="time" name="time" style="width: 80%;">
+                        </div>
+                    </div>
+                    <div class="input">
+                        <label for="time">Class #1 End Time</label>
+                        <div>
+                            <input type="time" name="time" style="width: 80%;">
+                        </div>
+                    </div>
+                    <div class="input" style="width: 80%;">
+                        <label for="diff">Class #1 Difficulty</label>
+                        <select name="diff">
+                            <option value="Easy">Easy</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Hard">Hard</option>
+                            <option value="Nightmare">Nightmare</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="buttonsSignUp">
+            <button id="signUpActual" style="width: 40%; margin-top: 50px;">Go To Dashboard</button>
+        </div>
+    </div>
+    <script src="pages/Onboard/onboard.js"></script>
+</body>
+
+</html>

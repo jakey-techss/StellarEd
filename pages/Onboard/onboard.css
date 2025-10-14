@@ -1,0 +1,91 @@
+#AllContentBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#Options{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+.class{
+    display: flex;
+    flex-direction: column;
+    gap:15px;
+}
+#days{
+    margin-top: 5px;
+    columns: 4;
+    width: 70%;
+}
+#Halves{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 56px;
+    width: 100%;
+}
+#Questions{
+    width: 45%;
+}
+#Options{
+    width: 50%;
+}
+.input > a{
+    width: 100%;
+    text-align: end;
+}
+.color{
+    width: 20px;
+    height: 20px;
+}
+#color1{
+    display: flex;
+    border: 2px solid black;
+    width: fit-content;
+}
+.day{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+    font-weight: 400;
+}
+#HobbiesHolder{
+    background-color: #EFEFEF;
+    width:95%;
+    max-width: 100%;
+    min-height: 200px;
+    display: flex;
+    gap:0px 12px;
+    justify-content: start;
+    align-items: start;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    border-radius: 6px;
+    padding: 16px;
+}
+.tag{
+    display: flex;
+    padding: 4px 6px;
+    justify-content: center;
+    border-radius: 20px;
+    gap:4px;
+    align-items: center;
+    width: fit-content;
+    background-color: white;
+    font-size: 0.7rem;
+    font-weight: 300;
+}
+.tag > span{
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+.tag > span:hover{
+    cursor: pointer;
+    color:red;
+}
