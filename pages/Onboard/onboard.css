@@ -16,7 +16,7 @@
     flex-direction: column;
     gap:15px;
 }
-#days{
+.days{
     margin-top: 5px;
     columns: 4;
     width: 70%;

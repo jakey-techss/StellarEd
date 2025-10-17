@@ -187,6 +187,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                     Email: emailValue,
                     Name: userInfo.Name,
                     Tasks: userInfo.Tasks,
+                    Onboard: userInfo.Onboard,
                     Streak: userInfo.Streak,
                     ProfilePicture: userInfo.ProfilePicture,
                 }))
