@@ -1,0 +1,543 @@
+#profilePicture {
+    background-image: url("https://i.redd.it/zqoyv8stvzv61.png");
+    width: 95px;
+    height: 95px;
+    border-radius: 100%;
+    background-size: cover;
+}
+
+.top {
+    color: white;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+.middle {
+    color: white;
+    margin: 0;
+    font-size: 36px;
+    padding: 0;
+}
+
+.end {
+    color: white;
+    margin: 0;
+    font-size: 14px;
+    padding: 0;
+}
+
+#progress {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#mark {
+    width: 50%;
+    display: flex;
+    gap: 12px;
+    flex-direction: column;
+}
+
+.completed {
+    background-color: #57C057;
+    width: 90%;
+    border-radius: 15px;
+    padding: 12px 10px;
+}
+
+.due {
+    background-color: #57C09F;
+    width: 90%;
+    border-radius: 15px;
+    padding: 12px 10px;
+}
+
+#chart {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.urgentTask>.allHolder {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 24px;
+    align-items: center;
+    width: 100%;
+}
+
+.loadingItem {
+    width: 50%;
+    background-color: #EFB03C;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.loadingBackground {
+    width: 100%;
+    height: 10px;
+    background-color: #D9D9D9;
+    border-radius: 10px;
+}
+
+.goal {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+}
+
+.goalTitleAndCompletion {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9375rem;
+}
+
+.urgentTask2>.allHolder {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 24px;
+    align-items: center;
+    width: 100%;
+}
+
+.urgentTask a {
+    color: #5C0F88;
+    text-decoration: underline;
+    font-size: 0.875rem;
+}
+
+.urgentTask2 a {
+    color: #5C0F88;
+    text-decoration: underline;
+    font-size: 0.875rem;
+}
+
+#UrgentTasksContainer a {
+    color: #5C0F88;
+    font-size: 0.875rem;
+    margin-top: 10px;
+}
+
+.UrgentTasksContainer2 a {
+    color: #5C0F88;
+    font-size: 0.875rem;
+    margin-top: 10px;
+}
+
+#progressBar {
+    box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.25);
+    width: 40%;
+    border-radius: 6px;
+    padding: 3px 20px;
+    margin-top: 80px;
+}
+
+#UrgentTasksContainer a:hover {
+    cursor: pointer;
+}
+
+.urgentTask a:hover {
+    cursor: pointer;
+}
+
+.urgentTask2 a:hover {
+    cursor: pointer;
+}
+
+.urgentTask {
+    background-color: #FAEDED;
+    display: flex;
+    height: 60px;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.urgentTask2 {
+    background-color: #EDF7FA;
+    display: flex;
+    min-height: 60px;
+    height: 60px;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.urgentTask .textHolder>p {
+    margin: 0;
+    font-size: 0.875rem;
+    padding: 0;
+}
+
+.urgentTask2 .textHolder>p {
+    margin: 0;
+    font-size: 0.875rem;
+    padding: 0;
+}
+
+.urgentTask .textHolder {
+    padding-left: 12px;
+}
+
+.urgentTask2 .textHolder {
+    padding-left: 12px;
+}
+
+.marker {
+    background-color: #FF9494;
+    width: 12px;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.marker2 {
+    background-color: #94ffa4;
+    width: 12px;
+    height: 100%;
+    border-radius: 5px;
+}
+
+h4 {
+    font-size: 18px;
+    margin-top: 8px;
+}
+
+#userTopInfo {
+    display: flex;
+    gap: 3px;
+    align-items: center;
+}
+
+#UrgentTasksContainer {
+    width: 40%;
+    min-height: 300px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 8px 25px;
+    background-color: white;
+    height: 50px;
+    box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+}
+.skill > a{
+    text-decoration: underline;
+}
+.UrgentTasksContainer2 {
+    width: 90%;
+    margin-top: 50px;
+    margin-left: 20px;
+    max-height: 400px;
+    display: flex;
+    flex-direction: column;
+    padding: 8px 25px;
+    background-color: white;
+    box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+}
+
+#goals {
+    max-height: 300px;
+    overflow-y: auto;
+}
+#urgentTasks2{
+    max-height: 300px;
+    overflow-y: auto;
+}
+.tag {
+    color: #83189E;
+    background-color: #EDD0FA;
+    padding: 4px 6px;
+    border-radius: 15px;
+    font-size: 14px;
+}
+
+.profilePictureLeader {
+    width: 50px;
+    height: 50px;
+    background-image: url("https://i.redd.it/zqoyv8stvzv61.png");
+    background-size: cover;
+    border-radius: 100%;
+}
+
+.user>#FriendHolder {
+    display: flex;
+    gap: 10px
+}
+
+.user>.onlineHolder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+.rightAlign{
+    width:15%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+#skills{
+    overflow-y: auto;
+}
+.skill > p{
+    max-width: 70%;
+}
+.rightAlign > p{
+    text-align: end;
+}
+.leftAlign > p{
+    font-size: 1rem;
+}
+.leftAlign{
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+}
+a:hover{
+    cursor: pointer;
+}
+.topShow{
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    margin-bottom: 12px;
+}
+.skill{
+    background-color: #FAF5ED;
+    margin-bottom: 20px;
+    padding: 15px;
+}
+.user>.onlineHolder>p {
+    font-size: 14px;
+}
+
+.online {
+    background-color: #57C057;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+}
+
+.user {
+    width: 95%;
+    padding: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    background-color: #49454F;
+    border-radius: 9px;
+    color: white;
+}
+
+.time {
+    background-color: #3FBFDB;
+    padding: 10px 16px;
+    color: white;
+    border-radius: 8px;
+}
+
+.event {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+#scheduleAndLeader {
+    display: flex;
+    justify-content: start;
+    gap: 40px
+}
+
+.classTitle {
+    margin: 0;
+    padding: 0;
+}
+
+#leader a {
+    color: #5C0F88;
+    font-size: 0.875rem;
+    margin-top: 10px;
+    text-decoration: underline;
+    text-align: end;
+}
+#leader > .links{
+    display: flex;
+    justify-content: space-between;
+}
+
+#Events {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    overflow-y: auto;
+    gap: 0px;
+}
+
+#users {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    overflow-y: auto;
+    gap: 10px;
+}
+
+#schedule>a {
+    color: #5C0F88;
+    text-decoration: underline;
+    font-size: 0.875rem;
+    text-align: end;
+}
+
+.classLocation {
+    margin: 0;
+    font-size: 0.875rem;
+    padding: 0;
+}
+
+#Header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#schedule {
+    width: 40%;
+    margin-top: 50px;
+    margin-left: 20px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    padding: 8px 25px;
+    background-color: white;
+    height: 50px;
+    box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+}
+
+#leader {
+    width: 40%;
+    margin-top: 50px;
+    margin-left: 20px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    padding: 8px 25px;
+    background-color: white;
+    height: 50px;
+    box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+}
+
+h3 {
+    margin: 0;
+    font-size: 1.375rem;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-top: 8px;
+    margin-bottom: 0;
+}
+
+#userTopInfoContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.icon>div {
+    width: 30px;
+    height: 30px;
+    background-image: url("https://www.svgrepo.com/show/405195/genie.svg");
+    background-size: cover;
+}
+
+.icon>#Skills {
+    width: 30px;
+    height: 30px;
+    background-image: url("https://www.svgrepo.com/show/218247/employee-skills.svg");
+    background-size: cover;
+}
+
+.icon>#Shop {
+    width: 30px;
+    height: 30px;
+    background-image: url("https://www.svgrepo.com/show/410931/shop.svg");
+    background-size: cover;
+}
+
+.icon>#Profile {
+    width: 30px;
+    height: 30px;
+    background-image: url("https://www.svgrepo.com/show/284827/profile-user.svg");
+    background-size: cover;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#apps {
+    display: flex;
+    gap: 20px;
+    margin-top: 8px;
+}
+
+.app>p {
+    margin: 0;
+    padding-top: 2px;
+    font-size: 13px;
+}
+
+.icon {
+    padding: 8px;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+}
+
+#topInfo {
+    display: flex;
+    justify-content: space-between;
+}
+
+#topBar {
+    display: flex;
+}
+
+.topBarItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.topBarItem>p {
+    margin: 0;
+    padding: 0;
+}
+
+#urgentTasks {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+}
+
+#urgentTasks2 {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+}

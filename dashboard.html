@@ -1,10 +1,204 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title></title>
+    <link rel="stylesheet" href="pages/dashboard/dashboard.css">
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="assets/fonts/fonts.css">
+    <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore-compat.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 
-<body>
+<body style="padding: 50px;">
+    <div id="topInfo">
+        <div id="userTopInfoContainer">
+            <div id="userTopInfo">
+                <div id="profilePicture"></div>
+                <div id="topBar">
+                    <div class="topBarItem">
+                        <dotlottie-wc src="https://lottie.host/8920851b-e9af-4e88-8c4d-febe19ae7cf2/BWYPKhHVz2.lottie"
+                            style="width: 50px;height: 50px" autoplay loop></dotlottie-wc>
+
+                        <p class="poppins-light">100</p>
+                    </div>
+                    <div class="topBarItem">
+                        <dotlottie-wc src="https://lottie.host/4fde29b9-8025-4a43-9eaa-e1e6f056efb9/PtaqDahYp1.lottie"
+                            style="width: 50px;height: 50px;" autoplay loop></dotlottie-wc>
+                        <p class="poppins-light">30</p>
+                    </div>
+                    <div class="topBarItem">
+                        <dotlottie-wc src="https://lottie.host/3c8980f5-7065-42e7-aa83-c3ace76d20fb/nbxLeKRIUa.lottie"
+                            style="width: 40px;height: 45px; padding-bottom:5px;" autoplay loop></dotlottie-wc>
+
+                        <p class="poppins-light">2</p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h2 class="poppins-extrabold">Welcome Joshua F.</h2>
+                <h3 class="poppins-bold">Mon Oct 13</h3>
+                <h3 class="poppins-bold">3:13PM</h3>
+            </div>
+            <div id="apps">
+                <div class="app">
+                    <div class="icon">
+                        <div></div>
+                    </div>
+                    <p class="poppins-semibold">Genie AI</p>
+                </div>
+                <div class="app">
+                    <div class="icon">
+                        <div id="Skills"></div>
+                    </div>
+                    <p class="poppins-semibold">Skills</p>
+                </div>
+                <div class="app">
+                    <div class="icon">
+                        <div id="Shop"></div>
+                    </div>
+                    <p class="poppins-semibold">Shop</p>
+                </div>
+                <div class="app">
+                    <div class="icon">
+                        <div id="Profile"></div>
+                    </div>
+                    <p class="poppins-semibold">Profile</p>
+                </div>
+            </div>
+        </div>
+        <div id="UrgentTasksContainer">
+            <h4 class="poppins-semibold">Urgent Tasks</h4>
+            <div id="urgentTasks">
+                <div class="urgentTask">
+                    <div class="marker"></div>
+                    <div class="allHolder">
+                        <div class="textHolder">
+                            <p>Physics Lab Report</p>
+                            <p>Due: Tomorrow 11:59PM</p>
+                        </div>
+                        <a>View</a>
+                    </div>
+                </div>
+            </div>
+            <a> + Add new Task</a>
+        </div>
+    </div>
+    <div id="progress">
+        <div id="progressBar">
+            <p class="poppins-semibold" style="font-size: 1.25rem; margin-bottom: 0; padding-bottom: 0;">Assignment
+                Progress</p>
+            <div id="chart">
+                <div id="myChart" style="width:100%; height: 400px;"></div>
+            </div>
+        </div>
+        <div id="mark">
+            <div class="completed">
+                <p class="poppins-semibold top">Completed Today</p>
+                <p class="poppins-semibold middle">8</p>
+                <p class="poppins-semibold end">assignments</p>
+            </div>
+            <div class="due">
+                <p class="poppins-semibold top">Due this week</p>
+                <p class="poppins-semibold middle">243</p>
+                <p class="poppins-semibold end">assignments</p>
+            </div>
+        </div>
+    </div>
+    <div class="UrgentTasksContainer2">
+        <h4 class="poppins-semibold">Tasks</h4>
+        <div id="urgentTasks2">
+            <div class="urgentTask2">
+                <div class="marker2"></div>
+                <div class="allHolder">
+                    <div class="textHolder">
+                        <p>Physics Lab Report</p>
+                        <p>Due: Tomorrow 11:59PM</p>
+                    </div>
+                    <a>View</a>
+                </div>
+            </div>
+        </div>
+        <a> + Add new Task</a>
+    </div>
+    <div id="scheduleAndLeader">
+        <div id="schedule">
+            <div id="Header">
+                <h4 class="poppins-semibold">Tomorrow's schedule</h4>
+                <p class="poppins-bold tag">5 Events</p>
+            </div>
+            <div id="Events">
+                <div class="event">
+                    <p class="time poppins-bold">11:00</p>
+                    <div>
+                        <p class="poppins-medium classTitle">Chemistry Lab</p>
+                        <p class="poppins-regular classLocation">Room 204</p>
+                    </div>
+                </div>
+            </div>
+            <a>Manage Schedule</a>
+        </div>
+        <div id="leader">
+            <h4>Friends Leaderboard</h4>
+            <div id="users">
+                <div class="user">
+                    <div id="FriendHolder">
+                        <div class="profilePictureLeader"></div>
+                        <p class="poppins-bold">Jimmy Butler</p>
+                    </div>
+                    <div class="onlineHolder">
+                        <div class="online"></div>
+                        <p>Online</p>
+                    </div>
+                </div>
+            </div>
+            <div class="links">
+                <a>Add a friend</a>
+                <a>Refresh</a>
+            </div>
+        </div>
+    </div>
+    <div class="UrgentTasksContainer2">
+        <h4 class="poppins-semibold">Goals</h4>
+        <div id="goals">
+            <div class="goal">
+                <div class="goalTitleAndCompletion">
+                    <p class="goalTitle poppins-regular">Read 2 Books Per Month</p>
+                    <p class="goalTitle poppins-light">50%</p>
+                </div>
+                <div class="loadingBackground">
+                    <div class="loadingItem"></div>
+                </div>
+            </div>
+        </div>
+        <a> + Add new Goal</a>
+    </div>
+    <div class="UrgentTasksContainer2">
+        <h4 class="poppins-semibold">Skills</h4>
+        <div id="skills">
+            <div class="skill">
+                <div class="topShow">
+                    <div class="leftAlign">
+                        <p class="poppins-regular">AP CSA Java</p>
+                    </div>
+                    <div class="rightAlign">
+                        <p class="poppins-light">75%</p>
+                        <div class="loadingBar">
+                            <div class="loadingBackground">
+                                <div class="loadingItem"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <p class="poppins-light">Learn about the Java Programming Language, and programming concepts and techniques in this college level introductory course to computer science.</p>
+                <a>Continue</a>
+            </div>
+        </div>
+        <a> + Learn new skills</a>
+    </div>
+    <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.5/dist/dotlottie-wc.js" type="module"></script>
     <script src="pages/dashboard/dashboard.js"></script>
 </body>
 

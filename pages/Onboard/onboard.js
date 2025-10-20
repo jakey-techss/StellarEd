@@ -474,9 +474,9 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                         Hobbies: hobbies
                                                     })
                                                         .then(() => {
-                                                            userInfo.Onboard = true
+                                                            JSON.parse(userInfo).Onboard = true
                                                             let updatedUserInfo = userInfo
-                                                            localStorage.setItem("currentUserInfo", JSON.stringify(updatedUserInfo))
+                                                            localStorage.setItem("currentUserInfo", updatedUserInfo)
                                                         })
                                                 }
                                             } else if (document.getElementById("classNumber").value == 10 && crossCheck.class10 == true) {
@@ -561,9 +561,9 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                     Hobbies: hobbies
                                                 })
                                                     .then(() => {
-                                                        userInfo.Onboard = true
+                                                        JSON.parse(userInfo).Onboard = true
                                                         let updatedUserInfo = userInfo
-                                                        localStorage.setItem("currentUserInfo", JSON.stringify(updatedUserInfo))
+                                                        localStorage.setItem("currentUserInfo", updatedUserInfo)
                                                     })
                                             }
                                         } else if (document.getElementById("classNumber").value == 9 && crossCheck.class9 == true) {
@@ -641,9 +641,9 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                 Hobbies: hobbies
                                             })
                                                 .then(() => {
-                                                    userInfo.Onboard = true
+                                                    JSON.parse(userInfo.Onboard) = true
                                                     let updatedUserInfo = userInfo
-                                                    localStorage.setItem("currentUserInfo", JSON.stringify(updatedUserInfo))
+                                                    localStorage.setItem("currentUserInfo", updatedUserInfo)
                                                 })
                                         }
                                     } else if (document.getElementById("classNumber").value == 8 && crossCheck.class8 == true) {
@@ -714,9 +714,9 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                             Hobbies: hobbies
                                         })
                                             .then(() => {
-                                                userInfo.Onboard = true
+                                                JSON.parse(userInfo).Onboard = true
                                                 let updatedUserInfo = userInfo
-                                                localStorage.setItem("currentUserInfo", JSON.stringify(updatedUserInfo))
+                                                localStorage.setItem("currentUserInfo", updatedUserInfo)
                                             })
                                     }
                                 } else if (document.getElementById("classNumber").value == 7 && crossCheck.class7 == true) {
@@ -780,9 +780,9 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                         Hobbies: hobbies
                                     })
                                         .then(() => {
-                                            userInfo.Onboard = true
+                                            JSON.parse(userInfo).Onboard = true
                                             let updatedUserInfo = userInfo
-                                            localStorage.setItem("currentUserInfo", JSON.stringify(updatedUserInfo))
+                                            localStorage.setItem("currentUserInfo", updatedUserInfo)
                                         })
                                 }
                             } else if (document.getElementById("classNumber").value == 6 && crossCheck.class6 == true) {
@@ -839,9 +839,9 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                     Hobbies: hobbies
                                 })
                                     .then(() => {
-                                        userInfo.Onboard = true
+                                        JSON.parse(userInfo).Onboard = true
                                         let updatedUserInfo = userInfo
-                                        localStorage.setItem("currentUserInfo", JSON.stringify(updatedUserInfo))
+                                        localStorage.setItem("currentUserInfo", updatedUserInfo)
                                     })
                             }
                         } else if (document.getElementById("classNumber").value == 5 && crossCheck.class5 == true) {
@@ -891,9 +891,9 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                 Hobbies: hobbies
                             })
                                 .then(() => {
-                                    userInfo.Onboard = true
+                                    JSON.parse(userInfo).Onboard = true
                                     let updatedUserInfo = userInfo
-                                    localStorage.setItem("currentUserInfo", JSON.stringify(updatedUserInfo))
+                                    localStorage.setItem("currentUserInfo", updatedUserInfo)
                                 })
                         }
                     } else if (document.getElementById("classNumber").value == 4 && crossCheck.class4 == true) {
@@ -936,9 +936,9 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                             Hobbies: hobbies
                         })
                             .then(() => {
-                                userInfo.Onboard = true
+                                JSON.parse(userInfo).Onboard = true
                                 let updatedUserInfo = userInfo
-                                localStorage.setItem("currentUserInfo", JSON.stringify(updatedUserInfo))
+                                localStorage.setItem("currentUserInfo", updatedUserInfo)
                             })
                     }
                 } else if (document.getElementById("classNumber").value == 3 && crossCheck.class3 == true) {
@@ -974,9 +974,9 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                         Hobbies: hobbies
                     })
                         .then(() => {
-                            userInfo.Onboard = true
+                            JSON.parse(userInfo).Onboard = true
                             let updatedUserInfo = userInfo
-                            localStorage.setItem("currentUserInfo", JSON.stringify(updatedUserInfo))
+                            localStorage.setItem("currentUserInfo", updatedUserInfo)
                         })
                 }
             } else if (document.getElementById("classNumber").value == 2 && crossCheck.class2 == true) {
@@ -1005,9 +1005,9 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                     Hobbies: hobbies
                 })
                     .then(() => {
-                        userInfo.Onboard = true
+                        JSON.parse(userInfo).Onboard = true
                         let updatedUserInfo = userInfo
-                        localStorage.setItem("currentUserInfo", JSON.stringify(updatedUserInfo))
+                        localStorage.setItem("currentUserInfo", updatedUserInfo)
                     })
             }
 
@@ -1030,9 +1030,9 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                 Hobbies: hobbies
             })
                 .then(() => {
-                    userInfo.Onboard = true
+                    JSON.parse(userInfo).Onboard = true
                     let updatedUserInfo = userInfo
-                    localStorage.setItem("currentUserInfo", JSON.stringify(updatedUserInfo))
+                    localStorage.setItem("currentUserInfo",updatedUserInfo)
                 })
         }
     }, 15000)
