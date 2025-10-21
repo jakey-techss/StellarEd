@@ -1,4 +1,5 @@
 
+
 let userInfo = window.localStorage.getItem("currentUserInfo")
 if (userInfo == null) {
     window.location.assign("index.html")
@@ -59,7 +60,7 @@ document.getElementById("classNumber").addEventListener("change", () => {
                     </div>
                     <div class="input" style="width: 80%;">
                         <label for="location">Where</label>
-                        <input name="location" id="whereCL${classNumber}" type="text" placeholder="Room A311">
+                        <input name="location" id="WhereCL${classNumber}" type="text" placeholder="Room A311">
                     </div>
                     <div class="input">
                         <label for="time">Class #${classNumber} Start Time</label>
@@ -167,7 +168,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
         let FridayClicked = document.getElementById(`FridayCL${i}`).checked
         let SaturdayClicked = document.getElementById(`SaturdayCL${i}`).checked
         let SundayClicked = document.getElementById(`SundayCL${i}`).checked
-        let Where = document.getElementById(`whereCL${i}`).value
+        let Where = document.getElementById(`WhereCL${i}`).value
         let startTime = document.getElementById(`S-timeCL${i}`).value
         let endTime = document.getElementById(`E-timeCL${i}`).value
         let diff = document.getElementById(`diffCL1`).value
@@ -178,9 +179,9 @@ document.getElementById("signUpActual").addEventListener("click", () => {
             document.getElementById(`class${i}Name`).style.border = 'none'
         }
         if (Where == "") {
-            document.getElementById(`whereCL${i}`).style.border = '1px solid red'
+            document.getElementById(`WhereCL${i}`).style.border = '1px solid red'
         } else {
-            document.getElementById(`whereCL${i}`).style.border = 'none'
+            document.getElementById(`WhereCL${i}`).style.border = 'none'
         }
         if (startTime == "") {
             document.getElementById(`S-timeCL${i}`).style.border = '1px solid red'
@@ -198,67 +199,67 @@ document.getElementById("signUpActual").addEventListener("click", () => {
             document.getElementById(`days${i}`).style.border = 'none'
         }
         if (i == 1) {
-            if (endTime == "" || startTime == "" || Where == "" || !(MondayClicked || TuesdayClicked || WednesdayClicked || ThursdayClicked || FridayClicked || SaturdayClicked || SundayClicked) || ClassName == "") {
+            if (endTime == "" || startTime == "" || Where == "" || !(MondayClicked || TuesdayClicked || WednesdayClicked || ThursdayClicked || FridayClicked || SaturdayClicked || SundayClicked) || ClassName == "" || Date.parse(startTime) < Date.parse(endTime)) {
                 crossCheck.class1 = false
             } else {
                 crossCheck.class1 = true
             }
         } else if (i == 2) {
-            if (endTime == "" || startTime == "" || Where == "" || !(MondayClicked || TuesdayClicked || WednesdayClicked || ThursdayClicked || FridayClicked || SaturdayClicked || SundayClicked) || ClassName == "") {
+            if (endTime == "" || startTime == "" || Where == "" || !(MondayClicked || TuesdayClicked || WednesdayClicked || ThursdayClicked || FridayClicked || SaturdayClicked || SundayClicked) || ClassName == "" || Date.parse(startTime) < Date.parse(endTime)) {
                 crossCheck.class2 = false
             } else {
                 crossCheck.class2 = true
             }
         } else if (i == 3) {
-            if (endTime == "" || startTime == "" || Where == "" || !(MondayClicked || TuesdayClicked || WednesdayClicked || ThursdayClicked || FridayClicked || SaturdayClicked || SundayClicked) || ClassName == "") {
+            if (endTime == "" || startTime == "" || Where == "" || !(MondayClicked || TuesdayClicked || WednesdayClicked || ThursdayClicked || FridayClicked || SaturdayClicked || SundayClicked) || ClassName == "" || Date.parse(startTime) < Date.parse(endTime)) {
                 crossCheck.class3 = false
             } else {
                 crossCheck.class3 = true
             }
         } else if (i == 4) {
-            if (endTime == "" || startTime == "" || Where == "" || !(MondayClicked || TuesdayClicked || WednesdayClicked || ThursdayClicked || FridayClicked || SaturdayClicked || SundayClicked) || ClassName == "") {
+            if (endTime == "" || startTime == "" || Where == "" || !(MondayClicked || TuesdayClicked || WednesdayClicked || ThursdayClicked || FridayClicked || SaturdayClicked || SundayClicked) || ClassName == ""|| Date.parse(startTime) < Date.parse(endTime)) {
                 crossCheck.class4 = false
             } else {
                 crossCheck.class4 = true
             }
         } else if (i == 5) {
-            if (endTime == "" || startTime == "" || Where == "" || !(MondayClicked || TuesdayClicked || WednesdayClicked || ThursdayClicked || FridayClicked || SaturdayClicked || SundayClicked) || ClassName == "") {
+            if (endTime == "" || startTime == "" || Where == "" || !(MondayClicked || TuesdayClicked || WednesdayClicked || ThursdayClicked || FridayClicked || SaturdayClicked || SundayClicked) || ClassName == "" || Date.parse(startTime) < Date.parse(endTime)) {
                 crossCheck.class5 = false
             } else {
                 crossCheck.class5 = true
             }
         } else if (i == 6) {
-            if (endTime == "" || startTime == "" || Where == "" || !(MondayClicked || TuesdayClicked || WednesdayClicked || ThursdayClicked || FridayClicked || SaturdayClicked || SundayClicked) || ClassName == "") {
+            if (endTime == "" || startTime == "" || Where == "" || !(MondayClicked || TuesdayClicked || WednesdayClicked || ThursdayClicked || FridayClicked || SaturdayClicked || SundayClicked) || ClassName == "" || Date.parse(startTime) < Date.parse(endTime)) {
                 crossCheck.class6 = false
             } else {
                 crossCheck.class6 = true
             }
         } else if (i == 7) {
-            if (endTime == "" || startTime == "" || Where == "" || !(MondayClicked || TuesdayClicked || WednesdayClicked || ThursdayClicked || FridayClicked || SaturdayClicked || SundayClicked) || ClassName == "") {
+            if (endTime == "" || startTime == "" || Where == "" || !(MondayClicked || TuesdayClicked || WednesdayClicked || ThursdayClicked || FridayClicked || SaturdayClicked || SundayClicked) || ClassName == "" || Date.parse(startTime) < Date.parse(endTime)) {
                 crossCheck.class7 = false
             } else {
                 crossCheck.class7 = true
             }
         } else if (i == 8) {
-            if (endTime == "" || startTime == "" || Where == "" || !(MondayClicked || TuesdayClicked || WednesdayClicked || ThursdayClicked || FridayClicked || SaturdayClicked || SundayClicked) || ClassName == "") {
+            if (endTime == "" || startTime == "" || Where == "" || !(MondayClicked || TuesdayClicked || WednesdayClicked || ThursdayClicked || FridayClicked || SaturdayClicked || SundayClicked) || ClassName == "" || Date.parse(startTime) < Date.parse(endTime)) {
                 crossCheck.class8 = false
             } else {
                 crossCheck.class8 = true
             }
         } else if (i == 9) {
-            if (endTime == "" || startTime == "" || Where == "" || !(MondayClicked || TuesdayClicked || WednesdayClicked || ThursdayClicked || FridayClicked || SaturdayClicked || SundayClicked) || ClassName == "") {
+            if (endTime == "" || startTime == "" || Where == "" || !(MondayClicked || TuesdayClicked || WednesdayClicked || ThursdayClicked || FridayClicked || SaturdayClicked || SundayClicked) || ClassName == "" || Date.parse(startTime) < Date.parse(endTime)) {
                 crossCheck.class9 = false
             } else {
                 crossCheck.class9 = true
             }
         } else if (i == 10) {
-            if (endTime == "" || startTime == "" || Where == "" || !(MondayClicked || TuesdayClicked || WednesdayClicked || ThursdayClicked || FridayClicked || SaturdayClicked || SundayClicked) || ClassName == "") {
+            if (endTime == "" || startTime == "" || Where == "" || !(MondayClicked || TuesdayClicked || WednesdayClicked || ThursdayClicked || FridayClicked || SaturdayClicked || SundayClicked) || ClassName == ""|| Date.parse(startTime) < Date.parse(endTime)) {
                 crossCheck.class10 = false
             } else {
                 crossCheck.class10 = true
             }
         } else if (i == 11) {
-            if (endTime == "" || startTime == "" || Where == "" || !(MondayClicked || TuesdayClicked || WednesdayClicked || ThursdayClicked || FridayClicked || SaturdayClicked || SundayClicked) || ClassName == "") {
+            if (endTime == "" || startTime == "" || Where == "" || !(MondayClicked || TuesdayClicked || WednesdayClicked || ThursdayClicked || FridayClicked || SaturdayClicked || SundayClicked) || ClassName == ""|| Date.parse(startTime) < Date.parse(endTime)) {
                 crossCheck.class11 = false
             } else {
                 crossCheck.class11 = true
@@ -398,6 +399,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                                 When: [document.getElementById("MondayCL1").checked ? "Monday" : "", document.getElementById("TuesdayCL1").checked ? "Tuesday" : "", document.getElementById("WednesdayCL1").checked ? "Wednesday" : "", document.getElementById("ThursdayCL1").checked ? "Thursday" : "", document.getElementById("FridayCL1").checked ? "Friday" : "", document.getElementById("SaturdayCL1").checked ? "Saturday" : "", document.getElementById("SundayCL1").checked ? "Sunday" : ""],
                                                                 Start: document.getElementById("S-timeCL1").value,
                                                                 End: document.getElementById("E-timeCL1").value,
+                                                                Where: document.getElementById("WhereCL1").value,
                                                                 Difficulty: document.getElementById("diffCL1").value,
                                                             },
                                                             2: {
@@ -405,6 +407,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                                 When: [document.getElementById("MondayCL2").checked ? "Monday" : "", document.getElementById("TuesdayCL2").checked ? "Tuesday" : "", document.getElementById("WednesdayCL2").checked ? "Wednesday" : "", document.getElementById("ThursdayCL2").checked ? "Thursday" : "", document.getElementById("FridayCL2").checked ? "Friday" : "", document.getElementById("SaturdayCL2").checked ? "Saturday" : "", document.getElementById("SundayCL2").checked ? "Sunday" : ""],
                                                                 Start: document.getElementById("S-timeCL2").value,
                                                                 End: document.getElementById("E-timeCL2").value,
+                                                                Where: document.getElementById("WhereCL2").value,
                                                                 Difficulty: document.getElementById("diffCL2").value,
                                                             },
                                                             3: {
@@ -412,6 +415,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                                 When: [document.getElementById("MondayCL3").checked ? "Monday" : "", document.getElementById("TuesdayCL3").checked ? "Tuesday" : "", document.getElementById("WednesdayCL3").checked ? "Wednesday" : "", document.getElementById("ThursdayCL3").checked ? "Thursday" : "", document.getElementById("FridayCL3").checked ? "Friday" : "", document.getElementById("SaturdayCL3").checked ? "Saturday" : "", document.getElementById("SundayCL3").checked ? "Sunday" : ""],
                                                                 Start: document.getElementById("S-timeCL3").value,
                                                                 End: document.getElementById("E-timeCL3").value,
+                                                                Where: document.getElementById("WhereCL3").value,
                                                                 Difficulty: document.getElementById("diffCL3").value,
                                                             },
                                                             4: {
@@ -419,6 +423,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                                 When: [document.getElementById("MondayCL4").checked ? "Monday" : "", document.getElementById("TuesdayCL4").checked ? "Tuesday" : "", document.getElementById("WednesdayCL4").checked ? "Wednesday" : "", document.getElementById("ThursdayCL4").checked ? "Thursday" : "", document.getElementById("FridayCL4").checked ? "Friday" : "", document.getElementById("SaturdayCL4").checked ? "Saturday" : "", document.getElementById("SundayCL4").checked ? "Sunday" : ""],
                                                                 Start: document.getElementById("S-timeCL4").value,
                                                                 End: document.getElementById("E-timeCL4").value,
+                                                                Where: document.getElementById("WhereCL4").value,
                                                                 Difficulty: document.getElementById("diffCL4").value,
                                                             },
                                                             5: {
@@ -426,6 +431,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                                 When: [document.getElementById("MondayCL5").checked ? "Monday" : "", document.getElementById("TuesdayCL5").checked ? "Tuesday" : "", document.getElementById("WednesdayCL5").checked ? "Wednesday" : "", document.getElementById("ThursdayCL5").checked ? "Thursday" : "", document.getElementById("FridayCL5").checked ? "Friday" : "", document.getElementById("SaturdayCL5").checked ? "Saturday" : "", document.getElementById("SundayCL5").checked ? "Sunday" : ""],
                                                                 Start: document.getElementById("S-timeCL5").value,
                                                                 End: document.getElementById("E-timeCL5").value,
+                                                                Where: document.getElementById("WhereCL5").value,
                                                                 Difficulty: document.getElementById("diffCL5").value,
                                                             },
                                                             6: {
@@ -433,6 +439,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                                 When: [document.getElementById("MondayCL6").checked ? "Monday" : "", document.getElementById("TuesdayCL6").checked ? "Tuesday" : "", document.getElementById("WednesdayCL6").checked ? "Wednesday" : "", document.getElementById("ThursdayCL6").checked ? "Thursday" : "", document.getElementById("FridayCL6").checked ? "Friday" : "", document.getElementById("SaturdayCL6").checked ? "Saturday" : "", document.getElementById("SundayCL6").checked ? "Sunday" : ""],
                                                                 Start: document.getElementById("S-timeCL6").value,
                                                                 End: document.getElementById("E-timeCL6").value,
+                                                                Where: document.getElementById("WhereCL6").value,
                                                                 Difficulty: document.getElementById("diffCL6").value,
                                                             },
                                                             7: {
@@ -440,6 +447,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                                 When: [document.getElementById("MondayCL7").checked ? "Monday" : "", document.getElementById("TuesdayCL7").checked ? "Tuesday" : "", document.getElementById("WednesdayCL7").checked ? "Wednesday" : "", document.getElementById("ThursdayCL7").checked ? "Thursday" : "", document.getElementById("FridayCL7").checked ? "Friday" : "", document.getElementById("SaturdayCL7").checked ? "Saturday" : "", document.getElementById("SundayCL7").checked ? "Sunday" : ""],
                                                                 Start: document.getElementById("S-timeCL7").value,
                                                                 End: document.getElementById("E-timeCL7").value,
+                                                                Where: document.getElementById("WhereCL7").value,
                                                                 Difficulty: document.getElementById("diffCL7").value,
                                                             },
                                                             8: {
@@ -448,6 +456,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                                 Start: document.getElementById("S-timeCL8").value,
                                                                 End: document.getElementById("E-timeCL8").value,
                                                                 Difficulty: document.getElementById("diffCL8").value,
+                                                                Where: document.getElementById("WhereCL8").value,
                                                             },
                                                             9: {
                                                                 Name: document.getElementById("class9Name").value,
@@ -455,12 +464,14 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                                 Start: document.getElementById("S-timeCL9").value,
                                                                 End: document.getElementById("E-timeCL9").value,
                                                                 Difficulty: document.getElementById("diffCL9").value,
+                                                                Where: document.getElementById("WhereCL9").value,
                                                             },
                                                             10: {
                                                                 Name: document.getElementById("class10Name").value,
                                                                 When: [document.getElementById("MondayCL10").checked ? "Monday" : "", document.getElementById("TuesdayCL10").checked ? "Tuesday" : "", document.getElementById("WednesdayCL10").checked ? "Wednesday" : "", document.getElementById("ThursdayCL10").checked ? "Thursday" : "", document.getElementById("FridayCL10").checked ? "Friday" : "", document.getElementById("SaturdayCL10").checked ? "Saturday" : "", document.getElementById("SundayCL10").checked ? "Sunday" : ""],
                                                                 Start: document.getElementById("S-timeCL10").value,
                                                                 End: document.getElementById("E-timeCL10").value,
+                                                                Where: document.getElementById("WhereCL10").value,
                                                                 Difficulty: document.getElementById("diffCL10").value,
                                                             },
                                                             11: {
@@ -468,6 +479,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                                 When: [document.getElementById("MondayCL11").checked ? "Monday" : "", document.getElementById("TuesdayCL11").checked ? "Tuesday" : "", document.getElementById("WednesdayCL11").checked ? "Wednesday" : "", document.getElementById("ThursdayCL11").checked ? "Thursday" : "", document.getElementById("FridayCL11").checked ? "Friday" : "", document.getElementById("SaturdayCL11").checked ? "Saturday" : "", document.getElementById("SundayCL11").checked ? "Sunday" : ""],
                                                                 Start: document.getElementById("S-timeCL11").value,
                                                                 End: document.getElementById("E-timeCL11").value,
+                                                                Where: document.getElementById("WhereCL11").value,
                                                                 Difficulty: document.getElementById("diffCL11").value,
                                                             },
                                                         },
@@ -492,6 +504,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                             When: [document.getElementById("MondayCL1").checked ? "Monday" : "", document.getElementById("TuesdayCL1").checked ? "Tuesday" : "", document.getElementById("WednesdayCL1").checked ? "Wednesday" : "", document.getElementById("ThursdayCL1").checked ? "Thursday" : "", document.getElementById("FridayCL1").checked ? "Friday" : "", document.getElementById("SaturdayCL1").checked ? "Saturday" : "", document.getElementById("SundayCL1").checked ? "Sunday" : ""],
                                                             Start: document.getElementById("S-timeCL1").value,
                                                             End: document.getElementById("E-timeCL1").value,
+                                                            Where: document.getElementById("WhereCL1").value,
                                                             Difficulty: document.getElementById("diffCL1").value,
                                                         },
                                                         2: {
@@ -499,6 +512,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                             When: [document.getElementById("MondayCL2").checked ? "Monday" : "", document.getElementById("TuesdayCL2").checked ? "Tuesday" : "", document.getElementById("WednesdayCL2").checked ? "Wednesday" : "", document.getElementById("ThursdayCL2").checked ? "Thursday" : "", document.getElementById("FridayCL2").checked ? "Friday" : "", document.getElementById("SaturdayCL2").checked ? "Saturday" : "", document.getElementById("SundayCL2").checked ? "Sunday" : ""],
                                                             Start: document.getElementById("S-timeCL2").value,
                                                             End: document.getElementById("E-timeCL2").value,
+                                                            Where: document.getElementById("WhereCL2").value,
                                                             Difficulty: document.getElementById("diffCL2").value,
                                                         },
                                                         3: {
@@ -506,6 +520,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                             When: [document.getElementById("MondayCL3").checked ? "Monday" : "", document.getElementById("TuesdayCL3").checked ? "Tuesday" : "", document.getElementById("WednesdayCL3").checked ? "Wednesday" : "", document.getElementById("ThursdayCL3").checked ? "Thursday" : "", document.getElementById("FridayCL3").checked ? "Friday" : "", document.getElementById("SaturdayCL3").checked ? "Saturday" : "", document.getElementById("SundayCL3").checked ? "Sunday" : ""],
                                                             Start: document.getElementById("S-timeCL3").value,
                                                             End: document.getElementById("E-timeCL3").value,
+                                                            Where: document.getElementById("WhereCL3").value,
                                                             Difficulty: document.getElementById("diffCL3").value,
                                                         },
                                                         4: {
@@ -513,6 +528,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                             When: [document.getElementById("MondayCL4").checked ? "Monday" : "", document.getElementById("TuesdayCL4").checked ? "Tuesday" : "", document.getElementById("WednesdayCL4").checked ? "Wednesday" : "", document.getElementById("ThursdayCL4").checked ? "Thursday" : "", document.getElementById("FridayCL4").checked ? "Friday" : "", document.getElementById("SaturdayCL4").checked ? "Saturday" : "", document.getElementById("SundayCL4").checked ? "Sunday" : ""],
                                                             Start: document.getElementById("S-timeCL4").value,
                                                             End: document.getElementById("E-timeCL4").value,
+                                                            Where: document.getElementById("WhereCL4").value,
                                                             Difficulty: document.getElementById("diffCL4").value,
                                                         },
                                                         5: {
@@ -520,6 +536,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                             When: [document.getElementById("MondayCL5").checked ? "Monday" : "", document.getElementById("TuesdayCL5").checked ? "Tuesday" : "", document.getElementById("WednesdayCL5").checked ? "Wednesday" : "", document.getElementById("ThursdayCL5").checked ? "Thursday" : "", document.getElementById("FridayCL5").checked ? "Friday" : "", document.getElementById("SaturdayCL5").checked ? "Saturday" : "", document.getElementById("SundayCL5").checked ? "Sunday" : ""],
                                                             Start: document.getElementById("S-timeCL5").value,
                                                             End: document.getElementById("E-timeCL5").value,
+                                                            Where: document.getElementById("WhereCL5").value,
                                                             Difficulty: document.getElementById("diffCL5").value,
                                                         },
                                                         6: {
@@ -527,6 +544,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                             When: [document.getElementById("MondayCL6").checked ? "Monday" : "", document.getElementById("TuesdayCL6").checked ? "Tuesday" : "", document.getElementById("WednesdayCL6").checked ? "Wednesday" : "", document.getElementById("ThursdayCL6").checked ? "Thursday" : "", document.getElementById("FridayCL6").checked ? "Friday" : "", document.getElementById("SaturdayCL6").checked ? "Saturday" : "", document.getElementById("SundayCL6").checked ? "Sunday" : ""],
                                                             Start: document.getElementById("S-timeCL6").value,
                                                             End: document.getElementById("E-timeCL6").value,
+                                                            Where: document.getElementById("WhereCL6").value,
                                                             Difficulty: document.getElementById("diffCL6").value,
                                                         },
                                                         7: {
@@ -534,6 +552,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                             When: [document.getElementById("MondayCL7").checked ? "Monday" : "", document.getElementById("TuesdayCL7").checked ? "Tuesday" : "", document.getElementById("WednesdayCL7").checked ? "Wednesday" : "", document.getElementById("ThursdayCL7").checked ? "Thursday" : "", document.getElementById("FridayCL7").checked ? "Friday" : "", document.getElementById("SaturdayCL7").checked ? "Saturday" : "", document.getElementById("SundayCL7").checked ? "Sunday" : ""],
                                                             Start: document.getElementById("S-timeCL7").value,
                                                             End: document.getElementById("E-timeCL7").value,
+                                                            Where: document.getElementById("WhereCL7").value,
                                                             Difficulty: document.getElementById("diffCL7").value,
                                                         },
                                                         8: {
@@ -541,6 +560,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                             When: [document.getElementById("MondayCL8").checked ? "Monday" : "", document.getElementById("TuesdayCL8").checked ? "Tuesday" : "", document.getElementById("WednesdayCL8").checked ? "Wednesday" : "", document.getElementById("ThursdayCL8").checked ? "Thursday" : "", document.getElementById("FridayCL8").checked ? "Friday" : "", document.getElementById("SaturdayCL8").checked ? "Saturday" : "", document.getElementById("SundayCL8").checked ? "Sunday" : ""],
                                                             Start: document.getElementById("S-timeCL8").value,
                                                             End: document.getElementById("E-timeCL8").value,
+                                                            Where: document.getElementById("WhereCL8").value,
                                                             Difficulty: document.getElementById("diffCL8").value,
                                                         },
                                                         9: {
@@ -548,6 +568,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                             When: [document.getElementById("MondayCL9").checked ? "Monday" : "", document.getElementById("TuesdayCL9").checked ? "Tuesday" : "", document.getElementById("WednesdayCL9").checked ? "Wednesday" : "", document.getElementById("ThursdayCL9").checked ? "Thursday" : "", document.getElementById("FridayCL9").checked ? "Friday" : "", document.getElementById("SaturdayCL9").checked ? "Saturday" : "", document.getElementById("SundayCL9").checked ? "Sunday" : ""],
                                                             Start: document.getElementById("S-timeCL9").value,
                                                             End: document.getElementById("E-timeCL9").value,
+                                                            Where: document.getElementById("WhereCL9").value,
                                                             Difficulty: document.getElementById("diffCL9").value,
                                                         },
                                                         10: {
@@ -555,15 +576,22 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                             When: [document.getElementById("MondayCL10").checked ? "Monday" : "", document.getElementById("TuesdayCL10").checked ? "Tuesday" : "", document.getElementById("WednesdayCL10").checked ? "Wednesday" : "", document.getElementById("ThursdayCL10").checked ? "Thursday" : "", document.getElementById("FridayCL10").checked ? "Friday" : "", document.getElementById("SaturdayCL10").checked ? "Saturday" : "", document.getElementById("SundayCL10").checked ? "Sunday" : ""],
                                                             Start: document.getElementById("S-timeCL10").value,
                                                             End: document.getElementById("E-timeCL10").value,
+                                                            Where: document.getElementById("WhereCL10").value,
                                                             Difficulty: document.getElementById("diffCL10").value,
                                                         },
                                                     },
                                                     Hobbies: hobbies
                                                 })
                                                     .then(() => {
-                                                        JSON.parse(userInfo).Onboard = true
-                                                        let updatedUserInfo = userInfo
-                                                        localStorage.setItem("currentUserInfo", updatedUserInfo)
+                                                        updatedUserInfo = {
+                                                            Email: JSON.parse(userInfo).Email,
+                                                            Name: JSON.parse(userInfo).Name,
+                                                            Tasks: JSON.parse(userInfo).Tasks,
+                                                            Streak: JSON.parse(userInfo).Streak,
+                                                            ProfilePicture: JSON.parse(userInfo).ProfilePicture,
+                                                            Onboard: true
+                                                        }
+                                                        localStorage.setItem("currentUserInfo", JSON.stringify(updatedUserInfo))
                                                     })
                                             }
                                         } else if (document.getElementById("classNumber").value == 9 && crossCheck.class9 == true) {
@@ -579,6 +607,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                         When: [document.getElementById("MondayCL1").checked ? "Monday" : "", document.getElementById("TuesdayCL1").checked ? "Tuesday" : "", document.getElementById("WednesdayCL1").checked ? "Wednesday" : "", document.getElementById("ThursdayCL1").checked ? "Thursday" : "", document.getElementById("FridayCL1").checked ? "Friday" : "", document.getElementById("SaturdayCL1").checked ? "Saturday" : "", document.getElementById("SundayCL1").checked ? "Sunday" : ""],
                                                         Start: document.getElementById("S-timeCL1").value,
                                                         End: document.getElementById("E-timeCL1").value,
+                                                        Where: document.getElementById("WhereCL1").value,
                                                         Difficulty: document.getElementById("diffCL1").value,
                                                     },
                                                     2: {
@@ -586,6 +615,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                         When: [document.getElementById("MondayCL2").checked ? "Monday" : "", document.getElementById("TuesdayCL2").checked ? "Tuesday" : "", document.getElementById("WednesdayCL2").checked ? "Wednesday" : "", document.getElementById("ThursdayCL2").checked ? "Thursday" : "", document.getElementById("FridayCL2").checked ? "Friday" : "", document.getElementById("SaturdayCL2").checked ? "Saturday" : "", document.getElementById("SundayCL2").checked ? "Sunday" : ""],
                                                         Start: document.getElementById("S-timeCL2").value,
                                                         End: document.getElementById("E-timeCL2").value,
+                                                        Where: document.getElementById("WhereCL2").value,
                                                         Difficulty: document.getElementById("diffCL2").value,
                                                     },
                                                     3: {
@@ -593,6 +623,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                         When: [document.getElementById("MondayCL3").checked ? "Monday" : "", document.getElementById("TuesdayCL3").checked ? "Tuesday" : "", document.getElementById("WednesdayCL3").checked ? "Wednesday" : "", document.getElementById("ThursdayCL3").checked ? "Thursday" : "", document.getElementById("FridayCL3").checked ? "Friday" : "", document.getElementById("SaturdayCL3").checked ? "Saturday" : "", document.getElementById("SundayCL3").checked ? "Sunday" : ""],
                                                         Start: document.getElementById("S-timeCL3").value,
                                                         End: document.getElementById("E-timeCL3").value,
+                                                        Where: document.getElementById("WhereCL3").value,
                                                         Difficulty: document.getElementById("diffCL3").value,
                                                     },
                                                     4: {
@@ -600,6 +631,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                         When: [document.getElementById("MondayCL4").checked ? "Monday" : "", document.getElementById("TuesdayCL4").checked ? "Tuesday" : "", document.getElementById("WednesdayCL4").checked ? "Wednesday" : "", document.getElementById("ThursdayCL4").checked ? "Thursday" : "", document.getElementById("FridayCL4").checked ? "Friday" : "", document.getElementById("SaturdayCL4").checked ? "Saturday" : "", document.getElementById("SundayCL4").checked ? "Sunday" : ""],
                                                         Start: document.getElementById("S-timeCL4").value,
                                                         End: document.getElementById("E-timeCL4").value,
+                                                        Where: document.getElementById("WhereCL4").value,
                                                         Difficulty: document.getElementById("diffCL4").value,
                                                     },
                                                     5: {
@@ -608,12 +640,14 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                         Start: document.getElementById("S-timeCL5").value,
                                                         End: document.getElementById("E-timeCL5").value,
                                                         Difficulty: document.getElementById("diffCL5").value,
+                                                        Where: document.getElementById("WhereCL5").value,
                                                     },
                                                     6: {
                                                         Name: document.getElementById("class6Name").value,
                                                         When: [document.getElementById("MondayCL6").checked ? "Monday" : "", document.getElementById("TuesdayCL6").checked ? "Tuesday" : "", document.getElementById("WednesdayCL6").checked ? "Wednesday" : "", document.getElementById("ThursdayCL6").checked ? "Thursday" : "", document.getElementById("FridayCL6").checked ? "Friday" : "", document.getElementById("SaturdayCL6").checked ? "Saturday" : "", document.getElementById("SundayCL6").checked ? "Sunday" : ""],
                                                         Start: document.getElementById("S-timeCL6").value,
                                                         End: document.getElementById("E-timeCL6").value,
+                                                        Where: document.getElementById("WhereCL6").value,
                                                         Difficulty: document.getElementById("diffCL6").value,
                                                     },
                                                     7: {
@@ -621,6 +655,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                         When: [document.getElementById("MondayCL7").checked ? "Monday" : "", document.getElementById("TuesdayCL7").checked ? "Tuesday" : "", document.getElementById("WednesdayCL7").checked ? "Wednesday" : "", document.getElementById("ThursdayCL7").checked ? "Thursday" : "", document.getElementById("FridayCL7").checked ? "Friday" : "", document.getElementById("SaturdayCL7").checked ? "Saturday" : "", document.getElementById("SundayCL7").checked ? "Sunday" : ""],
                                                         Start: document.getElementById("S-timeCL7").value,
                                                         End: document.getElementById("E-timeCL7").value,
+                                                        Where: document.getElementById("WhereCL7").value,
                                                         Difficulty: document.getElementById("diffCL7").value,
                                                     },
                                                     8: {
@@ -628,6 +663,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                         When: [document.getElementById("MondayCL8").checked ? "Monday" : "", document.getElementById("TuesdayCL8").checked ? "Tuesday" : "", document.getElementById("WednesdayCL8").checked ? "Wednesday" : "", document.getElementById("ThursdayCL8").checked ? "Thursday" : "", document.getElementById("FridayCL8").checked ? "Friday" : "", document.getElementById("SaturdayCL8").checked ? "Saturday" : "", document.getElementById("SundayCL8").checked ? "Sunday" : ""],
                                                         Start: document.getElementById("S-timeCL8").value,
                                                         End: document.getElementById("E-timeCL8").value,
+                                                        Where: document.getElementById("WhereCL8").value,
                                                         Difficulty: document.getElementById("diffCL8").value,
                                                     },
                                                     9: {
@@ -635,15 +671,22 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                         When: [document.getElementById("MondayCL9").checked ? "Monday" : "", document.getElementById("TuesdayCL9").checked ? "Tuesday" : "", document.getElementById("WednesdayCL9").checked ? "Wednesday" : "", document.getElementById("ThursdayCL9").checked ? "Thursday" : "", document.getElementById("FridayCL9").checked ? "Friday" : "", document.getElementById("SaturdayCL9").checked ? "Saturday" : "", document.getElementById("SundayCL9").checked ? "Sunday" : ""],
                                                         Start: document.getElementById("S-timeCL9").value,
                                                         End: document.getElementById("E-timeCL9").value,
+                                                        Where: document.getElementById("WhereCL9").value,
                                                         Difficulty: document.getElementById("diffCL9").value,
                                                     },
                                                 },
                                                 Hobbies: hobbies
                                             })
                                                 .then(() => {
-                                                    JSON.parse(userInfo.Onboard) = true
-                                                    let updatedUserInfo = userInfo
-                                                    localStorage.setItem("currentUserInfo", updatedUserInfo)
+                                                    updatedUserInfo = {
+                                                        Email: JSON.parse(userInfo).Email,
+                                                        Name: JSON.parse(userInfo).Name,
+                                                        Tasks: JSON.parse(userInfo).Tasks,
+                                                        Streak: JSON.parse(userInfo).Streak,
+                                                        ProfilePicture: JSON.parse(userInfo).ProfilePicture,
+                                                        Onboard: true
+                                                    }
+                                                    localStorage.setItem("currentUserInfo", JSON.stringify(updatedUserInfo))
                                                 })
                                         }
                                     } else if (document.getElementById("classNumber").value == 8 && crossCheck.class8 == true) {
@@ -659,6 +702,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                     When: [document.getElementById("MondayCL1").checked ? "Monday" : "", document.getElementById("TuesdayCL1").checked ? "Tuesday" : "", document.getElementById("WednesdayCL1").checked ? "Wednesday" : "", document.getElementById("ThursdayCL1").checked ? "Thursday" : "", document.getElementById("FridayCL1").checked ? "Friday" : "", document.getElementById("SaturdayCL1").checked ? "Saturday" : "", document.getElementById("SundayCL1").checked ? "Sunday" : ""],
                                                     Start: document.getElementById("S-timeCL1").value,
                                                     End: document.getElementById("E-timeCL1").value,
+                                                    Where: document.getElementById("WhereCL1").value,
                                                     Difficulty: document.getElementById("diffCL1").value,
                                                 },
                                                 2: {
@@ -666,6 +710,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                     When: [document.getElementById("MondayCL2").checked ? "Monday" : "", document.getElementById("TuesdayCL2").checked ? "Tuesday" : "", document.getElementById("WednesdayCL2").checked ? "Wednesday" : "", document.getElementById("ThursdayCL2").checked ? "Thursday" : "", document.getElementById("FridayCL2").checked ? "Friday" : "", document.getElementById("SaturdayCL2").checked ? "Saturday" : "", document.getElementById("SundayCL2").checked ? "Sunday" : ""],
                                                     Start: document.getElementById("S-timeCL2").value,
                                                     End: document.getElementById("E-timeCL2").value,
+                                                    Where: document.getElementById("WhereCL2").value,
                                                     Difficulty: document.getElementById("diffCL2").value,
                                                 },
                                                 3: {
@@ -673,6 +718,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                     When: [document.getElementById("MondayCL3").checked ? "Monday" : "", document.getElementById("TuesdayCL3").checked ? "Tuesday" : "", document.getElementById("WednesdayCL3").checked ? "Wednesday" : "", document.getElementById("ThursdayCL3").checked ? "Thursday" : "", document.getElementById("FridayCL3").checked ? "Friday" : "", document.getElementById("SaturdayCL3").checked ? "Saturday" : "", document.getElementById("SundayCL3").checked ? "Sunday" : ""],
                                                     Start: document.getElementById("S-timeCL3").value,
                                                     End: document.getElementById("E-timeCL3").value,
+                                                    Where: document.getElementById("WhereCL3").value,
                                                     Difficulty: document.getElementById("diffCL3").value,
                                                 },
                                                 4: {
@@ -680,6 +726,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                     When: [document.getElementById("MondayCL4").checked ? "Monday" : "", document.getElementById("TuesdayCL4").checked ? "Tuesday" : "", document.getElementById("WednesdayCL4").checked ? "Wednesday" : "", document.getElementById("ThursdayCL4").checked ? "Thursday" : "", document.getElementById("FridayCL4").checked ? "Friday" : "", document.getElementById("SaturdayCL4").checked ? "Saturday" : "", document.getElementById("SundayCL4").checked ? "Sunday" : ""],
                                                     Start: document.getElementById("S-timeCL4").value,
                                                     End: document.getElementById("E-timeCL4").value,
+                                                    Where: document.getElementById("WhereCL4").value,
                                                     Difficulty: document.getElementById("diffCL4").value,
                                                 },
                                                 5: {
@@ -687,6 +734,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                     When: [document.getElementById("MondayCL5").checked ? "Monday" : "", document.getElementById("TuesdayCL5").checked ? "Tuesday" : "", document.getElementById("WednesdayCL5").checked ? "Wednesday" : "", document.getElementById("ThursdayCL5").checked ? "Thursday" : "", document.getElementById("FridayCL5").checked ? "Friday" : "", document.getElementById("SaturdayCL5").checked ? "Saturday" : "", document.getElementById("SundayCL5").checked ? "Sunday" : ""],
                                                     Start: document.getElementById("S-timeCL5").value,
                                                     End: document.getElementById("E-timeCL5").value,
+                                                    Where: document.getElementById("WhereCL5").value,
                                                     Difficulty: document.getElementById("diffCL5").value,
                                                 },
                                                 6: {
@@ -694,6 +742,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                     When: [document.getElementById("MondayCL6").checked ? "Monday" : "", document.getElementById("TuesdayCL6").checked ? "Tuesday" : "", document.getElementById("WednesdayCL6").checked ? "Wednesday" : "", document.getElementById("ThursdayCL6").checked ? "Thursday" : "", document.getElementById("FridayCL6").checked ? "Friday" : "", document.getElementById("SaturdayCL6").checked ? "Saturday" : "", document.getElementById("SundayCL6").checked ? "Sunday" : ""],
                                                     Start: document.getElementById("S-timeCL6").value,
                                                     End: document.getElementById("E-timeCL6").value,
+                                                    Where: document.getElementById("WhereCL6").value,
                                                     Difficulty: document.getElementById("diffCL6").value,
                                                 },
                                                 7: {
@@ -701,6 +750,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                     When: [document.getElementById("MondayCL7").checked ? "Monday" : "", document.getElementById("TuesdayCL7").checked ? "Tuesday" : "", document.getElementById("WednesdayCL7").checked ? "Wednesday" : "", document.getElementById("ThursdayCL7").checked ? "Thursday" : "", document.getElementById("FridayCL7").checked ? "Friday" : "", document.getElementById("SaturdayCL7").checked ? "Saturday" : "", document.getElementById("SundayCL7").checked ? "Sunday" : ""],
                                                     Start: document.getElementById("S-timeCL7").value,
                                                     End: document.getElementById("E-timeCL7").value,
+                                                    Where: document.getElementById("WhereCL7").value,
                                                     Difficulty: document.getElementById("diffCL7").value,
                                                 },
                                                 8: {
@@ -708,15 +758,22 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                     When: [document.getElementById("MondayCL8").checked ? "Monday" : "", document.getElementById("TuesdayCL8").checked ? "Tuesday" : "", document.getElementById("WednesdayCL8").checked ? "Wednesday" : "", document.getElementById("ThursdayCL8").checked ? "Thursday" : "", document.getElementById("FridayCL8").checked ? "Friday" : "", document.getElementById("SaturdayCL8").checked ? "Saturday" : "", document.getElementById("SundayCL8").checked ? "Sunday" : ""],
                                                     Start: document.getElementById("S-timeCL8").value,
                                                     End: document.getElementById("E-timeCL8").value,
+                                                    Where: document.getElementById("WhereCL8").value,
                                                     Difficulty: document.getElementById("diffCL8").value,
                                                 },
                                             },
                                             Hobbies: hobbies
                                         })
                                             .then(() => {
-                                                JSON.parse(userInfo).Onboard = true
-                                                let updatedUserInfo = userInfo
-                                                localStorage.setItem("currentUserInfo", updatedUserInfo)
+                                                updatedUserInfo = {
+                                                    Email: JSON.parse(userInfo).Email,
+                                                    Name: JSON.parse(userInfo).Name,
+                                                    Tasks: JSON.parse(userInfo).Tasks,
+                                                    Streak: JSON.parse(userInfo).Streak,
+                                                    ProfilePicture: JSON.parse(userInfo).ProfilePicture,
+                                                    Onboard: true
+                                                }
+                                                localStorage.setItem("currentUserInfo", JSON.stringify(updatedUserInfo))
                                             })
                                     }
                                 } else if (document.getElementById("classNumber").value == 7 && crossCheck.class7 == true) {
@@ -731,6 +788,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                 Name: document.getElementById("class1Name").value,
                                                 When: [document.getElementById("MondayCL1").checked ? "Monday" : "", document.getElementById("TuesdayCL1").checked ? "Tuesday" : "", document.getElementById("WednesdayCL1").checked ? "Wednesday" : "", document.getElementById("ThursdayCL1").checked ? "Thursday" : "", document.getElementById("FridayCL1").checked ? "Friday" : "", document.getElementById("SaturdayCL1").checked ? "Saturday" : "", document.getElementById("SundayCL1").checked ? "Sunday" : ""],
                                                 Start: document.getElementById("S-timeCL1").value,
+                                                Where: document.getElementById("WhereCL1").value,
                                                 End: document.getElementById("E-timeCL1").value,
                                                 Difficulty: document.getElementById("diffCL1").value,
                                             },
@@ -738,6 +796,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                 Name: document.getElementById("class2Name").value,
                                                 When: [document.getElementById("MondayCL2").checked ? "Monday" : "", document.getElementById("TuesdayCL2").checked ? "Tuesday" : "", document.getElementById("WednesdayCL2").checked ? "Wednesday" : "", document.getElementById("ThursdayCL2").checked ? "Thursday" : "", document.getElementById("FridayCL2").checked ? "Friday" : "", document.getElementById("SaturdayCL2").checked ? "Saturday" : "", document.getElementById("SundayCL2").checked ? "Sunday" : ""],
                                                 Start: document.getElementById("S-timeCL2").value,
+                                                Where: document.getElementById("WhereCL2").value,
                                                 End: document.getElementById("E-timeCL2").value,
                                                 Difficulty: document.getElementById("diffCL2").value,
                                             },
@@ -746,6 +805,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                 When: [document.getElementById("MondayCL3").checked ? "Monday" : "", document.getElementById("TuesdayCL3").checked ? "Tuesday" : "", document.getElementById("WednesdayCL3").checked ? "Wednesday" : "", document.getElementById("ThursdayCL3").checked ? "Thursday" : "", document.getElementById("FridayCL3").checked ? "Friday" : "", document.getElementById("SaturdayCL3").checked ? "Saturday" : "", document.getElementById("SundayCL3").checked ? "Sunday" : ""],
                                                 Start: document.getElementById("S-timeCL3").value,
                                                 End: document.getElementById("E-timeCL3").value,
+                                                Where: document.getElementById("WhereCL3").value,
                                                 Difficulty: document.getElementById("diffCL3").value,
                                             },
                                             4: {
@@ -753,6 +813,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                 When: [document.getElementById("MondayCL4").checked ? "Monday" : "", document.getElementById("TuesdayCL4").checked ? "Tuesday" : "", document.getElementById("WednesdayCL4").checked ? "Wednesday" : "", document.getElementById("ThursdayCL4").checked ? "Thursday" : "", document.getElementById("FridayCL4").checked ? "Friday" : "", document.getElementById("SaturdayCL4").checked ? "Saturday" : "", document.getElementById("SundayCL4").checked ? "Sunday" : ""],
                                                 Start: document.getElementById("S-timeCL4").value,
                                                 End: document.getElementById("E-timeCL4").value,
+                                                Where: document.getElementById("WhereCL4").value,
                                                 Difficulty: document.getElementById("diffCL4").value,
                                             },
                                             5: {
@@ -760,6 +821,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                 When: [document.getElementById("MondayCL5").checked ? "Monday" : "", document.getElementById("TuesdayCL5").checked ? "Tuesday" : "", document.getElementById("WednesdayCL5").checked ? "Wednesday" : "", document.getElementById("ThursdayCL5").checked ? "Thursday" : "", document.getElementById("FridayCL5").checked ? "Friday" : "", document.getElementById("SaturdayCL5").checked ? "Saturday" : "", document.getElementById("SundayCL5").checked ? "Sunday" : ""],
                                                 Start: document.getElementById("S-timeCL5").value,
                                                 End: document.getElementById("E-timeCL5").value,
+                                                Where: document.getElementById("WhereCL5").value,
                                                 Difficulty: document.getElementById("diffCL5").value,
                                             },
                                             6: {
@@ -767,6 +829,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                 When: [document.getElementById("MondayCL6").checked ? "Monday" : "", document.getElementById("TuesdayCL6").checked ? "Tuesday" : "", document.getElementById("WednesdayCL6").checked ? "Wednesday" : "", document.getElementById("ThursdayCL6").checked ? "Thursday" : "", document.getElementById("FridayCL6").checked ? "Friday" : "", document.getElementById("SaturdayCL6").checked ? "Saturday" : "", document.getElementById("SundayCL6").checked ? "Sunday" : ""],
                                                 Start: document.getElementById("S-timeCL6").value,
                                                 End: document.getElementById("E-timeCL6").value,
+                                                Where: document.getElementById("WhereCL6").value,
                                                 Difficulty: document.getElementById("diffCL6").value,
                                             },
                                             7: {
@@ -774,15 +837,22 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                                 When: [document.getElementById("MondayCL7").checked ? "Monday" : "", document.getElementById("TuesdayCL7").checked ? "Tuesday" : "", document.getElementById("WednesdayCL7").checked ? "Wednesday" : "", document.getElementById("ThursdayCL7").checked ? "Thursday" : "", document.getElementById("FridayCL7").checked ? "Friday" : "", document.getElementById("SaturdayCL7").checked ? "Saturday" : "", document.getElementById("SundayCL7").checked ? "Sunday" : ""],
                                                 Start: document.getElementById("S-timeCL7").value,
                                                 End: document.getElementById("E-timeCL7").value,
+                                                Where: document.getElementById("WhereCL7").value,
                                                 Difficulty: document.getElementById("diffCL7").value,
                                             },
                                         },
                                         Hobbies: hobbies
                                     })
                                         .then(() => {
-                                            JSON.parse(userInfo).Onboard = true
-                                            let updatedUserInfo = userInfo
-                                            localStorage.setItem("currentUserInfo", updatedUserInfo)
+                                            updatedUserInfo = {
+                                                Email: JSON.parse(userInfo).Email,
+                                                Name: JSON.parse(userInfo).Name,
+                                                Tasks: JSON.parse(userInfo).Tasks,
+                                                Streak: JSON.parse(userInfo).Streak,
+                                                ProfilePicture: JSON.parse(userInfo).ProfilePicture,
+                                                Onboard: true
+                                            }
+                                            localStorage.setItem("currentUserInfo", JSON.stringify(updatedUserInfo))
                                         })
                                 }
                             } else if (document.getElementById("classNumber").value == 6 && crossCheck.class6 == true) {
@@ -798,6 +868,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                             When: [document.getElementById("MondayCL1").checked ? "Monday" : "", document.getElementById("TuesdayCL1").checked ? "Tuesday" : "", document.getElementById("WednesdayCL1").checked ? "Wednesday" : "", document.getElementById("ThursdayCL1").checked ? "Thursday" : "", document.getElementById("FridayCL1").checked ? "Friday" : "", document.getElementById("SaturdayCL1").checked ? "Saturday" : "", document.getElementById("SundayCL1").checked ? "Sunday" : ""],
                                             Start: document.getElementById("S-timeCL1").value,
                                             End: document.getElementById("E-timeCL1").value,
+                                            Where: document.getElementById("WhereCL1").value,
                                             Difficulty: document.getElementById("diffCL1").value,
                                         },
                                         2: {
@@ -805,6 +876,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                             When: [document.getElementById("MondayCL2").checked ? "Monday" : "", document.getElementById("TuesdayCL2").checked ? "Tuesday" : "", document.getElementById("WednesdayCL2").checked ? "Wednesday" : "", document.getElementById("ThursdayCL2").checked ? "Thursday" : "", document.getElementById("FridayCL2").checked ? "Friday" : "", document.getElementById("SaturdayCL2").checked ? "Saturday" : "", document.getElementById("SundayCL2").checked ? "Sunday" : ""],
                                             Start: document.getElementById("S-timeCL2").value,
                                             End: document.getElementById("E-timeCL2").value,
+                                            Where: document.getElementById("WhereCL2").value,
                                             Difficulty: document.getElementById("diffCL2").value,
                                         },
                                         3: {
@@ -812,6 +884,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                             When: [document.getElementById("MondayCL3").checked ? "Monday" : "", document.getElementById("TuesdayCL3").checked ? "Tuesday" : "", document.getElementById("WednesdayCL3").checked ? "Wednesday" : "", document.getElementById("ThursdayCL3").checked ? "Thursday" : "", document.getElementById("FridayCL3").checked ? "Friday" : "", document.getElementById("SaturdayCL3").checked ? "Saturday" : "", document.getElementById("SundayCL3").checked ? "Sunday" : ""],
                                             Start: document.getElementById("S-timeCL3").value,
                                             End: document.getElementById("E-timeCL3").value,
+                                            Where: document.getElementById("WhereCL3").value,
                                             Difficulty: document.getElementById("diffCL3").value,
                                         },
                                         4: {
@@ -819,6 +892,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                             When: [document.getElementById("MondayCL4").checked ? "Monday" : "", document.getElementById("TuesdayCL4").checked ? "Tuesday" : "", document.getElementById("WednesdayCL4").checked ? "Wednesday" : "", document.getElementById("ThursdayCL4").checked ? "Thursday" : "", document.getElementById("FridayCL4").checked ? "Friday" : "", document.getElementById("SaturdayCL4").checked ? "Saturday" : "", document.getElementById("SundayCL4").checked ? "Sunday" : ""],
                                             Start: document.getElementById("S-timeCL4").value,
                                             End: document.getElementById("E-timeCL4").value,
+                                            Where: document.getElementById("WhereCL4").value,
                                             Difficulty: document.getElementById("diffCL4").value,
                                         },
                                         5: {
@@ -826,6 +900,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                             When: [document.getElementById("MondayCL5").checked ? "Monday" : "", document.getElementById("TuesdayCL5").checked ? "Tuesday" : "", document.getElementById("WednesdayCL5").checked ? "Wednesday" : "", document.getElementById("ThursdayCL5").checked ? "Thursday" : "", document.getElementById("FridayCL5").checked ? "Friday" : "", document.getElementById("SaturdayCL5").checked ? "Saturday" : "", document.getElementById("SundayCL5").checked ? "Sunday" : ""],
                                             Start: document.getElementById("S-timeCL5").value,
                                             End: document.getElementById("E-timeCL5").value,
+                                            Where: document.getElementById("WhereCL5").value,
                                             Difficulty: document.getElementById("diffCL5").value,
                                         },
                                         6: {
@@ -833,15 +908,22 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                             When: [document.getElementById("MondayCL6").checked ? "Monday" : "", document.getElementById("TuesdayCL6").checked ? "Tuesday" : "", document.getElementById("WednesdayCL6").checked ? "Wednesday" : "", document.getElementById("ThursdayCL6").checked ? "Thursday" : "", document.getElementById("FridayCL6").checked ? "Friday" : "", document.getElementById("SaturdayCL6").checked ? "Saturday" : "", document.getElementById("SundayCL6").checked ? "Sunday" : ""],
                                             Start: document.getElementById("S-timeCL6").value,
                                             End: document.getElementById("E-timeCL6").value,
+                                            Where: document.getElementById("WhereCL6").value,
                                             Difficulty: document.getElementById("diffCL6").value,
                                         },
                                     },
                                     Hobbies: hobbies
                                 })
                                     .then(() => {
-                                        JSON.parse(userInfo).Onboard = true
-                                        let updatedUserInfo = userInfo
-                                        localStorage.setItem("currentUserInfo", updatedUserInfo)
+                                        updatedUserInfo = {
+                                            Email: JSON.parse(userInfo).Email,
+                                            Name: JSON.parse(userInfo).Name,
+                                            Tasks: JSON.parse(userInfo).Tasks,
+                                            Streak: JSON.parse(userInfo).Streak,
+                                            ProfilePicture: JSON.parse(userInfo).ProfilePicture,
+                                            Onboard: true
+                                        }
+                                        localStorage.setItem("currentUserInfo", JSON.stringify(updatedUserInfo))
                                     })
                             }
                         } else if (document.getElementById("classNumber").value == 5 && crossCheck.class5 == true) {
@@ -857,6 +939,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                         When: [document.getElementById("MondayCL1").checked ? "Monday" : "", document.getElementById("TuesdayCL1").checked ? "Tuesday" : "", document.getElementById("WednesdayCL1").checked ? "Wednesday" : "", document.getElementById("ThursdayCL1").checked ? "Thursday" : "", document.getElementById("FridayCL1").checked ? "Friday" : "", document.getElementById("SaturdayCL1").checked ? "Saturday" : "", document.getElementById("SundayCL1").checked ? "Sunday" : ""],
                                         Start: document.getElementById("S-timeCL1").value,
                                         End: document.getElementById("E-timeCL1").value,
+                                        Where: document.getElementById("WhereCL1").value,
                                         Difficulty: document.getElementById("diffCL1").value,
                                     },
                                     2: {
@@ -864,6 +947,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                         When: [document.getElementById("MondayCL2").checked ? "Monday" : "", document.getElementById("TuesdayCL2").checked ? "Tuesday" : "", document.getElementById("WednesdayCL2").checked ? "Wednesday" : "", document.getElementById("ThursdayCL2").checked ? "Thursday" : "", document.getElementById("FridayCL2").checked ? "Friday" : "", document.getElementById("SaturdayCL2").checked ? "Saturday" : "", document.getElementById("SundayCL2").checked ? "Sunday" : ""],
                                         Start: document.getElementById("S-timeCL2").value,
                                         End: document.getElementById("E-timeCL2").value,
+                                        Where: document.getElementById("WhereCL2").value,
                                         Difficulty: document.getElementById("diffCL2").value,
                                     },
                                     3: {
@@ -871,6 +955,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                         When: [document.getElementById("MondayCL3").checked ? "Monday" : "", document.getElementById("TuesdayCL3").checked ? "Tuesday" : "", document.getElementById("WednesdayCL3").checked ? "Wednesday" : "", document.getElementById("ThursdayCL3").checked ? "Thursday" : "", document.getElementById("FridayCL3").checked ? "Friday" : "", document.getElementById("SaturdayCL3").checked ? "Saturday" : "", document.getElementById("SundayCL3").checked ? "Sunday" : ""],
                                         Start: document.getElementById("S-timeCL3").value,
                                         End: document.getElementById("E-timeCL3").value,
+                                        Where: document.getElementById("WhereCL3").value,
                                         Difficulty: document.getElementById("diffCL3").value,
                                     },
                                     4: {
@@ -878,6 +963,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                         When: [document.getElementById("MondayCL4").checked ? "Monday" : "", document.getElementById("TuesdayCL4").checked ? "Tuesday" : "", document.getElementById("WednesdayCL4").checked ? "Wednesday" : "", document.getElementById("ThursdayCL4").checked ? "Thursday" : "", document.getElementById("FridayCL4").checked ? "Friday" : "", document.getElementById("SaturdayCL4").checked ? "Saturday" : "", document.getElementById("SundayCL4").checked ? "Sunday" : ""],
                                         Start: document.getElementById("S-timeCL4").value,
                                         End: document.getElementById("E-timeCL4").value,
+                                        Where: document.getElementById("WhereCL4").value,
                                         Difficulty: document.getElementById("diffCL4").value,
                                     },
                                     5: {
@@ -885,15 +971,22 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                         When: [document.getElementById("MondayCL5").checked ? "Monday" : "", document.getElementById("TuesdayCL5").checked ? "Tuesday" : "", document.getElementById("WednesdayCL5").checked ? "Wednesday" : "", document.getElementById("ThursdayCL5").checked ? "Thursday" : "", document.getElementById("FridayCL5").checked ? "Friday" : "", document.getElementById("SaturdayCL5").checked ? "Saturday" : "", document.getElementById("SundayCL5").checked ? "Sunday" : ""],
                                         Start: document.getElementById("S-timeCL5").value,
                                         End: document.getElementById("E-timeCL5").value,
+                                        Where: document.getElementById("WhereCL5").value,
                                         Difficulty: document.getElementById("diffCL5").value,
                                     }
                                 },
                                 Hobbies: hobbies
                             })
                                 .then(() => {
-                                    JSON.parse(userInfo).Onboard = true
-                                    let updatedUserInfo = userInfo
-                                    localStorage.setItem("currentUserInfo", updatedUserInfo)
+                                    updatedUserInfo = {
+                                        Email: JSON.parse(userInfo).Email,
+                                        Name: JSON.parse(userInfo).Name,
+                                        Tasks: JSON.parse(userInfo).Tasks,
+                                        Streak: JSON.parse(userInfo).Streak,
+                                        ProfilePicture: JSON.parse(userInfo).ProfilePicture,
+                                        Onboard: true
+                                    }
+                                    localStorage.setItem("currentUserInfo", JSON.stringify(updatedUserInfo))
                                 })
                         }
                     } else if (document.getElementById("classNumber").value == 4 && crossCheck.class4 == true) {
@@ -909,12 +1002,14 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                     When: [document.getElementById("MondayCL1").checked ? "Monday" : "", document.getElementById("TuesdayCL1").checked ? "Tuesday" : "", document.getElementById("WednesdayCL1").checked ? "Wednesday" : "", document.getElementById("ThursdayCL1").checked ? "Thursday" : "", document.getElementById("FridayCL1").checked ? "Friday" : "", document.getElementById("SaturdayCL1").checked ? "Saturday" : "", document.getElementById("SundayCL1").checked ? "Sunday" : ""],
                                     Start: document.getElementById("S-timeCL1").value,
                                     End: document.getElementById("E-timeCL1").value,
+                                    Where: document.getElementById("WhereCL1").value,
                                     Difficulty: document.getElementById("diffCL1").value,
                                 },
                                 2: {
                                     Name: document.getElementById("class2Name").value,
                                     When: [document.getElementById("MondayCL2").checked ? "Monday" : "", document.getElementById("TuesdayCL2").checked ? "Tuesday" : "", document.getElementById("WednesdayCL2").checked ? "Wednesday" : "", document.getElementById("ThursdayCL2").checked ? "Thursday" : "", document.getElementById("FridayCL2").checked ? "Friday" : "", document.getElementById("SaturdayCL2").checked ? "Saturday" : "", document.getElementById("SundayCL2").checked ? "Sunday" : ""],
                                     Start: document.getElementById("S-timeCL2").value,
+                                    Where: document.getElementById("WhereCL2").value,
                                     End: document.getElementById("E-timeCL2").value,
                                     Difficulty: document.getElementById("diffCL2").value,
                                 },
@@ -922,6 +1017,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                     Name: document.getElementById("class3Name").value,
                                     When: [document.getElementById("MondayCL3").checked ? "Monday" : "", document.getElementById("TuesdayCL3").checked ? "Tuesday" : "", document.getElementById("WednesdayCL3").checked ? "Wednesday" : "", document.getElementById("ThursdayCL3").checked ? "Thursday" : "", document.getElementById("FridayCL3").checked ? "Friday" : "", document.getElementById("SaturdayCL3").checked ? "Saturday" : "", document.getElementById("SundayCL3").checked ? "Sunday" : ""],
                                     Start: document.getElementById("S-timeCL3").value,
+                                    Where: document.getElementById("WhereCL3").value,
                                     End: document.getElementById("E-timeCL3").value,
                                     Difficulty: document.getElementById("diffCL3").value,
                                 },
@@ -929,6 +1025,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                     Name: document.getElementById("class4Name").value,
                                     When: [document.getElementById("MondayCL4").checked ? "Monday" : "", document.getElementById("TuesdayCL4").checked ? "Tuesday" : "", document.getElementById("WednesdayCL4").checked ? "Wednesday" : "", document.getElementById("ThursdayCL4").checked ? "Thursday" : "", document.getElementById("FridayCL4").checked ? "Friday" : "", document.getElementById("SaturdayCL4").checked ? "Saturday" : "", document.getElementById("SundayCL4").checked ? "Sunday" : ""],
                                     Start: document.getElementById("S-timeCL4").value,
+                                    Where: document.getElementById("WhereCL4").value,
                                     End: document.getElementById("E-timeCL4").value,
                                     Difficulty: document.getElementById("diffCL4").value,
                                 }
@@ -936,16 +1033,22 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                             Hobbies: hobbies
                         })
                             .then(() => {
-                                JSON.parse(userInfo).Onboard = true
-                                let updatedUserInfo = userInfo
-                                localStorage.setItem("currentUserInfo", updatedUserInfo)
+                                updatedUserInfo = {
+                                    Email: JSON.parse(userInfo).Email,
+                                    Name: JSON.parse(userInfo).Name,
+                                    Tasks: JSON.parse(userInfo).Tasks,
+                                    Streak: JSON.parse(userInfo).Streak,
+                                    ProfilePicture: JSON.parse(userInfo).ProfilePicture,
+                                    Onboard: true
+                                }
+                                localStorage.setItem("currentUserInfo", JSON.stringify(updatedUserInfo))
                             })
                     }
                 } else if (document.getElementById("classNumber").value == 3 && crossCheck.class3 == true) {
                     var userRef = db.collection("users").doc(JSON.parse(userInfo).Email);
                     window.clearInterval()
                     document.getElementById("loadingText").innerText = `Welcome to Stellar Ed ${userInfo.Name}`
-                    setTimeout(() => { window.location.assign("dashboard.html") }, 2000)
+                    
                     return userRef.update({
                         Onboard: true,
                         Tasks: {
@@ -954,12 +1057,14 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                 When: [document.getElementById("MondayCL1").checked ? "Monday" : "", document.getElementById("TuesdayCL1").checked ? "Tuesday" : "", document.getElementById("WednesdayCL1").checked ? "Wednesday" : "", document.getElementById("ThursdayCL1").checked ? "Thursday" : "", document.getElementById("FridayCL1").checked ? "Friday" : "", document.getElementById("SaturdayCL1").checked ? "Saturday" : "", document.getElementById("SundayCL1").checked ? "Sunday" : ""],
                                 Start: document.getElementById("S-timeCL1").value,
                                 End: document.getElementById("E-timeCL1").value,
+                                Where: document.getElementById("WhereCL1").value,
                                 Difficulty: document.getElementById("diffCL1").value,
                             },
                             2: {
                                 Name: document.getElementById("class2Name").value,
                                 When: [document.getElementById("MondayCL2").checked ? "Monday" : "", document.getElementById("TuesdayCL2").checked ? "Tuesday" : "", document.getElementById("WednesdayCL2").checked ? "Wednesday" : "", document.getElementById("ThursdayCL2").checked ? "Thursday" : "", document.getElementById("FridayCL2").checked ? "Friday" : "", document.getElementById("SaturdayCL2").checked ? "Saturday" : "", document.getElementById("SundayCL2").checked ? "Sunday" : ""],
                                 Start: document.getElementById("S-timeCL2").value,
+                                Where: document.getElementById("WhereCL2").value,
                                 End: document.getElementById("E-timeCL2").value,
                                 Difficulty: document.getElementById("diffCL2").value,
                             },
@@ -967,6 +1072,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                                 Name: document.getElementById("class3Name").value,
                                 When: [document.getElementById("MondayCL3").checked ? "Monday" : "", document.getElementById("TuesdayCL3").checked ? "Tuesday" : "", document.getElementById("WednesdayCL3").checked ? "Wednesday" : "", document.getElementById("ThursdayCL3").checked ? "Thursday" : "", document.getElementById("FridayCL3").checked ? "Friday" : "", document.getElementById("SaturdayCL3").checked ? "Saturday" : "", document.getElementById("SundayCL3").checked ? "Sunday" : ""],
                                 Start: document.getElementById("S-timeCL3").value,
+                                Where: document.getElementById("WhereCL3").value,
                                 End: document.getElementById("E-timeCL3").value,
                                 Difficulty: document.getElementById("diffCL3").value,
                             }
@@ -974,9 +1080,15 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                         Hobbies: hobbies
                     })
                         .then(() => {
-                            JSON.parse(userInfo).Onboard = true
-                            let updatedUserInfo = userInfo
-                            localStorage.setItem("currentUserInfo", updatedUserInfo)
+                            updatedUserInfo = {
+                                Email: JSON.parse(userInfo).Email,
+                                Name: JSON.parse(userInfo).Name,
+                                Tasks: JSON.parse(userInfo).Tasks,
+                                Streak: JSON.parse(userInfo).Streak,
+                                ProfilePicture: JSON.parse(userInfo).ProfilePicture,
+                                Onboard: true
+                            }
+                            localStorage.setItem("currentUserInfo", JSON.stringify(updatedUserInfo))
                         })
                 }
             } else if (document.getElementById("classNumber").value == 2 && crossCheck.class2 == true) {
@@ -991,6 +1103,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                             Name: document.getElementById("class1Name").value,
                             When: [document.getElementById("MondayCL1").checked ? "Monday" : "", document.getElementById("TuesdayCL1").checked ? "Tuesday" : "", document.getElementById("WednesdayCL1").checked ? "Wednesday" : "", document.getElementById("ThursdayCL1").checked ? "Thursday" : "", document.getElementById("FridayCL1").checked ? "Friday" : "", document.getElementById("SaturdayCL1").checked ? "Saturday" : "", document.getElementById("SundayCL1").checked ? "Sunday" : ""],
                             Start: document.getElementById("S-timeCL1").value,
+                            Where: document.getElementById("WhereCL1").value,
                             End: document.getElementById("E-timeCL1").value,
                             Difficulty: document.getElementById("diffCL1").value,
                         },
@@ -998,6 +1111,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                             Name: document.getElementById("class2Name").value,
                             When: [document.getElementById("MondayCL2").checked ? "Monday" : "", document.getElementById("TuesdayCL2").checked ? "Tuesday" : "", document.getElementById("WednesdayCL2").checked ? "Wednesday" : "", document.getElementById("ThursdayCL2").checked ? "Thursday" : "", document.getElementById("FridayCL2").checked ? "Friday" : "", document.getElementById("SaturdayCL2").checked ? "Saturday" : "", document.getElementById("SundayCL2").checked ? "Sunday" : ""],
                             Start: document.getElementById("S-timeCL2").value,
+                            Where: document.getElementById("WhereCL2").value,
                             End: document.getElementById("E-timeCL2").value,
                             Difficulty: document.getElementById("diffCL2").value,
                         }
@@ -1005,9 +1119,15 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                     Hobbies: hobbies
                 })
                     .then(() => {
-                        JSON.parse(userInfo).Onboard = true
-                        let updatedUserInfo = userInfo
-                        localStorage.setItem("currentUserInfo", updatedUserInfo)
+                        updatedUserInfo = {
+                            Email: JSON.parse(userInfo).Email,
+                            Name: JSON.parse(userInfo).Name,
+                            Tasks: JSON.parse(userInfo).Tasks,
+                            Streak: JSON.parse(userInfo).Streak,
+                            ProfilePicture: JSON.parse(userInfo).ProfilePicture,
+                            Onboard: true
+                        }
+                        localStorage.setItem("currentUserInfo", JSON.stringify(updatedUserInfo))
                     })
             }
 
@@ -1023,6 +1143,7 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                         Name: document.getElementById("class1Name").value,
                         When: [document.getElementById("MondayCL1").checked ? "Monday" : "", document.getElementById("TuesdayCL1").checked ? "Tuesday" : "", document.getElementById("WednesdayCL1").checked ? "Wednesday" : "", document.getElementById("ThursdayCL1").checked ? "Thursday" : "", document.getElementById("FridayCL1").checked ? "Friday" : "", document.getElementById("SaturdayCL1").checked ? "Saturday" : "", document.getElementById("SundayCL1").checked ? "Sunday" : ""],
                         Start: document.getElementById("S-timeCL1").value,
+                        Where: document.getElementById("WhereCL1").value,
                         End: document.getElementById("E-timeCL1").value,
                         Difficulty: document.getElementById("diffCL1").value,
                     }
@@ -1030,9 +1151,15 @@ document.getElementById("signUpActual").addEventListener("click", () => {
                 Hobbies: hobbies
             })
                 .then(() => {
-                    JSON.parse(userInfo).Onboard = true
-                    let updatedUserInfo = userInfo
-                    localStorage.setItem("currentUserInfo",updatedUserInfo)
+                    updatedUserInfo = {
+                        Email: JSON.parse(userInfo).Email,
+                        Name: JSON.parse(userInfo).Name,
+                        Tasks: JSON.parse(userInfo).Tasks,
+                        Streak: JSON.parse(userInfo).Streak,
+                        ProfilePicture: JSON.parse(userInfo).ProfilePicture,
+                        Onboard: true
+                    }
+                    localStorage.setItem("currentUserInfo", JSON.stringify(updatedUserInfo))
                 })
         }
     }, 15000)

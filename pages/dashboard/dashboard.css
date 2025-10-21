@@ -340,7 +340,30 @@ a:hover{
     padding: 10px 16px;
     color: white;
     border-radius: 8px;
+    width: 120px;
+    text-align: center;
 }
+
+.time2 {
+    background-color: #DC67DE;
+    padding: 10px 16px;
+    color: white;
+    border-radius: 8px;
+     width: 120px;
+     text-align: center;
+}
+
+
+.time3 {
+    background-color: #5DBC3B;
+    padding: 10px 16px;
+    color: white;
+    border-radius: 8px;
+     width: 120px;
+     text-align: center;
+    
+}
+
 
 .event {
     display: flex;
@@ -393,7 +416,53 @@ a:hover{
     font-size: 0.875rem;
     text-align: end;
 }
-
+#addTask > #header{
+    margin-bottom: 30px;
+    text-align: center;
+    font-size:30px;
+}
+.floater{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.65);
+    position: absolute;
+    top:0;
+    display: none;
+    justify-content: center;
+    align-items: start;
+    padding-top: 100px;
+}
+#cancel{
+    font-size: 0.95rem;
+    border:2px solid #FF9494;
+    background-color: transparent;
+    border-radius:8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    color: black;
+    font-weight: 400;
+    width: 70%;
+    font-family: "Poppins", sans-serif;
+}
+#cancel:hover{
+    background-color:#FF9494;
+    transition: background-color 0.5s;
+}
+#addTask{
+    background-color: white;
+    height: 68%;
+    width: 50%;
+    display:none;
+    border-radius: 8px;
+    padding-top: 10px;
+    padding-left:80px;
+    padding-right:80px;
+    padding-bottom: 70px;
+    box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.25);
+}
 .classLocation {
     margin: 0;
     font-size: 0.875rem;
