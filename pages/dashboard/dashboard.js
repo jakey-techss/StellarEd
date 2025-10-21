@@ -1,5 +1,9 @@
 
 let userInfo = window.localStorage.getItem("currentUserInfo")
+document.getElementById("signUpActual2").addEventListener("click",()=>{
+    localStorage.clear()
+    window.location.assign("index.html")
+})
 if (userInfo == null) {
     window.location.assign("index.html")
 } else {
