@@ -103,6 +103,28 @@
     align-items: center;
     width: 100%;
 }
+.urgentTask2Hard>.allHolder {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 24px;
+    align-items: center;
+    width: 100%;
+}
+.urgentTask2Nightmare>.allHolder {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 24px;
+    align-items: center;
+    width: 100%;
+}
+
+.urgentTask2Mid>.allHolder {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 24px;
+    align-items: center;
+    width: 100%;
+}
 
 .urgentTask a {
     color: #5C0F88;
@@ -111,6 +133,21 @@
 }
 
 .urgentTask2 a {
+    color: #5C0F88;
+    text-decoration: underline;
+    font-size: 0.875rem;
+}
+.urgentTask2Hard a {
+    color: #5C0F88;
+    text-decoration: underline;
+    font-size: 0.875rem;
+}
+.urgentTask2Nightmare a {
+    color: #5C0F88;
+    text-decoration: underline;
+    font-size: 0.875rem;
+}
+.urgentTask2Mid a {
     color: #5C0F88;
     text-decoration: underline;
     font-size: 0.875rem;
@@ -147,6 +184,15 @@
 .urgentTask2 a:hover {
     cursor: pointer;
 }
+.urgentTask2Hard a:hover {
+    cursor: pointer;
+}
+.urgentTask2Nightmare a:hover {
+    cursor: pointer;
+}
+.urgentTask2Mid a:hover {
+    cursor: pointer;
+}
 
 .urgentTask {
     background-color: #FAEDED;
@@ -158,6 +204,30 @@
 
 .urgentTask2 {
     background-color: #EDF7FA;
+    display: flex;
+    min-height: 60px;
+    height: 60px;
+    align-items: center;
+    border-radius: 5px;
+}
+.urgentTask2Hard{
+    background-color: #f8faed;
+    display: flex;
+    min-height: 60px;
+    height: 60px;
+    align-items: center;
+    border-radius: 5px;
+}
+.urgentTask2Nightmare{
+    background-color: #eaeafd;
+    display: flex;
+    min-height: 60px;
+    height: 60px;
+    align-items: center;
+    border-radius: 5px;
+}
+.urgentTask2Mid {
+    background-color: #faf7ed;
     display: flex;
     min-height: 60px;
     height: 60px;
@@ -176,12 +246,36 @@
     font-size: 0.875rem;
     padding: 0;
 }
+.urgentTask2Hard .textHolder>p {
+    margin: 0;
+    font-size: 0.875rem;
+    padding: 0;
+}
+.urgentTask2Nightmare .textHolder>p {
+    margin: 0;
+    font-size: 0.875rem;
+    padding: 0;
+}
+.urgentTask2Mid .textHolder>p {
+    margin: 0;
+    font-size: 0.875rem;
+    padding: 0;
+}
 
 .urgentTask .textHolder {
     padding-left: 12px;
 }
 
 .urgentTask2 .textHolder {
+    padding-left: 12px;
+}
+.urgentTask2Nightmare .textHolder {
+    padding-left: 12px;
+}
+.urgentTask2Hard .textHolder {
+    padding-left: 12px;
+}
+.urgentTask2Mid .textHolder {
     padding-left: 12px;
 }
 
@@ -192,8 +286,27 @@
     border-radius: 5px;
 }
 
-.marker2 {
+.markerEasy {
     background-color: #94ffa4;
+    width: 12px;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.markerMid {
+    background-color: #ffe294;
+    width: 12px;
+    height: 100%;
+    border-radius: 5px;
+}
+.markerHard {
+    background-color: #f5f975;
+    width: 12px;
+    height: 100%;
+    border-radius: 5px;
+}
+.markerNightmare {
+    background-color: #6f87ff;
     width: 12px;
     height: 100%;
     border-radius: 5px;
@@ -421,16 +534,36 @@ a:hover{
     text-align: center;
     font-size:30px;
 }
+#logOutButton{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
 .floater{
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.65);
     position: absolute;
     top:0;
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: start;
-    padding-top: 100px;
+    padding-top: 40px;
+}
+#signUpActual2{
+    font-size: 0.95rem;
+    border:none ;
+    background-color: #FF9494;
+    border-radius:8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    color: white;
+    font-weight: 400;
+    width: 70%;
+    font-family: "Poppins", sans-serif;
 }
 #cancel{
     font-size: 0.95rem;
@@ -453,7 +586,7 @@ a:hover{
 }
 #addTask{
     background-color: white;
-    height: 68%;
+    max-height: 75%;
     width: 50%;
     display:none;
     border-radius: 8px;
@@ -462,6 +595,20 @@ a:hover{
     padding-right:80px;
     padding-bottom: 70px;
     box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.25);
+}
+#viewTask{
+    background-color: white;
+    max-height: 75%;
+    width: 50%;
+    border-radius: 8px;
+    padding-top: 10px;
+    padding-left:80px;
+    padding-right:80px;
+    padding-bottom: 70px;
+    box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.25);
+}
+#viewTask > h3{
+    text-align: center ;
 }
 .classLocation {
     margin: 0;

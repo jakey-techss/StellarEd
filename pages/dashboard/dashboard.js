@@ -1,6 +1,6 @@
 
 let userInfo = window.localStorage.getItem("currentUserInfo")
-document.getElementById("signUpActual2").addEventListener("click",()=>{
+document.getElementById("signUpActual2").addEventListener("click", () => {
     localStorage.clear()
     window.location.assign("index.html")
 })
@@ -23,16 +23,27 @@ if (userInfo == null) {
         const db = firebase.firestore();
         document.title = `${JSON.parse(userInfo).Name.substring(0, JSON.parse(userInfo).Name.indexOf(" "))}'s | Dashboard`
         google.charts.load('current', { 'packages': ['corechart'] });
-        google.charts.setOnLoadCallback(drawChart);
+        let currentDay;
+        let dueDate;
+        let time = ['time', 'time2', 'time3', 'time', 'time2', 'time3', 'time', 'time2', 'time3', 'time', 'time2', 'time3']
+        let userInfoDatabase;
+        let d = new Date()
+        let dayOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+        let dayOfWeek2 = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+        let monthOfYear = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        document.getElementById("profilePicture").style.backgroundImage = `url("${JSON.parse(userInfo).ProfilePicture}")`
+        document.getElementById("WelcomeMessage").innerText = `Welcome ${JSON.parse(userInfo).Name.substring(0, JSON.parse(userInfo).Name.indexOf(" ") + 2)}.`
+        document.getElementById("Date").innerText = `${dayOfWeek[d.getDay()]} ${monthOfYear[d.getMonth()]} ${d.getDate()}`
+        document.getElementById("time").innerText = `${d.getHours() > 12 || d.getHours() == 0 ? Math.abs(d.getHours() - 12) : d.getHours()}:${d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes()}${d.getHours() > 12 ? "PM" : "AM"}`
 
-        function drawChart() {
+        function drawChart(completedPercent = 100, toDo = 0, InProgress = 0) {
 
             // Set Data
             const data = google.visualization.arrayToDataTable([
                 ['State', 'Percent'],
-                ['Completed', 100],
-                ['To Do', 0],
-                ['In progress', 0],
+                ['Completed', completedPercent],
+                ['To Do', toDo],
+                ['In progress', InProgress],
             ]);
 
             // Set Options
@@ -52,27 +63,19 @@ if (userInfo == null) {
             chart.draw(data, options);
 
         }
-        let time = ['time','time2','time3','time','time2','time3','time','time2','time3','time','time2','time3']
-
-        let d = new Date()
-        let dayOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-        let dayOfWeek2 = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-        let monthOfYear = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-        document.getElementById("profilePicture").style.backgroundImage = `url("${JSON.parse(userInfo).ProfilePicture}")`
-        document.getElementById("WelcomeMessage").innerText = `Welcome ${JSON.parse(userInfo).Name.substring(0, JSON.parse(userInfo).Name.indexOf(" ") + 2)}.`
-        document.getElementById("Date").innerText = `${dayOfWeek[d.getDay()]} ${monthOfYear[d.getMonth()]} ${d.getDate()}`
-        document.getElementById("time").innerText = `${d.getHours() > 12 ? d.getHours() - 12 : d.getHours()}:${d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes()}${d.getHours() > 12 ? "PM" : "AM"}`
+        updateTasksList();
         setInterval(() => {
             let d = new Date()
-            document.getElementById("time").innerText = `${d.getHours() > 12 ? d.getHours() - 12 : d.getHours()}:${d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes()}${d.getHours() > 12 ? "PM" : "AM"}`
-        }, 10000)
+            document.getElementById("time").innerText = `${d.getHours() > 12 || d.getHours() == 0 ? Math.abs(d.getHours() - 12) : d.getHours()}:${d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes()}${d.getHours() > 12 ? "PM" : "AM"}`
+        }, 20000)
         var docRef = db.collection("users").doc(JSON.parse(userInfo).Email);
         var EventBox = document.getElementById("Events")
         docRef.get().then((doc) => {
-            let j =0
+            let j = 0
             if (doc.exists) {
+                userInfoDatabase = doc.data()
                 for (i = 1; i <= 12; i++) {
-                    if (doc.data().Tasks[i] != undefined && doc.data().Tasks[i].When.includes(dayOfWeek2[d.getDay()+1])) {
+                    if (doc.data().Tasks[i] != undefined && doc.data().Tasks[i].When.includes(dayOfWeek2[d.getDay() + 1])) {
                         j++
                         let event = document.createElement('div')
                         event.classList.add('event')
@@ -82,34 +85,272 @@ if (userInfo == null) {
                         <p class="poppins-medium classTitle">${doc.data().Tasks[i].Name}</p>
                         <p class="poppins-light classLocation">Room: ${doc.data().Tasks[i].Where}</p>
                     </div>`
-                    EventBox.appendChild(event)
+                        EventBox.appendChild(event)
                     } else {
                         document.getElementById("eventCount").innerText = `${j} Events`
                     }
                 }
-                console.log("Document data:",);
-            } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
             }
-        }).catch((error) => {
-            console.log("Error getting document:", error);
-        });
+        }).then(() => {
+            let box = document.getElementById("TaskCategory")
+            for (i = 1; i < 12; i++) {
+                if (userInfoDatabase.Tasks[i] != undefined) {
+                    let option = document.createElement('option')
+                    option.innerHTML = userInfoDatabase.Tasks[i].Name
+                    option.id = userInfoDatabase.Tasks[i].Name
+                    option.name = i
+                    box.appendChild(option)
+                }
+            }
+            let selectedItem = document.getElementById("TaskCategory").children.namedItem(document.getElementById("TaskCategory").value)
+            let Difficulty = userInfoDatabase.Tasks[selectedItem.name].Difficulty
+            let option = document.createElement('option')
+            option.innerHTML = "Other"
+            option.id = "Other"
+            box.appendChild(option)
+            document.getElementById("addNewTask1").addEventListener("click", () => {
+                window.scrollTo(0, 0)
+                document.body.style.padding = 0
+                document.body.style.overflowY = "hidden"
+                document.getElementById("floater").style.display = "flex";
+                document.getElementById("addTask").style.display = "block";
+                document.getElementById("cancel").addEventListener("click", () => {
+                    document.getElementById("floater").style.display = "none";
+                    document.getElementById("addTask").style.display = "none";
+                    document.getElementById("date").value = ""
+                    document.getElementById("TaskTitle").value = ""
+                    document.body.style.overflowY = "auto"
+                })
+                document.getElementById("date").addEventListener('change', () => {
+                    let Difficulty = userInfoDatabase.Tasks[selectedItem.name].Difficulty
+                    currentDay = new Date()
+                    dueDate = new Date(document.getElementById("date").value)
+                    if (document.getElementById("TaskCategory").value != "Other") {
+                        let selectedItem = document.getElementById("TaskCategory").children.namedItem(document.getElementById("TaskCategory").value)
+                        Difficulty = userInfoDatabase.Tasks[selectedItem.name].Difficulty
+                    } else if (document.getElementById("TaskCategory").value == "Other") {
+                        Difficulty = "Other"
+                    }
+                    let points;
+                    let DiffRatio = {
+                        Easy: 0.5,
+                        Mid: 0.8,
+                        Hard: 1,
+                        Nightmare: 1.5,
+                        Other: 0.2
+                    }
+                    if (dueDate > currentDay) {
+                        if (Difficulty == "Easy") {
+                            points = 2 * Math.round(Math.sqrt(DiffRatio.Easy * ((dueDate - currentDay) / 10000)))
+                        } else if (Difficulty == "Medium") {
+                            points = 2 * Math.round(Math.sqrt(DiffRatio.Mid * ((dueDate - currentDay) / 10000)))
+                        } else if (Difficulty == "Hard") {
+                            points = 2 * Math.round(Math.sqrt(DiffRatio.Hard * ((dueDate - currentDay) / 10000)))
+                        } else if (Difficulty == "Nightmare") {
+                            points = 2 * Math.round(Math.sqrt(DiffRatio.Nightmare * ((dueDate - currentDay) / 1000)))
+                        } else if (Difficulty == "Other") {
+                            points = 2 * Math.round(Math.sqrt(DiffRatio.Other * ((dueDate - currentDay) / 10000)))
+                        }
+                        document.getElementById("AP").value = points
+                    } else {
+                        document.getElementById("AP").value = 0
+                    }
+                })
+                document.getElementById("TaskCategory").addEventListener('change', () => {
+                    Difficulty = "Easy"
+                    currentDay = new Date()
+                    dueDate = new Date(document.getElementById("date").value)
+                    if (document.getElementById("TaskCategory").value != "Other") {
+                        let selectedItem = document.getElementById("TaskCategory").children.namedItem(document.getElementById("TaskCategory").value)
+                        Difficulty = userInfoDatabase.Tasks[selectedItem.name].Difficulty
+                    } else if (document.getElementById("TaskCategory").value == "Other") {
+                        Difficulty = "Other"
+                    }
+                    let points;
+                    let DiffRatio = {
+                        Easy: 0.5,
+                        Mid: 0.8,
+                        Hard: 1,
+                        Nightmare: 1.5,
+                        Other: 0.2
+                    }
+                    if (dueDate > currentDay) {
+                        if (Difficulty == "Easy") {
+                            points = 2 * Math.round(Math.sqrt(DiffRatio.Easy * ((dueDate - currentDay) / 10000)))
+                        } else if (Difficulty == "Medium") {
+                            points = 2 * Math.round(Math.sqrt(DiffRatio.Mid * ((dueDate - currentDay) / 10000)))
+                        } else if (Difficulty == "Hard") {
+                            points = 2 * Math.round(Math.sqrt(DiffRatio.Hard * ((dueDate - currentDay) / 10000)))
+                        } else if (Difficulty == "Nightmare") {
+                            points = 2 * Math.round(Math.sqrt(DiffRatio.Nightmare * ((dueDate - currentDay) / 1000)))
+                        } else if (Difficulty == "Other") {
+                            points = 2 * Math.round(Math.sqrt(DiffRatio.Other * ((dueDate - currentDay) / 10000)))
+                        }
+                        document.getElementById("AP").value = points
+                    } else {
+                        document.getElementById("AP").value = 0
+                    }
+                })
+                document.getElementById("signUpActual").addEventListener('click', () => {
+                    let Title = document.getElementById("TaskTitle").value
+                    let taskManager = {
+                        Title: false,
+                        Date: false,
+                    }
+                    if (Title == "") {
+                        taskManager.Title = false
+                    } else {
+                        taskManager.Title = true
+                    }
+                    if (Date == "" || !(dueDate > currentDay)) {
+                        taskManager.Date = false
+                    } else {
+                        taskManager.Date = true
+                    }
+                    let errorBox = document.getElementById("errors")
+                    if (taskManager.Date && taskManager.Title) {
+                        var userRef = db.collection("users").doc(JSON.parse(userInfo).Email);
+                        // Set the "capital" field of the city 'DC'
+                        return userRef.update({
+                            ToDo: firebase.firestore.FieldValue.arrayUnion({
+                                TaskTitle: Title,
+                                DueDate: dueDate,
+                                MaxPointsAv: document.getElementById("AP").value,
+                                DiffLevel: Difficulty,
+                                id: userInfoDatabase.ToDo != undefined ? userInfoDatabase.ToDo.length : 0,
+                                Completed: false,
+                                DoneDate: ""
+                            })
+                        })
+                            .then(() => {
+                                let errorNode = document.createElement("p")
+                                errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">check</span>Successfully added task`
+                                errorNode.id = "success"
+                                errorBox.appendChild(errorNode)
+                                setTimeout(() => {
+                                    errorBox.removeChild(document.getElementById("success"))
+                                    document.getElementById("floater").style.display = "none";
+                                    document.getElementById("AP").style.display = "";
+                                    document.getElementById("addTask").style.display = "none";
+                                    document.getElementById("date").value = ""
+                                    document.getElementById("TaskTitle").value = ""
+                                    document.body.style.overflowY = "auto"
+                                    updateTasksList()
+                                }, 1000)
+                            })
+                    }
+                    if (!taskManager.Date && document.getElementById("Invalid Date") == undefined) {
+                        let errorNode = document.createElement("p")
+                        errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Invalid Date`
+                        errorNode.id = "Invalid Date"
+                        errorBox.appendChild(errorNode)
+                    } else if (taskManager.Date && document.getElementById("Invalid Date") != undefined) {
+                        errorBox.removeChild(document.getElementById("Invalid Date"))
+                    }
+                    if (!taskManager.Title && document.getElementById("Title cannot be empty") == undefined) {
+                        let errorNode = document.createElement("p")
+                        errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Title cannot be empty`
+                        errorNode.id = "Title cannot be empty"
+                        errorBox.appendChild(errorNode)
+                    } else if (taskManager.Title && document.getElementById("Title cannot be empty") != undefined) {
+                        errorBox.removeChild(document.getElementById("Title cannot be empty"))
+                    }
+                })
 
-        document.getElementById("addNewTask1").addEventListener("click",()=>{
-            window.scrollTo(0,0)
-            document.body.style.padding = 0
-            document.body.style.overflowY = "hidden"
-            document.getElementById("floater").style.display="flex";
-            document.getElementById("addTask").style.display="block";
-            document.getElementById("cancel").addEventListener("click",()=>{
-                document.getElementById("floater").style.display="none";
-                document.getElementById("addTask").style.display="none";
-                document.getElementById("date").value =""
-                document.getElementById("TaskTitle").value =""
-                document.body.style.overflowY = "auto"
             })
-            
+        })
+
+        function updateTasksList() {
+            var docRef = db.collection("users").doc(JSON.parse(userInfo).Email);
+
+            docRef.get().then((doc) => {
+                userInfoDatabase = doc.data()
+                if (doc.exists && doc.data().ToDo != undefined) {
+                    let jim = doc.data().ToDo.sort((a, b) => {
+                        return a.DueDate - b.DueDate
+                    })
+                    let Task2Box = document.getElementById("urgentTasks")
+                    let tasksBox = document.getElementById("urgentTasks2")
+
+                    for (i = 0; i < jim.length; i++) {
+                        if (!jim[i].Completed) {
+                            let task = document.createElement("div")
+                            task.classList.add(`${doc.exists && jim[i].DiffLevel == "Easy" || doc.exists && jim[i].DiffLevel == "Other" ? 'urgentTask2'
+                                : doc.exists && jim[i].DiffLevel == "Medium" ? 'urgentTask2Mid'
+                                    : doc.exists && jim[i].DiffLevel == "Hard" ? 'urgentTask2Hard' : 'urgentTask2Nightmare'}`)
+                            task.id = "Non-UrgentTask" + userInfoDatabase.ToDo[i].id
+                            task.innerHTML = `<div class="${doc.exists && jim[i].DiffLevel == "Easy" || doc.exists && jim[i].DiffLevel == "Other" ? 'markerEasy' : `${doc.exists && jim[i].DiffLevel == "Medium" ? 'markerMid' : doc.exists && jim[i].DiffLevel == "Hard" ? 'markerHard' : 'markerNightmare'}`}"></div>
+                    <div class="allHolder">
+                        <div class="textHolder">
+                            <p>${jim[i].TaskTitle}</p>
+                            <p>Due: ${jim[i].DueDate.toDate() - new Date() < 86400000 * 2 ? `${dayOfWeek[jim[i].DueDate.toDate().getDay()] == dayOfWeek[new Date().getDay()] ? 'Today ' : 'Tomorrow '}` +
+                                    `${jim[i].DueDate.toDate().getHours() > 12 || jim[i].DueDate.toDate().getHours() == 0 ? Math.abs(jim[i].DueDate.toDate().getHours() - 12) :
+                                        jim[i].DueDate.toDate().getHours()}:${jim[i].DueDate.toDate().getMinutes() < 10 ? "0" + jim[i].DueDate.toDate().getMinutes() :
+                                            jim[i].DueDate.toDate().getMinutes()}${jim[i].DueDate.toDate().getHours() > 12 ? "PM" : "AM"}` :
+                                    dayOfWeek[jim[i].DueDate.toDate().getDay()] + " " + monthOfYear[jim[i].DueDate.toDate().getMonth()] + " " +
+                                    jim[i].DueDate.toDate().getDate() + ` ${jim[i].DueDate.toDate().getFullYear() - d.getFullYear() >= 1 ? jim[i].DueDate.toDate().getFullYear() : ""}` + ` ${jim[i].DueDate.toDate().getHours() > 12 || jim[i].DueDate.toDate().getHours() == 0 ? Math.abs(jim[i].DueDate.toDate().getHours() - 12) :
+                                        jim[i].DueDate.toDate().getHours()}:${jim[i].DueDate.toDate().getMinutes() < 10 ? "0"
+                                            + jim[i].DueDate.toDate().getMinutes() : jim[i].DueDate.toDate().getMinutes()}${jim[i].DueDate.toDate().getHours() > 12 ? "PM" : "AM"}`}</p>
+                        </div>
+                        <a>View</a>
+                    </div>`
+                            if (document.getElementById(task.id) == undefined) {
+                                tasksBox.appendChild(task)
+                            }
+                        }
+                    }
+                    for (i = 0; i < jim.length; i++) {
+                        if (jim[i].DueDate.toDate() - new Date() < 86400000 * 2 && !jim[i].Completed) {
+                            let task = document.createElement("div")
+                            task.classList.add(`urgentTask`)
+                            task.id = task.id = "UrgentTask" + userInfoDatabase.ToDo[i].id
+                            task.innerHTML = `<div class="marker"></div>
+                        <div class="allHolder">
+                            <div class="textHolder">
+                                <p>${jim[i].TaskTitle}</p>
+                                <p>Due: ${dayOfWeek[jim[i].DueDate.toDate().getDay()] == dayOfWeek[new Date().getDay()] ? 'Today ' : 'Tomorrow '}
+                                ${jim[i].DueDate.toDate().getHours() > 12 || jim[i].DueDate.toDate().getHours() == 0 ? Math.abs(jim[i].DueDate.toDate().getHours() - 12) :
+                                    jim[i].DueDate.toDate().getHours()}:${jim[i].DueDate.toDate().getMinutes() < 10 ? "0" + jim[i].DueDate.toDate().getMinutes() :
+                                        jim[i].DueDate.toDate().getMinutes()}${jim[i].DueDate.toDate().getHours() > 12 ? "PM" : "AM"}</p>
+                            </div>
+                            <a>View</a>
+                        </div>`
+                            if (document.getElementById(task.id) == undefined) {
+                                Task2Box.appendChild(task)
+                            }
+                        }
+                    }
+                } else {
+                    google.charts.setOnLoadCallback(drawChart(100 / 100, 0, 0));
+                }
+            }).then(() => {
+                let dueAssignment = 0;
+                let CompletedAssignment = 0;
+                let InProgress = 0
+                for (i in userInfoDatabase.ToDo) {
+                    i = userInfoDatabase.ToDo[i]
+                    if (i.DueDate.toDate().getTime() < new Date(d.getFullYear(), d.getMonth(), d.getDate() + (6 - d.getDay()), 23, 59, 59, 999) && i.Completed == false) {
+                        dueAssignment++;
+                    } else if (i.DoneDate != undefined && i.Completed == true) {
+                        if (i.DoneDate.toDate().getTime() < new Date(d.getFullYear(), d.getMonth(), d.getDate() + d.getDay(), 23, 59, 59, 999) && i.DoneDate.toDate().getDay() == d.getDay()) {
+                            CompletedAssignment++;
+                        }
+                    } else if (i.DueDate.toDate().getTime() < new Date(d.getFullYear(), d.getMonth(), d.getDate() + (6 - d.getDay()), 23, 59, 59, 999) && i.Completed == 2) {
+                        InProgress++
+                    }
+                }
+                if (dueAssignment == 0 && CompletedAssignment == 0) {
+                    google.charts.setOnLoadCallback(drawChart(CompletedAssignment / dueAssignment, dueAssignment, InProgress));
+                } else {
+                    google.charts.setOnLoadCallback(drawChart(CompletedAssignment / dueAssignment, dueAssignment, InProgress));
+                }
+                document.getElementById("dueAssignments").innerText = dueAssignment
+                document.getElementById("completedAssignments").innerText = CompletedAssignment
+            });
+        }
+
+        document.getElementById("GenieAI").addEventListener(('click'),()=>{
+            window.location.assign("Genie AI.html")
         })
     }
 }

@@ -1,0 +1,81 @@
+<html>
+
+<head>
+    <title>Genie AI</title>
+    <link rel="stylesheet" href="pages/GenieAI/genieAI.css">
+    <link rel="stylesheet" href="signUp.css">
+    <link rel="stylesheet" href="assets/fonts/fonts.css">
+    <link rel="stylesheet" href="home.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="icon" href="assets/Stellar-removebg-preview.png">
+</head>
+
+<body>
+    <div id="body">
+        <nav>
+            <a href="dashboard.html"><span class="material-icons hover" style="margin-left: 12px;">arrow_left</span></a>
+            <div id="center">
+                <div class="genieBackground hover">
+                    <div id="genie"></div>
+                </div>
+                <p>Genie AI</p>
+            </div>
+            <span class="material-icons hover" style="margin-right: 12px;">settings</span>
+        </nav>
+
+        <div id="chatBody">
+            <div id="messages">
+                <div class="messageContainer">
+                    <div class="profilePictureBot"></div>
+                    <p class="message poppins-light">Chill corner for your brain. I'm your study buddy, here to help
+                        with whatever's stressing you out. Homework struggles? Test anxiety? or just trying to
+                        adult? Whatever's on your plate, let's break it down, find some answers, and maybe even have
+                        a little fun along the way.</p>
+                </div>
+                <div class="messageContainerOpposite">
+                    <div class="profilePictureBot"></div>
+                    <p class="messageSender poppins-light">Explain pascal's triangle theorem</p>
+                </div>
+                <div class="messageContainer">
+                    <div class="profilePictureBot"></div>
+                    <p class="message poppins-light">Pascal's Triangle is a triangular array of numbers where each
+                        number is the sum of the two numbers directly above it. Here's a quick rundown:<br>
+                        How it works:<br>
+                        The triangle starts with a 1 at the top.<br>
+                        Each row has one more number than the previous row.<br>
+                        The numbers on the ends are always 1.<br>
+                        The numbers in between are the sum of the two numbers directly above.<br>
+                        Example:<br>
+                        Code<br>
+                        1<br>
+                        1 1<br>
+                        1 2 1<br>
+                        1 3 3 1<br>
+                        1 4 6 4 1<br>
+                        Cool properties:<br>
+                        Binomial coefficients: Pascal's Triangle shows the coefficients of binomial expansions
+                        (a+b)^n.<br>
+                        Symmetry: The triangle is symmetrical.<br>
+                        Combinations: Each number represents the number of combinations of items.<br>
+                        Real-world applications:<br>
+                        Probability: Calculating odds and probabilities.<br>
+                        Algebra: Expanding binomials and polynomials.<br>
+                        Combinatorics: Counting combinations and permutations.<br>
+                        Want more examples or applications?</p>
+                </div>
+            </div>
+            <div id="bottomBarQuestion">
+                <div class="input">
+                    <input name="hobbies" type="text" id="TaskTitle" placeholder="Enter your question here">
+                </div>
+                <div class="genieBackground hover">
+                    <span class="material-icons" style="color: white;">arrow_right</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="pages/GenieAI/genieAI.js"></script>
+
+</body>
+
+</html>

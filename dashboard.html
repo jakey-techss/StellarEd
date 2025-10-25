@@ -47,7 +47,7 @@
                     <h3 class="poppins-bold" id="time">3:13PM</h3>
                 </div>
                 <div id="apps">
-                    <div class="app">
+                    <div class="app" id="GenieAI">
                         <div class="icon">
                             <div></div>
                         </div>
@@ -76,16 +76,6 @@
             <div id="UrgentTasksContainer">
                 <h4 class="poppins-semibold">Urgent Tasks</h4>
                 <div id="urgentTasks">
-                    <div class="urgentTask">
-                        <div class="marker"></div>
-                        <div class="allHolder">
-                            <div class="textHolder">
-                                <p>Physics Lab Report</p>
-                                <p>Due: Tomorrow 11:59PM</p>
-                            </div>
-                            <a>View</a>
-                        </div>
-                    </div>
                 </div>
                 <a id="addNewTask1"> + Add new Task</a>
             </div>
@@ -101,12 +91,12 @@
             <div id="mark">
                 <div class="completed">
                     <p class="poppins-semibold top">Completed Today</p>
-                    <p class="poppins-semibold middle">8</p>
+                    <p class="poppins-semibold middle" id="completedAssignments">0</p>
                     <p class="poppins-semibold end">assignments</p>
                 </div>
                 <div class="due">
                     <p class="poppins-semibold top">Due this week</p>
-                    <p class="poppins-semibold middle">243</p>
+                    <p class="poppins-semibold middle" id="dueAssignments">0</p>
                     <p class="poppins-semibold end">assignments</p>
                 </div>
             </div>
@@ -114,16 +104,6 @@
         <div class="UrgentTasksContainer2">
             <h4 class="poppins-semibold">Tasks</h4>
             <div id="urgentTasks2">
-                <div class="urgentTask2">
-                    <div class="marker2"></div>
-                    <div class="allHolder">
-                        <div class="textHolder">
-                            <p>Physics Lab Report</p>
-                            <p>Due: Tomorrow 11:59PM</p>
-                        </div>
-                        <a>View</a>
-                    </div>
-                </div>
             </div>
             <a> + Add new Task</a>
         </div>
@@ -213,24 +193,30 @@
                 </div>
                 <div class="input">
                     <label for="hobbies">Task Category</label>
-                    <select>
-                        <option>AP Lang</option>
-                        <option>AP Physics</option>
-                        <option>AP Chemistry</option>
+                    <select id="TaskCategory">
                     </select>
                 </div>
                 <div class="input">
-                    <label for="hobbies">Allocated Points</label>
-                    <input name="hobbies" type="text" id="hobbies" placeholder="Total points achievable" readonly>
+                    <label for="hobbies">Max Allocated Points</label>
+                    <input name="hobbies" type="text" id="AP" placeholder="Total points achievable" readonly>
+                    <a style="color: #5C0F88; text-decoration: underline; font-size: 0.875rem; margin-top: 6px;">How points are calculated</a>
                 </div>
             </div>
+            <div id="errors">
+
+            </div>
             <div id="buttonsSignUp">
-                <button id="signUpActual" style="width: 40%; margin-top: 50px;">Add Task</button>
+                <button id="signUpActual" style="width: 40%; margin-top: 10px;">Add Task</button>
                 <button id="cancel" style="width: 40%;">Cancel</button>
             </div>
         </div>
+        <div id="viewTask">
+            <h3>Center Of Mass Lab Report</h3>
+        </div>
     </div>
+    <div id="logOutButton">
     <button id="signUpActual2" style="width: 40%; margin-top: 50px;">Log out</button>
+    </div>
     <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.5/dist/dotlottie-wc.js" type="module"></script>
     <script src="pages/dashboard/dashboard.js"></script>
 </body>

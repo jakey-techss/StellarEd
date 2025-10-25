@@ -73,7 +73,19 @@ button{
     padding: 0;
     width: 40%;
 }
-#errors>p{
+#errors>#success{
+    background-color: #57C057;
+    border-radius: 5px;
+    padding-left: 8px;
+    color: white;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap:5px;
+    margin: 0;
+}
+#errors>p:not(#success){
     background-color: red;
     border-radius: 5px;
     padding-left: 8px;

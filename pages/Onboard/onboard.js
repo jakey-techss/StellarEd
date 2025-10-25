@@ -133,7 +133,7 @@ let loadingMessages = [
 let index = 0
 document.getElementById("signUpActual").addEventListener("click", () => {
     let crossCheck = {
-        class1: true,
+        class1: false,
         class2: 2,
         class3: 2,
         class4: 2,
