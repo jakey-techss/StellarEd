@@ -17,6 +17,12 @@
     height: 30px;
     border-radius: 100%;
 }
+.profilePictureUser{
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+}
 #body{
     overflow-y: hidden;
 }
@@ -56,6 +62,11 @@
 }
 .hover:hover{
     cursor: pointer;
+}
+#loading{
+    display: none;
+    width: 100%;
+    justify-content: start;
 }
 #chatBody{
     width: 100%;
