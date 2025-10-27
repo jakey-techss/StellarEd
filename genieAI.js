@@ -124,10 +124,37 @@ if (userInfo == null) {
                 }
             })
 
+            document.getElementById("button").addEventListener("click", () => {
+                if (document.getElementById("prompt").value.trim() != "") {
+                    let prompt = document.getElementById("prompt").value
+                    document.getElementById("prompt").value = ""
+                    let message = document.createElement('div')
+                    message.classList.add("messageContainerOpposite")
+                    message.innerHTML = `<div class="profilePictureUser" style="background-image: url(${userInfoDatabase.ProfilePicture});"></div>
+                    <p class="messageSender poppins-light">${prompt}</p>`
+                    messageBox.appendChild(message)
+                    docRef.get().then((doc) => {
+                        if (doc.exists) {
+                            userInfoDatabase = doc.data()
+                        }
+                    }).then(() => {
+                        docRef.update({
+                            Chat: firebase.firestore.FieldValue.arrayUnion({
+                                message: prompt,
+                                sender: "User",
+                                id: userInfoDatabase.Chat.length + 1
+                            }
+                            )
+                        });
+                        callGemini(prompt)
+                    })
+                }
+            })
+
         })
 
         async function callGemini(prompt) {
-
+            document.getElementById("prompt").readOnly =true
             const response = await fetch(
                 "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=AIzaSyABYLRILqZ2BmBuo3mtWW8a5MvdM62ZgrE",
                 {
@@ -160,9 +187,6 @@ if (userInfo == null) {
 
             const data = await response.json();
             const clean = stripMarkdown(data.candidates[0].content.parts[0].text);
-
-            messageBox.removeChild(document.getElementById("loading"))
-            console.log(data.candidates[0].content.parts[0].text);
             message = document.createElement('div')
             message.classList.add("messageContainer")
             message.innerHTML = `<div class="profilePictureBot"></div>
@@ -182,6 +206,7 @@ if (userInfo == null) {
                     )
                 });
             })
+            document.getElementById("prompt").readOnly =false
         }
 
     }

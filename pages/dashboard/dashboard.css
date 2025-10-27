@@ -522,6 +522,34 @@ a:hover{
     overflow-y: auto;
     gap: 10px;
 }
+.inputEdit{
+    display: flex;
+    width:75%;
+    flex-direction: column;
+}
+.split{
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+}
+.split2{
+    display: flex;
+    align-items: start;
+    gap:20px;
+    justify-content: space-between;
+}
+.split2 a{
+    color: #5C0F88;
+    text-decoration: underline;
+    font-size: 0.875rem;
+    text-align: start;
+}
+.split > a{
+    color: #5C0F88;
+    text-decoration: underline;
+    font-size: 0.875rem;
+    text-align: end;
+}
 
 #schedule>a {
     color: #5C0F88;
@@ -545,7 +573,7 @@ a:hover{
     background-color: rgba(0, 0, 0, 0.65);
     position: absolute;
     top:0;
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: start;
     padding-top: 40px;
@@ -554,6 +582,22 @@ a:hover{
     font-size: 0.95rem;
     border:none ;
     background-color: #FF9494;
+    border-radius:8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    color: white;
+    font-weight: 400;
+    width: 70%;
+    font-family: "Poppins", sans-serif;
+}
+#completed{
+    font-size: 0.95rem;
+    border:none ;
+    display: none;
+    background-color: #5DBC3B;
     border-radius:8px;
     padding-left: 16px;
     padding-right: 16px;
@@ -584,6 +628,50 @@ a:hover{
     background-color:#FF9494;
     transition: background-color 0.5s;
 }
+.row{
+    justify-content: space-around;
+    background-color: beige;
+    display: flex;
+    align-items: center;
+}
+#cancel2{
+    font-size: 0.95rem;
+    border:2px solid #FF9494;
+    background-color: transparent;
+    border-radius:8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    color: black;
+    font-weight: 400;
+    width: 70%;
+    font-family: "Poppins", sans-serif;
+}
+#Delete{
+    font-size: 0.95rem;
+    border:none ;
+    background-color: #FF9494;
+    border-radius:8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    color: black;
+    font-weight: 400;
+    width: 70%;
+    font-family: "Poppins", sans-serif;
+}
+#Delete:hover{
+    background-color:#fe7777;
+    transition: background-color 0.5s;
+}
+#cancel2:hover{
+    background-color:#FF9494;
+    transition: background-color 0.5s;
+}
 #addTask{
     background-color: white;
     max-height: 75%;
@@ -598,8 +686,9 @@ a:hover{
 }
 #viewTask{
     background-color: white;
-    max-height: 75%;
+    max-height: 80%;
     width: 50%;
+    display: none;
     border-radius: 8px;
     padding-top: 10px;
     padding-left:80px;
@@ -673,7 +762,9 @@ h2 {
     background-image: url("https://www.svgrepo.com/show/405195/genie.svg");
     background-size: cover;
 }
-
+#proof{
+    display: none;
+}
 .icon>#Skills {
     width: 30px;
     height: 30px;

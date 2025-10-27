@@ -35,7 +35,13 @@ if (userInfo == null) {
         document.getElementById("WelcomeMessage").innerText = `Welcome ${JSON.parse(userInfo).Name.substring(0, JSON.parse(userInfo).Name.indexOf(" ") + 2)}.`
         document.getElementById("Date").innerText = `${dayOfWeek[d.getDay()]} ${monthOfYear[d.getMonth()]} ${d.getDate()}`
         document.getElementById("time").innerText = `${d.getHours() > 12 || d.getHours() == 0 ? Math.abs(d.getHours() - 12) : d.getHours()}:${d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes()}${d.getHours() > 12 ? "PM" : "AM"}`
-
+        let DiffRatio = {
+            Easy: 0.5,
+            Mid: 0.8,
+            Hard: 1,
+            Nightmare: 1.5,
+            Other: 0.2
+        }
         function drawChart(completedPercent = 100, toDo = 0, InProgress = 0) {
 
             // Set Data
@@ -43,7 +49,7 @@ if (userInfo == null) {
                 ['State', 'Percent'],
                 ['Completed', completedPercent],
                 ['To Do', toDo],
-                ['In progress', InProgress],
+
             ]);
 
             // Set Options
@@ -55,6 +61,7 @@ if (userInfo == null) {
                 colors: ['#57C057', '#57C09F', '#B698BB'],
                 chartArea: { height: "20px", backgroundColor: '#000000', top: 20, bottom: 100 },
                 height: 370,
+                pieSliceText: 'label',
                 pieStartAngle: 60
             };
 
@@ -64,10 +71,15 @@ if (userInfo == null) {
 
         }
         updateTasksList();
+        updatePoints()
         setInterval(() => {
             let d = new Date()
             document.getElementById("time").innerText = `${d.getHours() > 12 || d.getHours() == 0 ? Math.abs(d.getHours() - 12) : d.getHours()}:${d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes()}${d.getHours() > 12 ? "PM" : "AM"}`
-        }, 20000)
+        }, 60000)
+        setInterval(() => {
+            let d = new Date()
+             document.getElementById("Date").innerText = `${dayOfWeek[d.getDay()]} ${monthOfYear[d.getMonth()]} ${d.getDate()}`
+        }, 6000000)
         var docRef = db.collection("users").doc(JSON.parse(userInfo).Email);
         var EventBox = document.getElementById("Events")
         docRef.get().then((doc) => {
@@ -93,6 +105,7 @@ if (userInfo == null) {
             }
         }).then(() => {
             let box = document.getElementById("TaskCategory")
+            let box2 = document.getElementById("TC")
             for (i = 1; i < 12; i++) {
                 if (userInfoDatabase.Tasks[i] != undefined) {
                     let option = document.createElement('option')
@@ -102,12 +115,25 @@ if (userInfo == null) {
                     box.appendChild(option)
                 }
             }
-            let selectedItem = document.getElementById("TaskCategory").children.namedItem(document.getElementById("TaskCategory").value)
-            let Difficulty = userInfoDatabase.Tasks[selectedItem.name].Difficulty
             let option = document.createElement('option')
             option.innerHTML = "Other"
-            option.id = "Other"
+            option.id = "Other2"
             box.appendChild(option)
+            for (i = 1; i < 12; i++) {
+                if (userInfoDatabase.Tasks[i] != undefined) {
+                    let option = document.createElement('option')
+                    option.innerHTML = userInfoDatabase.Tasks[i].Name
+                    option.id = userInfoDatabase.Tasks[i].Name + "edit"
+                    option.name = i + "edit"
+                    box2.appendChild(option)
+                }
+            }
+            let selectedItem = document.getElementById("TaskCategory").children.namedItem(document.getElementById("TaskCategory").value)
+            let Difficulty = userInfoDatabase.Tasks[selectedItem.name].Difficulty
+            option = document.createElement('option')
+            option.innerHTML = "Other"
+            option.id = "Other"
+            box2.appendChild(option)
             document.getElementById("addNewTask1").addEventListener("click", () => {
                 window.scrollTo(0, 0)
                 document.body.style.padding = 0
@@ -167,13 +193,7 @@ if (userInfo == null) {
                         Difficulty = "Other"
                     }
                     let points;
-                    let DiffRatio = {
-                        Easy: 0.5,
-                        Mid: 0.8,
-                        Hard: 1,
-                        Nightmare: 1.5,
-                        Other: 0.2
-                    }
+
                     if (dueDate > currentDay) {
                         if (Difficulty == "Easy") {
                             points = 2 * Math.round(Math.sqrt(DiffRatio.Easy * ((dueDate - currentDay) / 10000)))
@@ -219,7 +239,8 @@ if (userInfo == null) {
                                 DiffLevel: Difficulty,
                                 id: userInfoDatabase.ToDo != undefined ? userInfoDatabase.ToDo.length : 0,
                                 Completed: false,
-                                DoneDate: ""
+                                DoneDate: "",
+                                TaskCategory: document.getElementById("TaskCategory").value
                             })
                         })
                             .then(() => {
@@ -259,7 +280,6 @@ if (userInfo == null) {
 
             })
         })
-
         function updateTasksList() {
             var docRef = db.collection("users").doc(JSON.parse(userInfo).Email);
 
@@ -273,12 +293,12 @@ if (userInfo == null) {
                     let tasksBox = document.getElementById("urgentTasks2")
 
                     for (i = 0; i < jim.length; i++) {
-                        if (!jim[i].Completed) {
+                        if (document.getElementById("NonUrgentTask" + jim[i].id) == undefined && (!jim[i].Completed || jim[i].Completed == 2) && d.getTime() < jim[i].DueDate.toDate().getTime()) {
                             let task = document.createElement("div")
                             task.classList.add(`${doc.exists && jim[i].DiffLevel == "Easy" || doc.exists && jim[i].DiffLevel == "Other" ? 'urgentTask2'
                                 : doc.exists && jim[i].DiffLevel == "Medium" ? 'urgentTask2Mid'
                                     : doc.exists && jim[i].DiffLevel == "Hard" ? 'urgentTask2Hard' : 'urgentTask2Nightmare'}`)
-                            task.id = "Non-UrgentTask" + userInfoDatabase.ToDo[i].id
+                            task.id = "NonUrgentTask" + jim[i].id
                             task.innerHTML = `<div class="${doc.exists && jim[i].DiffLevel == "Easy" || doc.exists && jim[i].DiffLevel == "Other" ? 'markerEasy' : `${doc.exists && jim[i].DiffLevel == "Medium" ? 'markerMid' : doc.exists && jim[i].DiffLevel == "Hard" ? 'markerHard' : 'markerNightmare'}`}"></div>
                     <div class="allHolder">
                         <div class="textHolder">
@@ -286,24 +306,22 @@ if (userInfo == null) {
                             <p>Due: ${jim[i].DueDate.toDate() - new Date() < 86400000 * 2 ? `${dayOfWeek[jim[i].DueDate.toDate().getDay()] == dayOfWeek[new Date().getDay()] ? 'Today ' : 'Tomorrow '}` +
                                     `${jim[i].DueDate.toDate().getHours() > 12 || jim[i].DueDate.toDate().getHours() == 0 ? Math.abs(jim[i].DueDate.toDate().getHours() - 12) :
                                         jim[i].DueDate.toDate().getHours()}:${jim[i].DueDate.toDate().getMinutes() < 10 ? "0" + jim[i].DueDate.toDate().getMinutes() :
-                                            jim[i].DueDate.toDate().getMinutes()}${jim[i].DueDate.toDate().getHours() > 12 ? "PM" : "AM"}` :
+                                            jim[i].DueDate.toDate().getMinutes()}${jim[i].DueDate.toDate().getHours() >= 12 ? "PM" : "AM"}` :
                                     dayOfWeek[jim[i].DueDate.toDate().getDay()] + " " + monthOfYear[jim[i].DueDate.toDate().getMonth()] + " " +
                                     jim[i].DueDate.toDate().getDate() + ` ${jim[i].DueDate.toDate().getFullYear() - d.getFullYear() >= 1 ? jim[i].DueDate.toDate().getFullYear() : ""}` + ` ${jim[i].DueDate.toDate().getHours() > 12 || jim[i].DueDate.toDate().getHours() == 0 ? Math.abs(jim[i].DueDate.toDate().getHours() - 12) :
                                         jim[i].DueDate.toDate().getHours()}:${jim[i].DueDate.toDate().getMinutes() < 10 ? "0"
-                                            + jim[i].DueDate.toDate().getMinutes() : jim[i].DueDate.toDate().getMinutes()}${jim[i].DueDate.toDate().getHours() > 12 ? "PM" : "AM"}`}</p>
+                                            + jim[i].DueDate.toDate().getMinutes() : jim[i].DueDate.toDate().getMinutes()}${jim[i].DueDate.toDate().getHours() >= 12 ? "PM" : "AM"}`}</p>
                         </div>
-                        <a>View</a>
+                        <a onclick="openEditScreeen(${task.id})">View</a>
                     </div>`
-                            if (document.getElementById(task.id) == undefined) {
-                                tasksBox.appendChild(task)
-                            }
+                            tasksBox.appendChild(task)
                         }
                     }
                     for (i = 0; i < jim.length; i++) {
-                        if (jim[i].DueDate.toDate() - new Date() < 86400000 * 2 && !jim[i].Completed) {
+                        if (document.getElementById("UrgentTask" +jim[i].id) == undefined && jim[i].DueDate.toDate() - new Date() < 86400000 * 2 && (!jim[i].Completed || jim[i].Completed == 2) && d.getTime() < jim[i].DueDate.toDate().getTime()) {
                             let task = document.createElement("div")
                             task.classList.add(`urgentTask`)
-                            task.id = task.id = "UrgentTask" + userInfoDatabase.ToDo[i].id
+                            task.id = task.id = "UrgentTask" + jim[i].id
                             task.innerHTML = `<div class="marker"></div>
                         <div class="allHolder">
                             <div class="textHolder">
@@ -311,13 +329,11 @@ if (userInfo == null) {
                                 <p>Due: ${dayOfWeek[jim[i].DueDate.toDate().getDay()] == dayOfWeek[new Date().getDay()] ? 'Today ' : 'Tomorrow '}
                                 ${jim[i].DueDate.toDate().getHours() > 12 || jim[i].DueDate.toDate().getHours() == 0 ? Math.abs(jim[i].DueDate.toDate().getHours() - 12) :
                                     jim[i].DueDate.toDate().getHours()}:${jim[i].DueDate.toDate().getMinutes() < 10 ? "0" + jim[i].DueDate.toDate().getMinutes() :
-                                        jim[i].DueDate.toDate().getMinutes()}${jim[i].DueDate.toDate().getHours() > 12 ? "PM" : "AM"}</p>
+                                        jim[i].DueDate.toDate().getMinutes()}${jim[i].DueDate.toDate().getHours() >= 12 ? "PM" : "AM"}</p>
                             </div>
-                            <a>View</a>
+                            <a onclick="openEditScreeen(${task.id})">View</a>
                         </div>`
-                            if (document.getElementById(task.id) == undefined) {
-                                Task2Box.appendChild(task)
-                            }
+                            Task2Box.appendChild(task)
                         }
                     }
                 } else {
@@ -329,18 +345,19 @@ if (userInfo == null) {
                 let InProgress = 0
                 for (i in userInfoDatabase.ToDo) {
                     i = userInfoDatabase.ToDo[i]
-                    if (i.DueDate.toDate().getTime() < new Date(d.getFullYear(), d.getMonth(), d.getDate() + (6 - d.getDay()), 23, 59, 59, 999) && i.Completed == false) {
+                    if (i.DueDate.toDate().getTime() < new Date(d.getFullYear(), d.getMonth(), d.getDate() + (6 - d.getDay()), 23, 59, 59, 999) && (i.Completed == false || i.Completed == 2) && d.getTime() < i.DueDate.toDate().getTime()) {
                         dueAssignment++;
-                    } else if (i.DoneDate != undefined && i.Completed == true) {
+                    } else if (i.DoneDate != undefined && i.Completed == true && d.getTime() < i.DueDate.toDate().getTime()) {
                         if (i.DoneDate.toDate().getTime() < new Date(d.getFullYear(), d.getMonth(), d.getDate() + d.getDay(), 23, 59, 59, 999) && i.DoneDate.toDate().getDay() == d.getDay()) {
                             CompletedAssignment++;
                         }
-                    } else if (i.DueDate.toDate().getTime() < new Date(d.getFullYear(), d.getMonth(), d.getDate() + (6 - d.getDay()), 23, 59, 59, 999) && i.Completed == 2) {
+                    }
+                    if (i.DueDate.toDate().getTime() < new Date(d.getFullYear(), d.getMonth(), d.getDate() + (6 - d.getDay()), 23, 59, 59, 999) && i.Completed == 2 && d.getTime() < i.DueDate.toDate().getTime()) {
                         InProgress++
                     }
                 }
-                if (dueAssignment == 0 && CompletedAssignment == 0) {
-                    google.charts.setOnLoadCallback(drawChart(CompletedAssignment / dueAssignment, dueAssignment, InProgress));
+                if ((dueAssignment == 0 && CompletedAssignment == 0) || dueAssignment == 0) {
+                    google.charts.setOnLoadCallback(drawChart(100 / 100, dueAssignment, InProgress));
                 } else {
                     google.charts.setOnLoadCallback(drawChart(CompletedAssignment / dueAssignment, dueAssignment, InProgress));
                 }
@@ -349,8 +366,377 @@ if (userInfo == null) {
             });
         }
 
-        document.getElementById("GenieAI").addEventListener(('click'),()=>{
+        document.getElementById("GenieAI").addEventListener(('click'), () => {
             window.location.assign("Genie AI.html")
         })
+
+        document.getElementById("cancel2").addEventListener("click", () => {
+            document.getElementById("floater").style.display = "none"
+            document.getElementById("viewTask").style.display = "none"
+            document.body.style.overflowY = "auto"
+            lock('titleEdit')
+            lock('dueDateEdit')
+            lock('TC')
+        })
+
+        function openEditScreeen(id) {
+            id = id.id
+            document.getElementById("fileProof").value = ""
+            window.scrollTo(0, 0)
+            document.body.style.overflowY = "hidden"
+            document.getElementById("floater").style.display = "flex"
+            document.getElementById("viewTask").style.display = "block"
+            docRef.get().then((doc) => {
+                if (doc.exists) {
+                    userInfoDatabase = doc.data()
+                }
+            }).then(() => {
+
+                let ToDoData = userInfoDatabase.ToDo[id.at(id.length - 1)]
+                let d = ToDoData.DueDate.toDate()
+                let Difficulty = ToDoData.DiffLevel
+                let currentDay = new Date()
+                let dueDate = ToDoData.DueDate.toDate()
+                document.getElementById("EditHeader").innerText = ToDoData.TaskTitle
+                document.getElementById("titleEdit").value = ToDoData.TaskTitle
+                document.getElementById("dueDateEdit").type = "text"
+                document.getElementById("dueDateEdit").value = `${dayOfWeek[ToDoData.DueDate.toDate().getDay()]} ${monthOfYear[ToDoData.DueDate.toDate().getMonth()]} ${ToDoData.DueDate.toDate().getDate()} ${d.getHours() > 12 || d.getHours() == 0 ? Math.abs(d.getHours() - 12) : d.getHours()}:${d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes()}${d.getHours() > 12 ? "PM" : "AM"}`
+                document.getElementById("TC").value = ToDoData.TaskCategory
+                let points
+                if (dueDate > currentDay) {
+                    if (Difficulty == "Easy") {
+                        points = 2 * Math.round(Math.sqrt(DiffRatio.Easy * ((ToDoData.DueDate.toDate() - currentDay) / 10000)))
+                    } else if (Difficulty == "Medium") {
+                        points = 2 * Math.round(Math.sqrt(DiffRatio.Mid * ((ToDoData.DueDate.toDate() - currentDay) / 10000)))
+                    } else if (Difficulty == "Hard") {
+                        points = 2 * Math.round(Math.sqrt(DiffRatio.Hard * ((ToDoData.DueDate.toDate() - currentDay) / 10000)))
+                    } else if (Difficulty == "Nightmare") {
+                        points = 2 * Math.round(Math.sqrt(DiffRatio.Nightmare * ((ToDoData.DueDate.toDate() - currentDay) / 1000)))
+                    } else if (Difficulty == "Other") {
+                        points = 2 * Math.round(Math.sqrt(DiffRatio.Other * ((ToDoData.DueDate.toDate() - currentDay) / 10000)))
+                    }
+                } else {
+                    points = 0
+                }
+                document.getElementById("points").value = points
+                document.getElementById("Status").value = ToDoData.Completed == false ? "false" : ToDoData.Completed == true ? "true" : "2"
+                document.getElementById("TC").addEventListener('change', () => {
+                    Difficulty = "Easy"
+                    currentDay = new Date()
+                    dueDate = ToDoData.DueDate.toDate()
+                    if (document.getElementById("TC").value != "Other") {
+                        let selectedItem = document.getElementById("TC").children.namedItem(document.getElementById("TC").value + "edit")
+                        Difficulty = userInfoDatabase.Tasks[selectedItem.name.substring(0, selectedItem.name.indexOf("edit"))].Difficulty
+                    } else if (document.getElementById("TC").value == "Other") {
+                        Difficulty = "Other"
+                    }
+                    let points;
+
+                    if (dueDate > currentDay) {
+                        if (Difficulty == "Easy") {
+                            points = 2 * Math.round(Math.sqrt(DiffRatio.Easy * ((dueDate - currentDay) / 10000)))
+                        } else if (Difficulty == "Medium") {
+                            points = 2 * Math.round(Math.sqrt(DiffRatio.Mid * ((dueDate - currentDay) / 10000)))
+                        } else if (Difficulty == "Hard") {
+                            points = 2 * Math.round(Math.sqrt(DiffRatio.Hard * ((dueDate - currentDay) / 10000)))
+                        } else if (Difficulty == "Nightmare") {
+                            points = 2 * Math.round(Math.sqrt(DiffRatio.Nightmare * ((dueDate - currentDay) / 1000)))
+                        } else if (Difficulty == "Other") {
+                            points = 2 * Math.round(Math.sqrt(DiffRatio.Other * ((dueDate - currentDay) / 10000)))
+                        }
+                        document.getElementById("points").value = points
+                    } else {
+                        document.getElementById("points").value = 0
+                    }
+                })
+                document.getElementById("dueDateEdit").addEventListener('change', () => {
+                    Difficulty = "Easy"
+                    currentDay = new Date()
+                    dueDate = new Date(document.getElementById("dueDateEdit").value)
+                    if (document.getElementById("TC").value != "Other") {
+                        let selectedItem = document.getElementById("TC").children.namedItem(document.getElementById("TC").value + "edit")
+                        Difficulty = userInfoDatabase.Tasks[selectedItem.name.substring(0, selectedItem.name.indexOf("edit"))].Difficulty
+                    } else if (document.getElementById("TC").value == "Other") {
+                        Difficulty = "Other"
+                    }
+                    let points;
+                    if (dueDate > currentDay) {
+                        if (Difficulty == "Easy") {
+                            points = 2 * Math.round(Math.sqrt(DiffRatio.Easy * ((dueDate - currentDay) / 10000)))
+                        } else if (Difficulty == "Medium") {
+                            points = 2 * Math.round(Math.sqrt(DiffRatio.Mid * ((dueDate - currentDay) / 10000)))
+                        } else if (Difficulty == "Hard") {
+                            points = 2 * Math.round(Math.sqrt(DiffRatio.Hard * ((dueDate - currentDay) / 10000)))
+                        } else if (Difficulty == "Nightmare") {
+                            points = 2 * Math.round(Math.sqrt(DiffRatio.Nightmare * ((dueDate - currentDay) / 1000)))
+                        } else if (Difficulty == "Other") {
+                            points = 2 * Math.round(Math.sqrt(DiffRatio.Other * ((dueDate - currentDay) / 10000)))
+                        }
+                        document.getElementById("points").value = points
+                    } else {
+                        document.getElementById("points").value = 0
+                    }
+                })
+                document.getElementById("signUpActual3").addEventListener(('click'), () => {
+                    let Title = document.getElementById("titleEdit").value
+                    let Date = document.getElementById("dueDateEdit").value
+                    let taskManager = {
+                        Title: false,
+                        Date: false,
+                    }
+                    if (Title == "") {
+                        taskManager.Title = false
+                    } else {
+                        taskManager.Title = true
+                    }
+                    if (Date == "" || !(dueDate > currentDay)) {
+                        taskManager.Date = false
+                    } else {
+                        taskManager.Date = true
+                    }
+                    let errorBox = document.getElementById("errors2")
+                    if (taskManager.Date && taskManager.Title) {
+                        var userRef = db.collection("users").doc(JSON.parse(userInfo).Email);
+                        // Set the "capital" field of the city 'DC'
+                        userRef.update({
+                            ToDo: firebase.firestore.FieldValue.arrayRemove(ToDoData),
+                        })
+                        userRef.update({
+                            ToDo: firebase.firestore.FieldValue.arrayUnion({
+                                TaskTitle: document.getElementById("titleEdit").value,
+                                DueDate: dueDate,
+                                MaxPointsAv: document.getElementById("points").value,
+                                DiffLevel: Difficulty,
+                                id: ToDoData.id,
+                                Completed: document.getElementById("Status").value == "false" ? false : document.getElementById("Status").value == "true" ? true : 2,
+                                DoneDate: "",
+                                TaskCategory: document.getElementById("TC").value
+                            })
+                        })
+                            .then(() => {
+                                let errorNode = document.createElement("p")
+                                errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">check</span>Successfully updated task`
+                                errorNode.id = "success"
+                                errorBox.appendChild(errorNode)
+                                setTimeout(() => {
+                                    errorBox.removeChild(document.getElementById("success"))
+                                    setTimeout(() => {
+                                        updateTasksList()
+                                        document.getElementById("floater").style.display = "none";
+                                        document.getElementById("viewTask").style.display = "none";
+                                        document.body.style.overflowY = "auto"
+                                        if (id.substring(0, 3) == "Non") {
+                                            try {
+                                                document.getElementById("urgentTasks2").removeChild(document.getElementById("urgentTasks2").children.namedItem(id))
+                                                if (document.getElementById("urgentTasks").children.namedItem(id.substring(3)) != undefined) {
+                                                    document.getElementById("urgentTasks").removeChild(document.getElementById("urgentTasks").children.namedItem(id.substring(3)))
+                                                }
+                                            } catch (e) {
+                                            }
+                                        } else {
+                                            try {
+                                                document.getElementById("urgentTasks").removeChild(document.getElementById("urgentTasks").children.namedItem(id))
+                                                document.getElementById("urgentTasks2").removeChild(document.getElementById("urgentTasks2").children.namedItem("Non" + id))
+                                            } catch (e) {
+
+                                            }
+                                        }
+                                    }, 200)
+                                }, 500)
+
+                            })
+                    }
+                    if (!taskManager.Date && document.getElementById("Invalid Date") == undefined) {
+                        let errorNode = document.createElement("p")
+                        errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Invalid Date`
+                        errorNode.id = "Invalid Date"
+                        errorBox.appendChild(errorNode)
+                    } else if (taskManager.Date && document.getElementById("Invalid Date") != undefined) {
+                        errorBox.removeChild(document.getElementById("Invalid Date"))
+                    }
+                    if (!taskManager.Title && document.getElementById("Title cannot be empty") == undefined) {
+                        let errorNode = document.createElement("p")
+                        errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Title cannot be empty`
+                        errorNode.id = "Title cannot be empty"
+                        errorBox.appendChild(errorNode)
+                    } else if (taskManager.Title && document.getElementById("Title cannot be empty") != undefined) {
+                        errorBox.removeChild(document.getElementById("Title cannot be empty"))
+                    }
+                })
+                document.getElementById("Status").addEventListener('change', () => {
+                    if (document.getElementById("Status").value == "true") {
+                        document.getElementById("proof").style.display = "flex"
+                        document.getElementById('completed').style.display = "block"
+                        document.getElementById("signUpActual3").style.display = "none"
+                    } else {
+                        document.getElementById("proof").style.display = "none"
+                        document.getElementById('completed').style.display = "none"
+                        document.getElementById("signUpActual3").style.display = "block"
+                    }
+                })
+                document.getElementById("Delete").addEventListener('click', () => {
+                    var userRef = db.collection("users").doc(JSON.parse(userInfo).Email);
+                    userRef.update({
+                        ToDo: firebase.firestore.FieldValue.arrayRemove(ToDoData),
+                    }).then(() => {
+                        let errorBox = document.getElementById("errors2")
+                        let errorNode = document.createElement("p")
+                        errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">check</span>Successfully removed task`
+                        errorNode.id = "success"
+                        errorBox.appendChild(errorNode)
+                        updateTasksList()
+                        setTimeout(() => {
+
+                            errorBox.removeChild(document.getElementById("success"))
+                            document.getElementById("floater").style.display = "none";
+                            document.getElementById("viewTask").style.display = "none";
+                            document.body.style.overflowY = "auto";
+                            if (id.substring(0, 3) == "Non") {
+                                try {
+                                    document.getElementById("urgentTasks2").removeChild(document.getElementById("urgentTasks2").children.namedItem(id))
+                                    if (document.getElementById("urgentTasks").children.namedItem(id.substring(3)) != undefined) {
+                                        document.getElementById("urgentTasks").removeChild(document.getElementById("urgentTasks").children.namedItem(id.substring(3)))
+                                    }
+                                } catch (e) {
+                                }
+                            } else {
+                                try {
+                                    document.getElementById("urgentTasks").removeChild(document.getElementById("urgentTasks").children.namedItem(id))
+                                    document.getElementById("urgentTasks2").removeChild(document.getElementById("urgentTasks2").children.namedItem("Non" + id))
+                                } catch (e) {
+
+                                }
+                            }
+                        }, 500)
+
+                    })
+                })
+                document.getElementById("completed").addEventListener('click', () => {
+                    let Title = document.getElementById("titleEdit").value
+                    let Date = document.getElementById("dueDateEdit").value
+                    let Proof = document.getElementById("fileProof").value
+                    console.log(Proof)
+                    let taskManager = {
+                        Title: false,
+                        Date: false,
+                        Proof: false
+                    }
+                    if (Title == "") {
+                        taskManager.Title = false
+                    } else {
+                        taskManager.Title = true
+                    }
+                    if (Date == "" || !(dueDate > currentDay)) {
+                        taskManager.Date = false
+                    } else {
+                        taskManager.Date = true
+                    }
+                    if (Proof == "") {
+                        taskManager.Proof = false
+                    } else {
+                        taskManager.Proof = true
+                    }
+                    let errorBox = document.getElementById("errors2")
+                    if (taskManager.Date && taskManager.Title && taskManager.Proof) {
+                        var userRef = db.collection("users").doc(JSON.parse(userInfo).Email);
+                        // Set the "capital" field of the city 'DC'
+                        userRef.update({
+                            ToDo: firebase.firestore.FieldValue.arrayRemove(ToDoData),
+                        })
+                        userRef.update({
+                            ToDo: firebase.firestore.FieldValue.arrayUnion({
+                                TaskTitle: document.getElementById("titleEdit").value,
+                                DueDate: dueDate,
+                                MaxPointsAv: document.getElementById("points").value,
+                                DiffLevel: Difficulty,
+                                id: ToDoData.id,
+                                Completed: document.getElementById("Status").value == "false" ? false : document.getElementById("Status").value == "true" ? true : 2,
+                                DoneDate: currentDay,
+                                TaskCategory: document.getElementById("TC").value
+                            }),
+                            Points: firebase.firestore.FieldValue.increment(parseInt(document.getElementById("points").value))
+                        })
+                            .then(() => {
+                                let errorNode = document.createElement("p")
+                                errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">check</span>Successfully completed task`
+                                errorNode.id = "success"
+                                errorBox.appendChild(errorNode)
+                                updatePoints()
+                                updateTasksList()
+                                setTimeout(() => {
+                                    errorBox.removeChild(document.getElementById("success"))
+                                    setTimeout(() => {
+                                        document.getElementById("floater").style.display = "none";
+                                        document.getElementById("viewTask").style.display = "none";
+                                        document.body.style.overflowY = "auto"
+                                        if (id.substring(0, 3) == "Non") {
+                                            try {
+                                                document.getElementById("urgentTasks2").removeChild(document.getElementById("urgentTasks2").children.namedItem(id))
+                                                if (document.getElementById("urgentTasks").children.namedItem(id.substring(3)) != undefined) {
+                                                    document.getElementById("urgentTasks").removeChild(document.getElementById("urgentTasks").children.namedItem(id.substring(3)))
+                                                }
+                                            } catch (e) {
+                                            }
+                                        } else {
+                                            try {
+                                                document.getElementById("urgentTasks").removeChild(document.getElementById("urgentTasks").children.namedItem(id))
+                                                document.getElementById("urgentTasks2").removeChild(document.getElementById("urgentTasks2").children.namedItem("Non" + id))
+                                            } catch (e) {
+
+                                            }
+                                        }
+                                    }, 200)
+                                }, 500)
+
+                            })
+                    }
+                    if (!taskManager.Date && document.getElementById("Invalid Date") == undefined) {
+                        let errorNode = document.createElement("p")
+                        errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Invalid Date`
+                        errorNode.id = "Invalid Date"
+                        errorBox.appendChild(errorNode)
+                    } else if (taskManager.Date && document.getElementById("Invalid Date") != undefined) {
+                        errorBox.removeChild(document.getElementById("Invalid Date"))
+                    }
+                    if (!taskManager.Title && document.getElementById("Title cannot be empty") == undefined) {
+                        let errorNode = document.createElement("p")
+                        errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Title cannot be empty`
+                        errorNode.id = "Title cannot be empty"
+                        errorBox.appendChild(errorNode)
+                    } else if (taskManager.Title && document.getElementById("Title cannot be empty") != undefined) {
+                        errorBox.removeChild(document.getElementById("Title cannot be empty"))
+                    }
+                })
+            })
+
+        }
+
+        function updatePoints() {
+            var docRef = db.collection("users").doc(JSON.parse(userInfo).Email);
+            docRef.get().then((doc) => {
+                if (doc.exists) {
+                    userInfoDatabase = doc.data()
+                }
+                if (userInfoDatabase.Points != undefined) {
+                    document.getElementById("TopPoints").innerHTML = userInfoDatabase.Points
+                } else {
+                    document.getElementById("TopPoints").innerHTML = 0
+                }
+            })
+        }
     }
+}
+
+function unlock(id) {
+    document.getElementById(id).readOnly = false
+    document.getElementById(id).focus()
+    if (id == "dueDateEdit") {
+        document.getElementById(id).type = "datetime-local"
+    }
+    document.getElementById(id).disabled = false
+}
+
+function lock(id) {
+    document.getElementById(id).readOnly = true
+    document.getElementById(id).disabled = true
 }

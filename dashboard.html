@@ -24,7 +24,7 @@
                                 src="https://lottie.host/8920851b-e9af-4e88-8c4d-febe19ae7cf2/BWYPKhHVz2.lottie"
                                 style="width: 50px;height: 50px" autoplay loop></dotlottie-wc>
 
-                            <p class="poppins-light">100</p>
+                            <p class="poppins-light" id="TopPoints">100</p>
                         </div>
                         <div class="topBarItem">
                             <dotlottie-wc
@@ -188,8 +188,7 @@
                 </div>
                 <div class="input">
                     <label for="hobbies">Due Date</label>
-                    <input name="hobbies" type="datetime-local" id="date"
-                        placeholder="Press enter to add a new item">
+                    <input name="hobbies" type="datetime-local" id="date" placeholder="Press enter to add a new item">
                 </div>
                 <div class="input">
                     <label for="hobbies">Task Category</label>
@@ -199,7 +198,8 @@
                 <div class="input">
                     <label for="hobbies">Max Allocated Points</label>
                     <input name="hobbies" type="text" id="AP" placeholder="Total points achievable" readonly>
-                    <a style="color: #5C0F88; text-decoration: underline; font-size: 0.875rem; margin-top: 6px;">How points are calculated</a>
+                    <a style="color: #5C0F88; text-decoration: underline; font-size: 0.875rem; margin-top: 6px;">How
+                        points are calculated</a>
                 </div>
             </div>
             <div id="errors">
@@ -210,12 +210,64 @@
                 <button id="cancel" style="width: 40%;">Cancel</button>
             </div>
         </div>
-        <div id="viewTask">
-            <h3>Center Of Mass Lab Report</h3>
+        <div id="viewTask" style="padding-top: 20px; padding-bottom: 80px;">
+            <h3 style="padding-bottom: 20px;" id="EditHeader"></h3>
+            <div id="form">
+                <div class="split">
+                    <div class="inputEdit">
+                        <label for="titleEdit">Title</label>
+                        <input name="title" id="titleEdit" type="text" readonly value="">
+                    </div>
+                    <a onclick="unlock('titleEdit')">Edit</a>
+                </div>
+                <div class="split">
+                    <div class="inputEdit">
+                        <label for="dueDateEdit">Due Date</label>
+                        <input name="dueDateEdit" id="dueDateEdit" readonly value="" type="text">
+                    </div>
+                    <a onclick="unlock('dueDateEdit')">Edit</a>
+                </div>
+                <div class="split">
+                    <div class="inputEdit">
+                        <label for="TaskCategory">Task Category</label>
+                        <select name="TaskCategory" id="TC" disabled>
+                        </select>
+                    </div>
+                    <a onclick="unlock('TC')">Edit</a>
+                </div>
+                <div class="split2">
+                    <div class="inputEdit">
+                        <label for="points">Max Points</label>
+                        <input name="title" id="points" readonly value="2096" type="text">
+                        <a>See how points are calculated</a>
+                    </div>
+                    <div class="inputEdit">
+                        <label for="Status">Status</label>
+                        <select name="Status" id="Status">
+                            <option value="false">To do</option>
+                            <option value="2">In progress</option>
+                            <option value="true">Completed</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="proof" class="inputEdit">
+                    <label for="fileProof">Proof of completion</label>
+                    <input type="file" id="fileProof" name="fileProof" multiple>
+                </div>
+                <div id="errors2">
+
+                </div>
+                <div id="buttonsSignUp">
+                    <button id="signUpActual3" style="width: 60%; margin-top: 0px;">Update Task</button>
+                    <button id="completed" style="width: 60%; margin-top: 3px;">Complete Task</button>
+                    <button id="cancel2" style="width: 60%;">Cancel</button>
+                    <button id="Delete" style="width: 60%; margin-top: 3px;">Delete Task</button>
+                </div>
+            </div>
         </div>
     </div>
     <div id="logOutButton">
-    <button id="signUpActual2" style="width: 40%; margin-top: 50px;">Log out</button>
+        <button id="signUpActual2" style="width: 40%; margin-top: 50px;">Log out</button>
     </div>
     <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.5/dist/dotlottie-wc.js" type="module"></script>
     <script src="pages/dashboard/dashboard.js"></script>
