@@ -150,6 +150,7 @@ if (userInfo == null) {
                     option.innerHTML = userInfoDatabase.Tasks[i].Name
                     option.id = userInfoDatabase.Tasks[i].Name
                     option.name = i
+                    option.value = userInfoDatabase.Tasks[i].Name
                     box.appendChild(option)
                 }
             }
@@ -162,6 +163,7 @@ if (userInfo == null) {
                     let option = document.createElement('option')
                     option.innerHTML = userInfoDatabase.Tasks[i].Name
                     option.id = userInfoDatabase.Tasks[i].Name + "edit"
+                    option.value = userInfoDatabase.Tasks[i].Name
                     option.name = i + "edit"
                     box2.appendChild(option)
                 }
