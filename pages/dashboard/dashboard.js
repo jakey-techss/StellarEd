@@ -167,7 +167,6 @@ if (userInfo == null) {
                 }
             }
             let selectedItem = document.getElementById("TaskCategory").children.namedItem(document.getElementById("TaskCategory").value)
-            let Difficulty = userInfoDatabase.Tasks[selectedItem.name].Difficulty
             option = document.createElement('option')
             option.innerHTML = "Other"
             option.id = "Other"
@@ -779,6 +778,10 @@ if (userInfo == null) {
 
             document.getElementById("search").addEventListener('change', () => {
                 if (document.getElementById("search").value.trim() != "") {
+                    for(i =0; i < document.getElementById("output2").children.length; i++){
+                        document.getElementById("output2").removeChild(document.getElementById())
+                        console.log(i)
+                    }
                     var userBox = document.getElementById("output2")
                     document.getElementById("Results").style.display = "block"
                     document.getElementById("output2").style.display = "flex"
