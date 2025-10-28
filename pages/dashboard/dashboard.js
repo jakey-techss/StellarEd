@@ -169,6 +169,7 @@ if (userInfo == null) {
                 }
             }
             let selectedItem = document.getElementById("TaskCategory").children.namedItem(document.getElementById("TaskCategory").value)
+             let Difficulty = userInfoDatabase.Tasks[selectedItem.name].Difficulty
             option = document.createElement('option')
             option.innerHTML = "Other"
             option.id = "Other"
