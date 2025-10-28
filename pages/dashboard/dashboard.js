@@ -185,6 +185,7 @@ if (userInfo == null) {
                     document.body.style.overflowY = "auto"
                 })
                 document.getElementById("date").addEventListener('change', () => {
+                    console.log(selectedItem)
                     let Difficulty = userInfoDatabase.Tasks[selectedItem.name].Difficulty
                     currentDay = new Date()
                     dueDate = new Date(document.getElementById("date").value)
