@@ -24,7 +24,7 @@
                                 src="https://lottie.host/8920851b-e9af-4e88-8c4d-febe19ae7cf2/BWYPKhHVz2.lottie"
                                 style="width: 50px;height: 50px" autoplay loop></dotlottie-wc>
 
-                            <p class="poppins-light" id="TopPoints">100</p>
+                            <p class="poppins-light" id="TopPoints"></p>
                         </div>
                         <div class="topBarItem">
                             <dotlottie-wc
@@ -132,7 +132,7 @@
                     </div>
                 </div>
                 <div class="links">
-                    <a>Add a friend</a>
+                    <a id="addFriends">Add a friend</a>
                     <a>Refresh</a>
                 </div>
             </div>
@@ -263,6 +263,128 @@
                     <button id="cancel2" style="width: 60%;">Cancel</button>
                     <button id="Delete" style="width: 60%; margin-top: 3px;">Delete Task</button>
                 </div>
+            </div>
+        </div>
+        <div id="addingFriends">
+            <p class="poppins-light" style="text-align: end; font-size: 0.775rem;" id="uniqueId">Your unique code:
+                A2E6GH1</p>
+            <h2 id="header">Friends</h2>
+            <div class="input">
+                <label>Username search</label>
+                <input name="searchFriends" type="search" id="search" placeholder="John Doe">
+            </div>
+            <div style="max-height: 430px; overflow-y: auto;">
+                <div id="Results" style="margin-top: 30px;">
+                    <label>Results</label>
+                </div>
+                <div id="output2">
+                    <div class="userBox">
+                        <div class="user2">
+                            <div id="FriendHolder">
+                                <div class="profilePictureLeader"></div>
+                                <p class="poppins-bold">Jimmy Butler</p>
+                            </div>
+                            <div class="onlineHolder">
+                                <div class="online"></div>
+                                <p>Online</p>
+                            </div>
+                            <button>+</button>
+                        </div>
+                        <div class="input">
+                            <input name="title" id="titleEdit" type="text" placeholder="Friends unique code">
+                        </div>
+                    </div>
+                    <div class="userBox">
+                        <div class="user2">
+                            <div id="FriendHolder">
+                                <div class="profilePictureLeader"></div>
+                                <p class="poppins-bold">Jimmy Butler</p>
+                            </div>
+                            <div class="onlineHolder">
+                                <div class="offline"></div>
+                                <p>Offline</p>
+                            </div>
+                            <button>+</button>
+                        </div>
+                        <div class="input">
+                            <input name="title" id="titleEdit" type="text" placeholder="Friends unique code">
+                        </div>
+                    </div>
+                </div>
+                <div id="Your-Friends" style="margin-top: 30px;">
+                    <label>Your Friends</label>
+                </div>
+                <div id="output">
+                    <div class="userBox">
+                        <div class="user2">
+                            <div id="FriendHolder">
+                                <div class="profilePictureLeader"></div>
+                                <p class="poppins-bold">Jimmy Butler</p>
+                            </div>
+                            <div class="onlineHolder">
+                                <div class="online"></div>
+                                <p>Online</p>
+                            </div>
+                            <button style="background-color: #ff4d4d;">-</button>
+                        </div>
+                    </div>
+                    <div class="userBox">
+                        <div class="user2">
+                            <div id="FriendHolder">
+                                <div class="profilePictureLeader"></div>
+                                <p class="poppins-bold">Jimmy Butler</p>
+                            </div>
+                            <div class="onlineHolder">
+                                <div class="offline"></div>
+                                <p>Offline</p>
+                            </div>
+                            <button style="background-color: #ff4d4d;">-</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="Requests" style="margin-top: 30px;">
+                    <label>Requests</label>
+                </div>
+                <div id="output3">
+                    <div class="userBox3" style="width: 50%;">
+                        <div class="user2">
+                            <div id="FriendHolder">
+                                <div class="profilePictureLeader"></div>
+                                <p class="poppins-bold">Jimmy Butler</p>
+                            </div>
+                            <div class="onlineHolder">
+                                <div class="online"></div>
+                                <p>Online</p>
+                            </div>
+                            <div>
+                                <button style="background-color: #32ce2a;">Accept</button>
+                                <button style="background-color: #ff4d4d;">Reject</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="userBox3" style="width: 50%;">
+                        <div class="user2">
+                            <div id="FriendHolder">
+                                <div class="profilePictureLeader"></div>
+                                <p class="poppins-bold">Jimmy Butler</p>
+                            </div>
+                            <div class="onlineHolder">
+                                <div class="offline"></div>
+                                <p>Offline</p>
+                            </div>
+                            <div>
+                                <button style="background-color: #32ce2a;">Accept</button>
+                                <button style="background-color: #ff4d4d;">Reject</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="errors">
+
+            </div>
+            <div id="buttonsSignUp">
+                <button id="cancel3" style="width: 40%;">Cancel</button>
             </div>
         </div>
     </div>

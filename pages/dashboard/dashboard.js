@@ -1,5 +1,32 @@
-
 let userInfo = window.localStorage.getItem("currentUserInfo")
+let letters = {
+    0: ["A", "A"],
+    1: ["B", "B"],
+    2: ["C", "C"],
+    3: ["D", "D"],
+    4: ["E", "E"],
+    5: ["F", "F"],
+    6: ["G", "G"],
+    7: ["H", "H"],
+    8: ["I", "I"],
+    9: ["J", "J"],
+    10: ["K", "K"],
+    11: ["L", "L"],
+    12: ["M", "M"],
+    13: ["N", "N"],
+    14: ["O", "O"],
+    15: ["P", "P"],
+    16: ["Q", "Q"],
+    17: ["R", "R"],
+    18: ["S", "S"],
+    19: ["T", "T"],
+    20: ["U", "U"],
+    21: ["V", "V"],
+    22: ["W", "W"],
+    23: ["X", "X"],
+    24: ["Y", "Y"],
+    25: ["Z", "Z"]
+}
 document.getElementById("signUpActual2").addEventListener("click", () => {
     localStorage.clear()
     window.location.assign("index.html")
@@ -78,7 +105,7 @@ if (userInfo == null) {
         }, 60000)
         setInterval(() => {
             let d = new Date()
-             document.getElementById("Date").innerText = `${dayOfWeek[d.getDay()]} ${monthOfYear[d.getMonth()]} ${d.getDate()}`
+            document.getElementById("Date").innerText = `${dayOfWeek[d.getDay()]} ${monthOfYear[d.getMonth()]} ${d.getDate()}`
         }, 6000000)
         var docRef = db.collection("users").doc(JSON.parse(userInfo).Email);
         var EventBox = document.getElementById("Events")
@@ -86,6 +113,17 @@ if (userInfo == null) {
             let j = 0
             if (doc.exists) {
                 userInfoDatabase = doc.data()
+                if (userInfoDatabase.FriendId != undefined) {
+                    document.getElementById("uniqueId").innerText = "Your unique code: " + userInfoDatabase.FriendId
+                } else {
+                    let FriendId = letters[(Math.random() * 27).toFixed()][Math.random().toFixed()] + (Math.random() * 99).toFixed() + letters[(Math.random() * 27).toFixed()][Math.random().toFixed()] + letters[(Math.random() * 27).toFixed()][Math.random().toFixed()] + (Math.random() * 40).toFixed() + letters[(Math.random() * 10).toFixed()][Math.random().toFixed()]
+                    document.getElementById("uniqueId").innerText = "Your unique code: " + FriendId
+                    var userRef = db.collection("users").doc(JSON.parse(userInfo).Email);
+
+                    return userRef.update({
+                        FriendId: FriendId
+                    })
+                }
                 for (i = 1; i <= 12; i++) {
                     if (doc.data().Tasks[i] != undefined && doc.data().Tasks[i].When.includes(dayOfWeek2[d.getDay() + 1])) {
                         j++
@@ -312,13 +350,13 @@ if (userInfo == null) {
                                         jim[i].DueDate.toDate().getHours()}:${jim[i].DueDate.toDate().getMinutes() < 10 ? "0"
                                             + jim[i].DueDate.toDate().getMinutes() : jim[i].DueDate.toDate().getMinutes()}${jim[i].DueDate.toDate().getHours() >= 12 ? "PM" : "AM"}`}</p>
                         </div>
-                        <a onclick="openEditScreeen(${task.id})">View</a>
+                        <a onclick="openEditScreeen(${task.id})">Actions</a>
                     </div>`
                             tasksBox.appendChild(task)
                         }
                     }
                     for (i = 0; i < jim.length; i++) {
-                        if (document.getElementById("UrgentTask" +jim[i].id) == undefined && jim[i].DueDate.toDate() - new Date() < 86400000 * 2 && (!jim[i].Completed || jim[i].Completed == 2) && d.getTime() < jim[i].DueDate.toDate().getTime()) {
+                        if (document.getElementById("UrgentTask" + jim[i].id) == undefined && jim[i].DueDate.toDate() - new Date() < 86400000 * 2 && (!jim[i].Completed || jim[i].Completed == 2) && d.getTime() < jim[i].DueDate.toDate().getTime()) {
                             let task = document.createElement("div")
                             task.classList.add(`urgentTask`)
                             task.id = task.id = "UrgentTask" + jim[i].id
@@ -331,7 +369,7 @@ if (userInfo == null) {
                                     jim[i].DueDate.toDate().getHours()}:${jim[i].DueDate.toDate().getMinutes() < 10 ? "0" + jim[i].DueDate.toDate().getMinutes() :
                                         jim[i].DueDate.toDate().getMinutes()}${jim[i].DueDate.toDate().getHours() >= 12 ? "PM" : "AM"}</p>
                             </div>
-                            <a onclick="openEditScreeen(${task.id})">View</a>
+                            <a onclick="openEditScreeen(${task.id})">Actions</a>
                         </div>`
                             Task2Box.appendChild(task)
                         }
@@ -383,6 +421,7 @@ if (userInfo == null) {
             id = id.id
             document.getElementById("fileProof").value = ""
             window.scrollTo(0, 0)
+            document.getElementById("proof").style.display = 'none'
             document.body.style.overflowY = "hidden"
             document.getElementById("floater").style.display = "flex"
             document.getElementById("viewTask").style.display = "block"
@@ -724,6 +763,68 @@ if (userInfo == null) {
                 }
             })
         }
+
+        document.getElementById("addFriends").addEventListener('click', () => {
+            document.getElementById("Results").style.display = "none"
+            document.getElementById("output2").style.display = "none"
+            document.getElementById("Your-Friends").style.display = "block"
+            document.getElementById("output").style.display = "flex"
+            document.getElementById("Requests").style.display = "block"
+            document.getElementById("output3").style.display = "flex"
+            document.getElementById("floater").style.display = "flex"
+            document.getElementById("addingFriends").style.display = "block"
+            document.getElementById("search").value = ""
+            window.scrollTo(0, 0)
+            document.body.style.overflowY = "hidden"
+
+            document.getElementById("search").addEventListener('change', () => {
+                if (document.getElementById("search").value.trim() != "") {
+                    var userBox = document.getElementById("output2")
+                    document.getElementById("Results").style.display = "block"
+                    document.getElementById("output2").style.display = "flex"
+                    document.getElementById("Your-Friends").style.display = "none"
+                    document.getElementById("output").style.display = "none"
+                    document.getElementById("Requests").style.display = "none"
+                    document.getElementById("output3").style.display = "none"
+                    db.collection("users").get().then((querySnapshot) => {
+                        querySnapshot.forEach((doc) => {
+                            if (doc.data().Name.toUpperCase().includes(document.getElementById("search").value.toUpperCase()) && doc.data().Name != userInfoDatabase.Name) {
+                                var user = document.createElement('div')
+                                user.classList.add('userBox')
+                                user.innerHTML = `<div class="user2">
+                            <div id="FriendHolder">
+                                <div class="profilePictureLeader" style="background-image:url(${doc.data().ProfilePicture})"></div>
+                                <p class="poppins-bold">${doc.data().Name}</p>
+                            </div>
+                            <div class="onlineHolder">
+                                <div class="online"></div>
+                                <p>Online</p>
+                            </div>
+                            <button>+</button>
+                        </div>
+                        <div class="input">
+                            <input name="title" id="titleEdit" type="text" placeholder="Friends unique code">
+                        </div>`
+                        userBox.appendChild(user)
+                            }
+                        });
+                    })
+                } else {
+                    document.getElementById("Results").style.display = "none"
+                    document.getElementById("output2").style.display = "none"
+                    document.getElementById("Your-Friends").style.display = "block"
+                    document.getElementById("output").style.display = "flex"
+                    document.getElementById("Requests").style.display = "block"
+                    document.getElementById("output3").style.display = "flex"
+                }
+            })
+        })
+
+        document.getElementById("cancel3").addEventListener('click', () => {
+            document.getElementById("floater").style.display = "none"
+            document.getElementById("addingFriends").style.display = "none"
+            document.body.style.overflowY = "auto"
+        })
     }
 }
 

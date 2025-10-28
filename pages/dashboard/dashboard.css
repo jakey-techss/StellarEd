@@ -379,8 +379,17 @@ h4 {
     display: flex;
     gap: 10px
 }
-
+.user2>#FriendHolder {
+    display: flex;
+    gap: 10px
+}
 .user>.onlineHolder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+.user2>.onlineHolder {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -428,9 +437,17 @@ a:hover{
 .user>.onlineHolder>p {
     font-size: 14px;
 }
-
+.user2>.onlineHolder>p {
+    font-size: 14px;
+}
 .online {
     background-color: #57C057;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+}
+.offline {
+    background-color: #818181;
     width: 10px;
     height: 10px;
     border-radius: 100%;
@@ -439,6 +456,112 @@ a:hover{
 .user {
     width: 95%;
     padding: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    background-color: #49454F;
+    border-radius: 9px;
+    color: white;
+}
+#output3{
+    max-height: 400px;
+    overflow-y: auto;
+    gap:10px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 4px;
+    justify-content: start;
+    align-items: start;
+}
+#output{
+    max-height: 400px;
+    overflow-y: auto;
+    gap:10px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 4px;
+    justify-content: start;
+    align-items: start;
+}
+#output2{
+    max-height: 400px;
+    overflow-y: auto;
+    gap:10px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 4px;
+    justify-content: start;
+    align-items: start;
+}
+.userBox{
+    display: flex;
+    gap:8px;
+    width: 40%;
+    max-width: 45%;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+}
+#output3 > .userBox{
+    width: 40%;
+}
+.userBox2{
+    display: flex;
+    gap:8px;
+    width: 80%;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+.userBox3{
+    display: flex;
+    gap:8px;
+    width: 80%;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+.userBox button{
+    font-size: 0.95rem;
+    background-color:#5C3E94;
+    border:none;
+    border-radius:8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    color: white;
+    font-weight: 300;
+    width: min-content;
+    height: auto;
+    font-family: "Poppins", sans-serif;
+}
+.userBox3 button{
+    font-size: 0.95rem;
+    background-color:#5C3E94;
+    border:none;
+    border-radius:8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    color: white;
+    font-weight: 300;
+    width: min-content;
+    height: auto;
+    font-family: "Poppins", sans-serif;
+}
+.user2{
+    width: 95%;
+    padding: 3px;
+    padding-left: 6px;
+    padding-right: 6px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -624,7 +747,26 @@ a:hover{
     width: 70%;
     font-family: "Poppins", sans-serif;
 }
+#cancel3{
+    font-size: 0.95rem;
+    border:2px solid #FF9494;
+    background-color: transparent;
+    border-radius:8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    color: black;
+    font-weight: 400;
+    width: 70%;
+    font-family: "Poppins", sans-serif;
+}
 #cancel:hover{
+    background-color:#FF9494;
+    transition: background-color 0.5s;
+}
+#cancel3:hover{
     background-color:#FF9494;
     transition: background-color 0.5s;
 }
@@ -693,6 +835,18 @@ a:hover{
     padding-top: 10px;
     padding-left:80px;
     padding-right:80px;
+    padding-bottom: 70px;
+    box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.25);
+}
+#addingFriends{
+    background-color: white;
+    max-height: 80%;
+    width: 70%;
+    display: none;
+    border-radius: 8px;
+    padding-top: 10px;
+    padding-left:80px;
+    padding-right:40px;
     padding-bottom: 70px;
     box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.25);
 }
