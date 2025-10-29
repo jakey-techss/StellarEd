@@ -452,6 +452,12 @@ a:hover{
     height: 10px;
     border-radius: 100%;
 }
+.pending {
+    background-color: #f8e778;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+}
 
 .user {
     width: 95%;
@@ -463,6 +469,17 @@ a:hover{
     background-color: #49454F;
     border-radius: 9px;
     color: white;
+}
+#output4{
+    max-height: 400px;
+    overflow-y: auto;
+    gap:10px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 4px;
+    justify-content: start;
+    align-items: start;
 }
 #output3{
     max-height: 400px;
@@ -500,14 +517,17 @@ a:hover{
 .userBox{
     display: flex;
     gap:8px;
-    width: 40%;
+    width: 70%;
     max-width: 45%;
     flex-direction: column;
     justify-content: start;
     align-items: start;
 }
 #output3 > .userBox{
-    width: 40%;
+    width: 70%;
+}
+#output4 > .userBox{
+    width: 70%;
 }
 .userBox2{
     display: flex;

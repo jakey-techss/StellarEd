@@ -115,6 +115,18 @@ button{
     gap:5px;
     margin: 0;
 }
+#errors3>#success{
+    background-color: #57C057;
+    border-radius: 5px;
+    padding-left: 8px;
+    color: white;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap:5px;
+    margin: 0;
+}
 #errors2>#success{
     background-color: #57C057;
     border-radius: 5px;
@@ -151,6 +163,18 @@ button{
     gap:5px;
     margin: 0;
 }
+#errors3>p:not(#success){
+    background-color: red;
+    border-radius: 5px;
+    padding-left: 8px;
+    color: white;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap:5px;
+    margin: 0;
+}
 #errors{
     margin-top: 30px;
     display: flex;
@@ -160,6 +184,14 @@ button{
 
 }
 #errors2{
+    margin-top: 30px;
+    display: flex;
+    gap:5px;
+    width: 100%;
+    flex-direction: column;
+
+}
+#errors3{
     margin-top: 30px;
     display: flex;
     gap:5px;

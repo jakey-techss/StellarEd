@@ -28,6 +28,10 @@ let letters = {
     25: ["Z", "Z"]
 }
 document.getElementById("signUpActual2").addEventListener("click", () => {
+    userRef.update({
+        Online: false,
+
+    })
     localStorage.clear()
     window.location.assign("index.html")
 })
@@ -48,7 +52,8 @@ if (userInfo == null) {
         };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
-        document.title = `${JSON.parse(userInfo).Name.substring(0, JSON.parse(userInfo).Name.indexOf(" "))}'s | Dashboard`
+
+        document.title = `${JSON.parse(userInfo).Name.substring(0, JSON.parse(userInfo).Name.indexOf(" "))}'s Dashboard`
         google.charts.load('current', { 'packages': ['corechart'] });
         let currentDay;
         let dueDate;
@@ -69,6 +74,10 @@ if (userInfo == null) {
             Nightmare: 1.5,
             Other: 0.2
         }
+        var userRef = db.collection("users").doc(JSON.parse(userInfo).Email);
+        userRef.update({
+            Online: true,
+        })
         function drawChart(completedPercent = 100, toDo = 0, InProgress = 0) {
 
             // Set Data
@@ -113,12 +122,23 @@ if (userInfo == null) {
             let j = 0
             if (doc.exists) {
                 userInfoDatabase = doc.data()
+                var userRef = db.collection("users").doc(JSON.parse(userInfo).Email);
+                if (userInfoDatabase.Recievers == null || userInfoDatabase.Recievers == undefined) {
+                    userRef.update({
+                        Recievers: []
+                    })
+                }
+                if (userInfoDatabase.Requests == null || userInfoDatabase.Requests == undefined) {
+                    userRef.update({
+                        Requests: []
+                    })
+                }
                 if (userInfoDatabase.FriendId != undefined) {
                     document.getElementById("uniqueId").innerText = "Your unique code: " + userInfoDatabase.FriendId
                 } else {
                     let FriendId = letters[(Math.random() * 27).toFixed()][Math.random().toFixed()] + (Math.random() * 99).toFixed() + letters[(Math.random() * 27).toFixed()][Math.random().toFixed()] + letters[(Math.random() * 27).toFixed()][Math.random().toFixed()] + (Math.random() * 40).toFixed() + letters[(Math.random() * 10).toFixed()][Math.random().toFixed()]
                     document.getElementById("uniqueId").innerText = "Your unique code: " + FriendId
-                    var userRef = db.collection("users").doc(JSON.parse(userInfo).Email);
+
 
                     return userRef.update({
                         FriendId: FriendId
@@ -169,7 +189,7 @@ if (userInfo == null) {
                 }
             }
             let selectedItem = document.getElementById("TaskCategory").children.namedItem(document.getElementById("TaskCategory").value)
-             let Difficulty = userInfoDatabase.Tasks[selectedItem.name].Difficulty
+            let Difficulty = userInfoDatabase.Tasks[selectedItem.name].Difficulty
             option = document.createElement('option')
             option.innerHTML = "Other"
             option.id = "Other"
@@ -188,7 +208,7 @@ if (userInfo == null) {
                     document.body.style.overflowY = "auto"
                 })
                 document.getElementById("date").addEventListener('change', () => {
-                    console.log(selectedItem)
+
                     let Difficulty = userInfoDatabase.Tasks[selectedItem.name].Difficulty
                     currentDay = new Date()
                     dueDate = new Date(document.getElementById("date").value)
@@ -657,7 +677,6 @@ if (userInfo == null) {
                     let Title = document.getElementById("titleEdit").value
                     let Date = document.getElementById("dueDateEdit").value
                     let Proof = document.getElementById("fileProof").value
-                    console.log(Proof)
                     let taskManager = {
                         Title: false,
                         Date: false,
@@ -767,6 +786,81 @@ if (userInfo == null) {
             })
         }
 
+        function addFriend(FriendId) {
+            let FriendIdInput = document.getElementById(FriendId + "UniqueId").value
+            var docRef = db.collection("users").doc(FriendId);
+            var docRefSelf = db.collection("users").doc(JSON.parse(userInfo).Email)
+            docRef.get().then((doc) => {
+                if (doc.data().FriendId == FriendIdInput) {
+                    docRefSelf.update({
+                        Requests: firebase.firestore.FieldValue.arrayUnion(
+                            FriendId
+                        )
+                    })
+
+                    docRef.update({
+                        Recievers: firebase.firestore.FieldValue.arrayUnion(
+                            JSON.parse(userInfo).Email)
+                    })
+
+                    var errorBox = document.getElementById("errors3")
+                    if (document.getElementById("Your friend has not completed onboarding") != undefined) {
+                        errorBox.removeChild(document.getElementById("Your friend has not completed onboarding"))
+                    }
+                    if (document.getElementById("Incorrect friend user id") != undefined) {
+                        errorBox.removeChild(document.getElementById("Incorrect friend user id"))
+                    }
+                    let errorNode = document.createElement("p")
+                    errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">check</span>Successfully sent request`
+                    errorNode.id = "success"
+                    errorBox.appendChild(errorNode)
+                    setTimeout(() => {
+                        document.getElementById("search").value = ""
+                        errorBox.removeChild(document.getElementById("success"))
+                    }, 500)
+                    if (document.getElementById("Incorrect friend user id") != undefined) {
+                        var errorBox = document.getElementById("errors3")
+                        errorBox.removeChild(document.getElementById("Incorrect friend user id"))
+                    }
+                    if (document.getElementById("Your friend has not completed onboarding") != undefined) {
+                        var errorBox = document.getElementById("errors3")
+                        errorBox.removeChild(document.getElementById("Your friend has not completed onboarding"))
+                    }
+                    document.getElementById("Results").style.display = "none"
+                    document.getElementById("output2").style.display = "none"
+                    document.getElementById("Your-Friends").style.display = "block"
+                    document.getElementById("output").style.display = "flex"
+                    document.getElementById("Requests").style.display = "block"
+                    document.getElementById("output3").style.display = "flex"
+                    document.getElementById("YourRequests").style.display = "block"
+                    document.getElementById("output4").style.display = "flex"
+
+
+
+                } else if (doc.data().FriendId == undefined || doc.data().FriendId == null) {
+                    var errorBox = document.getElementById("errors3")
+                    if (document.getElementById("Your friend has not completed onboarding") == undefined) {
+                        let errorNode = document.createElement("p")
+                        errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Your friend has not completed onboarding`
+                        errorNode.id = "Your friend has not completed onboarding"
+                        errorBox.appendChild(errorNode)
+                    } else if (document.getElementById("Your friend has not completed onboarding") != undefined) {
+                        errorBox.removeChild(document.getElementById("Your friend has not completed onboarding"))
+                    }
+                } else {
+                    var errorBox = document.getElementById("errors3")
+                    if (document.getElementById("Incorrect friend user id") == undefined) {
+                        let errorNode = document.createElement("p")
+                        errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Incorrect code`
+                        errorNode.id = "Incorrect friend user id"
+                        errorBox.appendChild(errorNode)
+                    } else if (document.getElementById("Incorrect friend user id") != undefined) {
+                        errorBox.removeChild(document.getElementById("Incorrect friend user id"))
+                    }
+                }
+            })
+        }
+
         document.getElementById("addFriends").addEventListener('click', () => {
             document.getElementById("Results").style.display = "none"
             document.getElementById("output2").style.display = "none"
@@ -776,54 +870,96 @@ if (userInfo == null) {
             document.getElementById("output3").style.display = "flex"
             document.getElementById("floater").style.display = "flex"
             document.getElementById("addingFriends").style.display = "block"
+            document.getElementById("YourRequests").style.display = "block"
+            document.getElementById("output4").style.display = "flex"
             document.getElementById("search").value = ""
             window.scrollTo(0, 0)
             document.body.style.overflowY = "hidden"
-
             document.getElementById("search").addEventListener('change', () => {
-                if (document.getElementById("search").value.trim() != "") {
-                    for(i =0; i < document.getElementById("output2").children.length; i++){
-                        document.getElementById("output2").removeChild(document.getElementById())
-                        console.log(i)
+                empty()
+                let g = 0;
+                if (document.getElementById("Incorrect friend user id") != undefined) {
+                    var errorBox = document.getElementById("errors3")
+                    errorBox.removeChild(document.getElementById("Incorrect friend user id"))
+                }
+                if (document.getElementById("Your friend has not completed onboarding") != undefined) {
+                    var errorBox = document.getElementById("errors3")
+                    errorBox.removeChild(document.getElementById("Your friend has not completed onboarding"))
+                }
+
+                async function empty() {
+                    for (i = 0; i < document.getElementById("output2").children.length; i++) {
+                        if (document.getElementById("output2").children.item(i) != document.getElementById("NoUsers")) {
+                            document.getElementById("output2").removeChild(document.getElementById("output2").children.item(i))
+                        }
                     }
-                    var userBox = document.getElementById("output2")
-                    document.getElementById("Results").style.display = "block"
-                    document.getElementById("output2").style.display = "flex"
-                    document.getElementById("Your-Friends").style.display = "none"
-                    document.getElementById("output").style.display = "none"
-                    document.getElementById("Requests").style.display = "none"
-                    document.getElementById("output3").style.display = "none"
-                    db.collection("users").get().then((querySnapshot) => {
-                        querySnapshot.forEach((doc) => {
-                            if (doc.data().Name.toUpperCase().includes(document.getElementById("search").value.toUpperCase()) && doc.data().Name != userInfoDatabase.Name) {
-                                var user = document.createElement('div')
-                                user.classList.add('userBox')
-                                user.innerHTML = `<div class="user2">
+                    return "Done"
+                }
+                empty().then(() => {
+                    if (document.getElementById("search").value.trim() != "") {
+                        var userBox = document.getElementById("output2")
+                        document.getElementById("Results").style.display = "block"
+                        document.getElementById("output2").style.display = "flex"
+                        document.getElementById("Your-Friends").style.display = "none"
+                        document.getElementById("output").style.display = "none"
+                        document.getElementById("Requests").style.display = "none"
+                        document.getElementById("output3").style.display = "none"
+                        document.getElementById("YourRequests").style.display = "none"
+                        document.getElementById("output4").style.display = "none"
+                        var docRef = db.collection("users").doc(JSON.parse(userInfo).Email);
+
+                        docRef.get().then((doc) => {
+                            if (doc.exists) {
+                                userInfoDatabase = doc.data()
+                            }
+                        })
+                        db.collection("users").get().then((querySnapshot) => {
+                            querySnapshot.forEach((doc) => {
+                                if (doc.data().Name.toUpperCase().includes(document.getElementById("search").value.toUpperCase()) && doc.data().Name != userInfoDatabase.Name && !userInfoDatabase.Requests.includes(doc.id)) {
+                                    g += 1;
+                                    var user = document.createElement('div')
+                                    user.classList.add('userBox')
+                                    user.id = doc.id
+                                    user.innerHTML = `<div class="user2">
                             <div id="FriendHolder">
                                 <div class="profilePictureLeader" style="background-image:url(${doc.data().ProfilePicture})"></div>
                                 <p class="poppins-bold">${doc.data().Name}</p>
                             </div>
                             <div class="onlineHolder">
-                                <div class="online"></div>
-                                <p>Online</p>
+                                <div class="${doc.data().Online == true ? 'online' : 'offline'}"></div>
+                                <p>${doc.data().Online == true ? 'Online' : 'Offline'}</p>
                             </div>
-                            <button>+</button>
+                            <button onclick="addFriend('${doc.id}')">+</button>
                         </div>
                         <div class="input">
-                            <input name="title" id="titleEdit" type="text" placeholder="Friends unique code">
+                            <input name="${doc.id}UniqueId" id="${doc.id}UniqueId" type="text" placeholder="Friends unique code">
                         </div>`
-                        userBox.appendChild(user)
+                                    if (document.getElementById(user.id) == null) {
+                                        userBox.appendChild(user)
+                                    }
+                                }
+                            })
+                                ;
+                        }).then(() => {
+                            if (g == 0) {
+                                document.getElementById("NoUsers").style.display = "block"
+                            } else {
+                                document.getElementById("NoUsers").style.display = "none"
                             }
-                        });
-                    })
-                } else {
-                    document.getElementById("Results").style.display = "none"
-                    document.getElementById("output2").style.display = "none"
-                    document.getElementById("Your-Friends").style.display = "block"
-                    document.getElementById("output").style.display = "flex"
-                    document.getElementById("Requests").style.display = "block"
-                    document.getElementById("output3").style.display = "flex"
-                }
+                        })
+                    } else {
+                        document.getElementById("Results").style.display = "none"
+                        document.getElementById("output2").style.display = "none"
+                        document.getElementById("Your-Friends").style.display = "block"
+                        document.getElementById("output").style.display = "flex"
+                        document.getElementById("Requests").style.display = "block"
+                        document.getElementById("output3").style.display = "flex"
+                        document.getElementById("YourRequests").style.display = "block"
+                        document.getElementById("output4").style.display = "flex"
+                    }
+                })
+
+
             })
         })
 
@@ -848,3 +984,5 @@ function lock(id) {
     document.getElementById(id).readOnly = true
     document.getElementById(id).disabled = true
 }
+
+
