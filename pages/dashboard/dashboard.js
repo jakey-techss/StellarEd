@@ -87,6 +87,13 @@ document.getElementById("signUpActual2").addEventListener("click", () => {
     localStorage.clear()
     window.location.assign("index.html")
 })
+document.getElementById("signUpActual10").addEventListener("click", () => {
+    userRef.update({
+        Online: false,
+    })
+    localStorage.clear()
+    window.location.assign("index.html")
+})
 if (userInfo == null) {
     window.location.assign("index.html")
 } else {
@@ -1690,6 +1697,8 @@ if (userInfo == null) {
         document.getElementById("ProfileApp").addEventListener('click', () => {
             document.getElementById("floater").style.display = "flex"
             document.getElementById("profileView").style.display = "flex"
+            document.getElementById("profilePicture2").style.backgroundImage =`url("${JSON.parse(userInfo).ProfilePicture}")`
+            document.getElementById("header2").style.backgroundImage = `${JSON.parse(userInfo).Name}`
             window.scrollTo(0, 0)
             document.body.style.overflowY = "hidden"
         })
