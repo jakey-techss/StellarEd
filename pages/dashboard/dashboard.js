@@ -118,6 +118,7 @@ if (userInfo == null) {
         var docRef = db.collection("users").doc(JSON.parse(userInfo).Email);
         var EventBox = document.getElementById("Events")
         docRef.get().then((doc) => {
+            document.getElementById("streak").innerText =doc.data().Streak
             let j = 0
             if (doc.exists) {
                 userInfoDatabase = doc.data()
@@ -132,17 +133,32 @@ if (userInfo == null) {
                         Requests: []
                     })
                 }
-                if (userInfoDatabase.FriendId != undefined) {
-                    document.getElementById("uniqueId").innerText = "Your unique code: " + userInfoDatabase.FriendId
-                } else {
-                    let FriendId = letters[(Math.random() * 27).toFixed()][Math.random().toFixed()] + (Math.random() * 99).toFixed() + letters[(Math.random() * 27).toFixed()][Math.random().toFixed()] + letters[(Math.random() * 27).toFixed()][Math.random().toFixed()] + (Math.random() * 40).toFixed() + letters[(Math.random() * 10).toFixed()][Math.random().toFixed()]
-                    document.getElementById("uniqueId").innerText = "Your unique code: " + FriendId
-
-
-                    return userRef.update({
-                        FriendId: FriendId
+                if (userInfoDatabase.Requests == null || userInfoDatabase.Requests == undefined) {
+                    userRef.update({
+                        Requests: []
                     })
                 }
+                if (userInfoDatabase.LastLogin != undefined) {
+                    if (d.getDate() - userInfoDatabase.LastLogin.toDate().getDate() == 1 && d.getMonth() == userInfoDatabase.LastLogin.toDate().getMonth() && d.getFullYear() == userInfoDatabase.LastLogin.toDate().getFullYear()) {
+                        userRef.update({
+                            Streak: firebase.firestore.FieldValue.increment(1),
+                            LastLogin: new Date()
+                        })
+                        
+                    } else {
+                        userRef.update({
+                            LastLogin: new Date()
+                        })
+                    }
+                } else {
+                    userRef.update({
+                        LastLogin: new Date()
+                    })
+                }
+                docRef.get().then((doc)=>{
+                            userInfoDatabase= doc.data()
+                            document.getElementById("streak").innerText =doc.data().Streak
+                        })
                 for (i = 1; i <= 12; i++) {
                     if (doc.data().Tasks[i] != undefined && doc.data().Tasks[i].When.includes(dayOfWeek2[d.getDay() + 1])) {
                         j++
@@ -985,35 +1001,35 @@ if (userInfo == null) {
             })
 
         }
-        function clearGoal(id){
+        function clearGoal(id) {
             userRef.update({
                 Goal: firebase.firestore.FieldValue.arrayRemove(userInfoDatabase.Goal[id])
             })
-            document.getElementById("goal"+id).style.textDecoration = "line-through"
-            setTimeout(()=>{
+            document.getElementById("goal" + id).style.textDecoration = "line-through"
+            setTimeout(() => {
                 updateGoalList()
-            },800)
-            
+            }, 800)
+
         }
         function updateGoalList() {
-            emptyFriends("goals","").then(()=>{
+            emptyFriends("goals", "").then(() => {
                 var docRef = db.collection("users").doc(JSON.parse(userInfo).Email);
-            docRef.get().then((doc) => {
-                userInfoDatabase = doc.data()
-                if (doc.exists && doc.data().Goal != undefined) {
-                    let goalBox = document.getElementById("goals")
-                    for (i = 0; i < doc.data().Goal.length; i++) {
-                        let goal = document.createElement('div')
-                        goal.classList.add("goal")
-                        goal.id = i
-                        goal.innerHTML = `<div>
+                docRef.get().then((doc) => {
+                    userInfoDatabase = doc.data()
+                    if (doc.exists && doc.data().Goal != undefined) {
+                        let goalBox = document.getElementById("goals")
+                        for (i = 0; i < doc.data().Goal.length; i++) {
+                            let goal = document.createElement('div')
+                            goal.classList.add("goal")
+                            goal.id = i
+                            goal.innerHTML = `<div>
                         <input onclick="clearGoal('${userInfoDatabase.Goal[i].id}')" type="checkbox" for="goal${userInfoDatabase.Goal[i].id}">
                         <label name="goal${userInfoDatabase.Goal[i].id}" class="poppins-regular" id="goal${userInfoDatabase.Goal[i].id}">${userInfoDatabase.Goal[i].GoalTitle}</label>
                     </div>`
-                        goalBox.appendChild(goal)
+                            goalBox.appendChild(goal)
+                        }
                     }
-                }
-            })
+                })
             })
         }
         function updatePoints() {
