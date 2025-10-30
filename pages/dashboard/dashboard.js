@@ -30,7 +30,6 @@ let letters = {
 document.getElementById("signUpActual2").addEventListener("click", () => {
     userRef.update({
         Online: false,
-
     })
     localStorage.clear()
     window.location.assign("index.html")
@@ -340,7 +339,222 @@ if (userInfo == null) {
                 })
 
             })
+            document.getElementById("addNewTask2").addEventListener("click", () => {
+                window.scrollTo(0, 0)
+                document.body.style.padding = 0
+                document.body.style.overflowY = "hidden"
+                document.getElementById("floater").style.display = "flex";
+                document.getElementById("addTask").style.display = "block";
+                document.getElementById("cancel").addEventListener("click", () => {
+                    document.getElementById("floater").style.display = "none";
+                    document.getElementById("addTask").style.display = "none";
+                    document.getElementById("date").value = ""
+                    document.getElementById("TaskTitle").value = ""
+                    document.body.style.overflowY = "auto"
+                })
+                document.getElementById("date").addEventListener('change', () => {
+
+                    let Difficulty = userInfoDatabase.Tasks[selectedItem.name].Difficulty
+                    currentDay = new Date()
+                    dueDate = new Date(document.getElementById("date").value)
+                    if (document.getElementById("TaskCategory").value != "Other") {
+                        let selectedItem = document.getElementById("TaskCategory").children.namedItem(document.getElementById("TaskCategory").value)
+                        Difficulty = userInfoDatabase.Tasks[selectedItem.name].Difficulty
+                    } else if (document.getElementById("TaskCategory").value == "Other") {
+                        Difficulty = "Other"
+                    }
+                    let points;
+                    let DiffRatio = {
+                        Easy: 0.5,
+                        Mid: 0.8,
+                        Hard: 1,
+                        Nightmare: 1.5,
+                        Other: 0.2
+                    }
+                    if (dueDate > currentDay) {
+                        if (Difficulty == "Easy") {
+                            points = 2 * Math.round(Math.sqrt(DiffRatio.Easy * ((dueDate - currentDay) / 10000)))
+                        } else if (Difficulty == "Medium") {
+                            points = 2 * Math.round(Math.sqrt(DiffRatio.Mid * ((dueDate - currentDay) / 10000)))
+                        } else if (Difficulty == "Hard") {
+                            points = 2 * Math.round(Math.sqrt(DiffRatio.Hard * ((dueDate - currentDay) / 10000)))
+                        } else if (Difficulty == "Nightmare") {
+                            points = 2 * Math.round(Math.sqrt(DiffRatio.Nightmare * ((dueDate - currentDay) / 1000)))
+                        } else if (Difficulty == "Other") {
+                            points = 2 * Math.round(Math.sqrt(DiffRatio.Other * ((dueDate - currentDay) / 10000)))
+                        }
+                        document.getElementById("AP").value = points
+                    } else {
+                        document.getElementById("AP").value = 0
+                    }
+                })
+                document.getElementById("TaskCategory").addEventListener('change', () => {
+                    Difficulty = "Easy"
+                    currentDay = new Date()
+                    dueDate = new Date(document.getElementById("date").value)
+                    if (document.getElementById("TaskCategory").value != "Other") {
+                        let selectedItem = document.getElementById("TaskCategory").children.namedItem(document.getElementById("TaskCategory").value)
+                        Difficulty = userInfoDatabase.Tasks[selectedItem.name].Difficulty
+                    } else if (document.getElementById("TaskCategory").value == "Other") {
+                        Difficulty = "Other"
+                    }
+                    let points;
+
+                    if (dueDate > currentDay) {
+                        if (Difficulty == "Easy") {
+                            points = 2 * Math.round(Math.sqrt(DiffRatio.Easy * ((dueDate - currentDay) / 10000)))
+                        } else if (Difficulty == "Medium") {
+                            points = 2 * Math.round(Math.sqrt(DiffRatio.Mid * ((dueDate - currentDay) / 10000)))
+                        } else if (Difficulty == "Hard") {
+                            points = 2 * Math.round(Math.sqrt(DiffRatio.Hard * ((dueDate - currentDay) / 10000)))
+                        } else if (Difficulty == "Nightmare") {
+                            points = 2 * Math.round(Math.sqrt(DiffRatio.Nightmare * ((dueDate - currentDay) / 1000)))
+                        } else if (Difficulty == "Other") {
+                            points = 2 * Math.round(Math.sqrt(DiffRatio.Other * ((dueDate - currentDay) / 10000)))
+                        }
+                        document.getElementById("AP").value = points
+                    } else {
+                        document.getElementById("AP").value = 0
+                    }
+                })
+                document.getElementById("signUpActual").addEventListener('click', () => {
+                    let Title = document.getElementById("TaskTitle").value
+                    let taskManager = {
+                        Title: false,
+                        Date: false,
+                    }
+                    if (Title == "") {
+                        taskManager.Title = false
+                    } else {
+                        taskManager.Title = true
+                    }
+                    if (Date == "" || !(dueDate > currentDay)) {
+                        taskManager.Date = false
+                    } else {
+                        taskManager.Date = true
+                    }
+                    let errorBox = document.getElementById("errors")
+                    if (taskManager.Date && taskManager.Title) {
+                        var userRef = db.collection("users").doc(JSON.parse(userInfo).Email);
+                        // Set the "capital" field of the city 'DC'
+                        return userRef.update({
+                            ToDo: firebase.firestore.FieldValue.arrayUnion({
+                                TaskTitle: Title,
+                                DueDate: dueDate,
+                                MaxPointsAv: document.getElementById("AP").value,
+                                DiffLevel: Difficulty,
+                                id: userInfoDatabase.ToDo != undefined ? userInfoDatabase.ToDo.length : 0,
+                                Completed: false,
+                                DoneDate: "",
+                                TaskCategory: document.getElementById("TaskCategory").value
+                            })
+                        })
+                            .then(() => {
+                                let errorNode = document.createElement("p")
+                                errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">check</span>Successfully added task`
+                                errorNode.id = "success"
+                                errorBox.appendChild(errorNode)
+                                setTimeout(() => {
+                                    errorBox.removeChild(document.getElementById("success"))
+                                    document.getElementById("floater").style.display = "none";
+                                    document.getElementById("AP").style.display = "";
+                                    document.getElementById("addTask").style.display = "none";
+                                    document.getElementById("date").value = ""
+                                    document.getElementById("TaskTitle").value = ""
+                                    document.body.style.overflowY = "auto"
+                                    updateTasksList()
+                                }, 1000)
+                            })
+                    }
+                    if (!taskManager.Date && document.getElementById("Invalid Date") == undefined) {
+                        let errorNode = document.createElement("p")
+                        errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Invalid Date`
+                        errorNode.id = "Invalid Date"
+                        errorBox.appendChild(errorNode)
+                    } else if (taskManager.Date && document.getElementById("Invalid Date") != undefined) {
+                        errorBox.removeChild(document.getElementById("Invalid Date"))
+                    }
+                    if (!taskManager.Title && document.getElementById("Title cannot be empty") == undefined) {
+                        let errorNode = document.createElement("p")
+                        errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Title cannot be empty`
+                        errorNode.id = "Title cannot be empty"
+                        errorBox.appendChild(errorNode)
+                    } else if (taskManager.Title && document.getElementById("Title cannot be empty") != undefined) {
+                        errorBox.removeChild(document.getElementById("Title cannot be empty"))
+                    }
+                })
+
+            })
+            document.getElementById("goalAdder").addEventListener("click", () => {
+                window.scrollTo(0, 0)
+                document.body.style.padding = 0
+                document.body.style.overflowY = "hidden"
+                document.getElementById("floater").style.display = "flex";
+                document.getElementById("addGoal").style.display = "block";
+                document.getElementById("cancel4").addEventListener("click", () => {
+                    document.getElementById("floater").style.display = "none";
+                    document.getElementById("addGoal").style.display = "none";
+                    document.getElementById("goal").value = ""
+                    document.body.style.overflowY = "auto"
+                })
+                document.getElementById("signUpActual4").addEventListener('click', () => {
+                    let Goal = document.getElementById("goal").value
+                    let taskManager = {
+                        Goal: false,
+                    }
+                    if (Goal == "") {
+                        taskManager.Goal = false
+                    } else {
+                        taskManager.Goal = true
+                    }
+                    if (!taskManager.Goal && document.getElementById("Invalid goal") == undefined) {
+                        let errorNode = document.createElement("p")
+                        errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Invalid goal`
+                        errorNode.id = "Invalid goal"
+                        errorBox.appendChild(errorNode)
+                    } else if (taskManager.Goal && document.getElementById("Invalid goal") != undefined) {
+                        errorBox.removeChild(document.getElementById("Invalid goal"))
+                    }
+
+                    let errorBox = document.getElementById("errors4")
+                    if (taskManager.Goal) {
+                        var userRef = db.collection("users").doc(JSON.parse(userInfo).Email);
+                        // Set the "capital" field of the city 'DC'
+                        return userRef.update({
+                            Goal: firebase.firestore.FieldValue.arrayUnion({
+                                GoalTitle: Goal,
+                                id: userInfoDatabase.Goal == null || userInfoDatabase.Goal == undefined ? 0 : userInfoDatabase.Goal.length
+                            })
+                        })
+                            .then(() => {
+                                let errorNode = document.createElement("p")
+                                errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">check</span>Successfully added goal`
+                                errorNode.id = "success"
+                                errorBox.appendChild(errorNode)
+                                setTimeout(() => {
+                                    errorBox.removeChild(document.getElementById("success"))
+                                    document.getElementById("floater").style.display = "none";
+                                    document.getElementById("goal").style.display = "";
+                                    document.getElementById("addGoal").style.display = "none";
+                                    document.body.style.overflowY = "auto"
+                                    updateGoalList()
+                                }, 1000)
+                            }).then(() => {
+                                emptyFriends("goals", "")
+                            })
+                    }
+                })
+
+            })
+        }).then(() => {
+            emptyFriends("users", "noFriends")
+
+            updateFriendUI()
+
+            emptyFriends("goals", "").then(() => { updateGoalList() })
         })
+
+
         function updateTasksList() {
             var docRef = db.collection("users").doc(JSON.parse(userInfo).Email);
 
@@ -771,7 +985,37 @@ if (userInfo == null) {
             })
 
         }
-
+        function clearGoal(id){
+            userRef.update({
+                Goal: firebase.firestore.FieldValue.arrayRemove(userInfoDatabase.Goal[id])
+            })
+            document.getElementById("goal"+id).style.textDecoration = "line-through"
+            setTimeout(()=>{
+                updateGoalList()
+            },800)
+            
+        }
+        function updateGoalList() {
+            emptyFriends("goals","").then(()=>{
+                var docRef = db.collection("users").doc(JSON.parse(userInfo).Email);
+            docRef.get().then((doc) => {
+                userInfoDatabase = doc.data()
+                if (doc.exists && doc.data().Goal != undefined) {
+                    let goalBox = document.getElementById("goals")
+                    for (i = 0; i < doc.data().Goal.length; i++) {
+                        let goal = document.createElement('div')
+                        goal.classList.add("goal")
+                        goal.id = i
+                        goal.innerHTML = `<div>
+                        <input onclick="clearGoal('${userInfoDatabase.Goal[i].id}')" type="checkbox" for="goal${userInfoDatabase.Goal[i].id}">
+                        <label name="goal${userInfoDatabase.Goal[i].id}" class="poppins-regular" id="goal${userInfoDatabase.Goal[i].id}">${userInfoDatabase.Goal[i].GoalTitle}</label>
+                    </div>`
+                        goalBox.appendChild(goal)
+                    }
+                }
+            })
+            })
+        }
         function updatePoints() {
             var docRef = db.collection("users").doc(JSON.parse(userInfo).Email);
             docRef.get().then((doc) => {
@@ -785,7 +1029,327 @@ if (userInfo == null) {
                 }
             })
         }
+        function updateFriendUI() {
+            emptyFriends("output", "NoUsers2")
+            let h = 0
+            emptyFriends("output", "NoUsers2").then(() => {
+                for (i = 0; i < userInfoDatabase.Friends.length; i++) {
+                    if (document.getElementById(userInfoDatabase.Friends[i]) == undefined) {
+                        var docRef = db.collection("users").doc(userInfoDatabase.Friends[i]);
+                        let FriendInfo;
+                        let FriendId
+                        docRef.get().then((doc) => {
+                            if (doc.exists) {
+                                FriendInfo = doc.data()
+                                FriendId = doc.id
+                            } else {
+                                userRef.update({
+                                    Friends: firebase.firestore.FieldValue.arrayRemove(userInfoDatabase.Friends[i])
+                                })
+                            }
+                        }).then(() => {
+                            h += 1;
+                            let friendBox = document.getElementById("output");
+                            var friendElement = document.createElement('div')
+                            friendElement.classList.add('userBox2')
+                            friendElement.id = userInfoDatabase.Friends[i]
+                            friendElement.innerHTML = `<div class="user2">
+                            <div id="FriendHolder">
+                                <div class="profilePictureLeader" style="background-image: url(${FriendInfo.ProfilePicture});"></div>
+                                <p class="poppins-bold">${FriendInfo.Name}</p>
+                            </div>
+                            <div class="onlineHolder">
+                                <div class="${FriendInfo.Online ? 'online' : 'offline'}"></div>
+                                <p>${FriendInfo.Online ? 'Online' : 'Offline'}</p>
+                            </div>
+                            <button style="background-color: #ff4d4d;" onclick='RemoveFriend("${FriendId}")'>-</button>
+                        </div>`
+                            friendBox.appendChild(friendElement)
+                        }).then(() => {
+                            if (h == 0) {
+                                document.getElementById("NoUsers2").style.display = "block"
+                            } else {
+                                document.getElementById("NoUsers2").style.display = "none"
+                            }
+                        })
+                    }
+                }
+                if (h == 0) {
+                    document.getElementById("NoUsers2").style.display = "block"
+                } else {
+                    document.getElementById("NoUsers2").style.display = "none"
+                }
+            })
+            emptyFriends("output3", "")
+            let t = 0
+            emptyFriends("output3", "").then(() => {
+                for (i = 0; i < userInfoDatabase.Recievers.length; i++) {
+                    if (document.getElementById(userInfoDatabase.Recievers[i] + "Recievers") == undefined) {
+                        var docRef = db.collection("users").doc(userInfoDatabase.Recievers[i]);
+                        let FriendInfo;
+                        let FriendId;
+                        docRef.get().then((doc) => {
+                            if (doc.exists) {
+                                FriendInfo = doc.data()
+                                FriendId = doc.id
+                            } else {
+                                userRef.update({
+                                    Requests: firebase.firestore.FieldValue.arrayRemove(userInfoDatabase.Recievers[i])
+                                })
+                            }
+                        }).then(() => {
+                            t += 1;
+                            let friendBox = document.getElementById("output3");
+                            var friendElement = document.createElement('div')
+                            friendElement.classList.add('userBox3')
+                            friendElement.style.width = "55%"
+                            friendElement.id = userInfoDatabase.Recievers[i] + "Sent"
+                            friendElement.innerHTML = ` <div class="user2">
+                            <div id="FriendHolder">
+                                <div class="profilePictureLeader" style="background-image: url(${FriendInfo.ProfilePicture});"></div>
+                                <p class="poppins-bold">${FriendInfo.Name}</p>
+                            </div>
+                            <div class="onlineHolder">
+                                <div class="${FriendInfo.Online ? 'online' : 'offline'}"></div>
+                                <p>${FriendInfo.Online ? 'Online' : 'Offline'}</p>
+                            </div>
+                            <div>
+                                <button style="background-color: #32ce2a;" onclick='AcceptRequest("${FriendId}")'>Accept</button>
+                                <button style="background-color: #ff4d4d;" onclick='RejectRequest("${FriendId}")'>Reject</button>
+                            </div>
+                        </div>`
+                            friendBox.appendChild(friendElement)
+                        }).then(() => {
+                            if (t == 0) {
+                                document.getElementById("Requests").style.display = "none"
+                                document.getElementById("output3").style.display = "none"
+                            } else {
+                                document.getElementById("Requests").style.display = "block"
+                                document.getElementById("output3").style.display = "flex"
+                            }
+                        })
+                    }
+                } if (t == 0) {
+                    document.getElementById("Requests").style.display = "none"
+                    document.getElementById("output3").style.display = "none"
+                } else {
+                    document.getElementById("Requests").style.display = "block"
+                    document.getElementById("output3").style.display = "flex"
+                }
+            })
 
+            emptyFriends("output4", "")
+            let u = 0
+            emptyFriends("output4", "").then(() => {
+                for (i = 0; i < userInfoDatabase.Requests.length; i++) {
+                    if (document.getElementById(userInfoDatabase.Requests[i] + "Sent") == undefined) {
+                        var docRef = db.collection("users").doc(userInfoDatabase.Requests[i]);
+                        let FriendInfo;
+                        let FriendId;
+                        docRef.get().then((doc) => {
+                            if (doc.exists) {
+                                FriendInfo = doc.data()
+                                FriendId = doc.id
+                            } else {
+                                userRef.update({
+                                    Requests: firebase.firestore.FieldValue.arrayRemove(userInfoDatabase.Requests[i])
+                                })
+                            }
+                        }).then(() => {
+                            u += 1;
+                            let friendBox = document.getElementById("output4");
+                            var friendElement = document.createElement('div')
+                            friendElement.classList.add('userBox3')
+                            friendElement.style.width = "50%"
+                            friendElement.id = userInfoDatabase.Requests[i] + "Sent"
+                            friendElement.innerHTML = `<div class="user2">
+                            <div id="FriendHolder">
+                                <div class="profilePictureLeader" style="background-image:url('${FriendInfo.ProfilePicture}')"></div>
+                                <p class="poppins-bold">${FriendInfo.Name}</p>
+                            </div>
+                            <div class="onlineHolder">
+                                <div class="pending"></div>
+                                <p>Pending</p>
+                            </div>
+                            <div>
+                                <button style="background-color: #ff4d4d;" onclick='cancelRequest("${FriendId}")'>Cancel</button>
+                            </div>
+                        </div>`
+                            friendBox.appendChild(friendElement)
+                        }).then(() => {
+                            if (u == 0) {
+                                document.getElementById("YourRequests").style.display = "none"
+                                document.getElementById("output4").style.display = "none"
+                            } else {
+                                document.getElementById("YourRequests").style.display = "block"
+                                document.getElementById("output4").style.display = "flex"
+                            }
+                        })
+                    }
+                }
+                if (u == 0) {
+                    document.getElementById("YourRequests").style.display = "none"
+                    document.getElementById("output4").style.display = "none"
+                } else {
+                    document.getElementById("YourRequests").style.display = "block"
+                    document.getElementById("output4").style.display = "flex"
+                }
+            })
+            updateMainFriendUI()
+        }
+        function updateMainFriendUI() {
+            emptyFriends("users", "noFriends")
+            let o = 0
+            emptyFriends("users", "noFriends").then(() => {
+                let Friends = userInfoDatabase.Friends.sort((a, b) => {
+
+                    var docRef = db.collection("users").doc(a);
+                    docRef.get().then((doc) => {
+                        if (doc.exists) {
+                            a = doc.data()
+                        } else {
+                            userRef.update({
+                                Friends: firebase.firestore.FieldValue.arrayRemove(Friends[i])
+                            })
+                        }
+                    })
+                    var docRefB = db.collection("users").doc(b);
+                    docRefB.get().then((doc) => {
+                        if (doc.exists) {
+                            b = doc.data()
+                        } else {
+                            userRef.update({
+                                Friends: firebase.firestore.FieldValue.arrayRemove(Friends[i])
+                            })
+                        }
+                    })
+                    return a.Points - b.Points;
+                })
+                for (i = 0; i < Friends.length; i++) {
+                    if (document.getElementById(Friends[i]) == undefined) {
+                        var docRef = db.collection("users").doc(Friends[i]);
+                        let FriendInfo2;
+                        let FriendId2
+                        docRef.get().then((doc) => {
+                            if (doc.exists) {
+                                FriendInfo2 = doc.data()
+                                FriendId2 = doc.id
+                            } else {
+                                userRef.update({
+                                    Friends: firebase.firestore.FieldValue.arrayRemove(Friends[i])
+                                })
+                            }
+                        }).then(() => {
+                            o += 1;
+
+                            let friendBox = document.getElementById("users");
+                            var friendElement = document.createElement('div')
+                            friendElement.classList.add('user')
+                            friendElement.id = Friends[i]
+                            friendElement.innerHTML = `<div class="user">
+                        <div id="FriendHolder">
+                        <p class="rank">${Friends.indexOf(FriendId2) + 1}</p>
+                            <div class="profilePictureLeader" style="background-image: url(${FriendInfo2.ProfilePicture});"></div>
+                            <p class="poppins-bold">${FriendInfo2.Name}</p>
+                        </div>
+                        <div class="onlineHolder">
+                            <div class="${FriendInfo2.Online ? 'online' : 'offline'}"></div>
+                            <p>${FriendInfo2.Online ? 'Online' : 'Offline'}</p>
+                        </div>
+                    </div>`
+                            friendBox.appendChild(friendElement)
+                        }).then(() => {
+                            if (o == 0) {
+                                document.getElementById("noFriends").style.display = "block"
+                            } else {
+                                document.getElementById("noFriends").style.display = "none"
+                            }
+                        })
+                    }
+                }
+                if (o == 0) {
+                    document.getElementById("noFriends").style.display = "block"
+                } else {
+                    document.getElementById("noFriends").style.display = "none"
+                }
+            })
+        }
+        async function emptyFriends(boxToEmpty, ErrorNode) {
+            for (i = 0; i < document.getElementById(boxToEmpty).children.length; i++) {
+                if (document.getElementById(boxToEmpty).children.item(i) != document.getElementById(ErrorNode)) {
+                    document.getElementById(boxToEmpty).removeChild(document.getElementById(boxToEmpty).children.item(i))
+                }
+            }
+            return "Done"
+        }
+
+
+        function cancelRequest(id) {
+            var friendRef = db.collection("users").doc(id)
+            friendRef.update({
+                Recievers: firebase.firestore.FieldValue.arrayRemove(JSON.parse(userInfo).Email)
+            })
+            userRef.update({
+                Requests: firebase.firestore.FieldValue.arrayRemove(id)
+            })
+            docRef.get().then((doc) => {
+                if (doc.exists) {
+                    userInfoDatabase = doc.data()
+                }
+            }).then(() => {
+                updateFriendUI()
+            })
+        }
+        function RejectRequest(id) {
+            var friendRef = db.collection("users").doc(id)
+            friendRef.update({
+                Requests: firebase.firestore.FieldValue.arrayRemove(JSON.parse(userInfo).Email)
+            })
+            userRef.update({
+                Recievers: firebase.firestore.FieldValue.arrayRemove(id)
+            })
+            docRef.get().then((doc) => {
+                if (doc.exists) {
+                    userInfoDatabase = doc.data()
+                }
+            }).then(() => {
+                updateFriendUI()
+            })
+        }
+        function AcceptRequest(id) {
+            var friendRef = db.collection("users").doc(id)
+            friendRef.update({
+                Requests: firebase.firestore.FieldValue.arrayRemove(JSON.parse(userInfo).Email),
+                Friends: firebase.firestore.FieldValue.arrayUnion(JSON.parse(userInfo).Email)
+            })
+            userRef.update({
+                Recievers: firebase.firestore.FieldValue.arrayRemove(id),
+                Friends: firebase.firestore.FieldValue.arrayUnion(id)
+            })
+            docRef.get().then((doc) => {
+                if (doc.exists) {
+                    userInfoDatabase = doc.data()
+                }
+            }).then(() => {
+                updateFriendUI()
+            })
+        }
+        function RemoveFriend(id) {
+            var friendRef = db.collection("users").doc(id)
+            friendRef.update({
+                Friends: firebase.firestore.FieldValue.arrayRemove(JSON.parse(userInfo).Email)
+            })
+            userRef.update({
+                Friends: firebase.firestore.FieldValue.arrayRemove(id)
+            })
+            docRef.get().then((doc) => {
+                if (doc.exists) {
+                    userInfoDatabase = doc.data()
+                }
+            }).then(() => {
+                updateFriendUI()
+            })
+        }
         function addFriend(FriendId) {
             let FriendIdInput = document.getElementById(FriendId + "UniqueId").value
             var docRef = db.collection("users").doc(FriendId);
@@ -803,6 +1367,13 @@ if (userInfo == null) {
                             JSON.parse(userInfo).Email)
                     })
 
+                    docRefSelf.get().then((doc) => {
+                        if (doc.exists) {
+                            userInfoDatabase = doc.data()
+                        }
+                    }).then(() => {
+                        updateFriendUI()
+                    })
                     var errorBox = document.getElementById("errors3")
                     if (document.getElementById("Your friend has not completed onboarding") != undefined) {
                         errorBox.removeChild(document.getElementById("Your friend has not completed onboarding"))
@@ -875,6 +1446,8 @@ if (userInfo == null) {
             document.getElementById("search").value = ""
             window.scrollTo(0, 0)
             document.body.style.overflowY = "hidden"
+            updateFriendUI()
+
             document.getElementById("search").addEventListener('change', () => {
                 empty()
                 let g = 0;
@@ -895,6 +1468,7 @@ if (userInfo == null) {
                     }
                     return "Done"
                 }
+
                 empty().then(() => {
                     if (document.getElementById("search").value.trim() != "") {
                         var userBox = document.getElementById("output2")
@@ -915,7 +1489,7 @@ if (userInfo == null) {
                         })
                         db.collection("users").get().then((querySnapshot) => {
                             querySnapshot.forEach((doc) => {
-                                if (doc.data().Name.toUpperCase().includes(document.getElementById("search").value.toUpperCase()) && doc.data().Name != userInfoDatabase.Name && !userInfoDatabase.Requests.includes(doc.id)) {
+                                if (doc.data().Name.toUpperCase().includes(document.getElementById("search").value.toUpperCase()) && doc.data().Name != userInfoDatabase.Name && !userInfoDatabase.Requests.includes(doc.id) && !userInfoDatabase.Recievers.includes(doc.id)) {
                                     g += 1;
                                     var user = document.createElement('div')
                                     user.classList.add('userBox')
@@ -948,6 +1522,7 @@ if (userInfo == null) {
                             }
                         })
                     } else {
+                        updateFriendUI()
                         document.getElementById("Results").style.display = "none"
                         document.getElementById("output2").style.display = "none"
                         document.getElementById("Your-Friends").style.display = "block"
@@ -959,7 +1534,6 @@ if (userInfo == null) {
                     }
                 })
 
-
             })
         })
 
@@ -968,6 +1542,8 @@ if (userInfo == null) {
             document.getElementById("addingFriends").style.display = "none"
             document.body.style.overflowY = "auto"
         })
+
+
     }
 }
 

@@ -92,7 +92,7 @@
             <h4 class="poppins-semibold">Tasks</h4>
             <div id="urgentTasks2">
             </div>
-            <a> + Add new Task</a>
+            <a id="addNewTask2"> + Add new Task</a>
         </div>
         <div id="scheduleAndLeader">
             <div id="schedule">
@@ -106,20 +106,11 @@
             <div id="leader">
                 <h4>Friends Leaderboard</h4>
                 <div id="users">
-                    <div class="user">
-                        <div id="FriendHolder">
-                            <div class="profilePictureLeader"></div>
-                            <p class="poppins-bold">Jimmy Butler</p>
-                        </div>
-                        <div class="onlineHolder">
-                            <div class="online"></div>
-                            <p>Online</p>
-                        </div>
-                    </div>
+                    <p id="noFriends" style="text-align: center;">You have no friends</p>
                 </div>
                 <div class="links">
-                    <a id="addFriends">Add a friend</a>
-                    <a>Refresh</a>
+                    <a id="addFriends">Add Friends</a>
+                    <a onclick="updateFriendUI()">Refresh</a>
                 </div>
             </div>
         </div>
@@ -127,16 +118,10 @@
             <h4 class="poppins-semibold">Goals</h4>
             <div id="goals">
                 <div class="goal">
-                    <div class="goalTitleAndCompletion">
-                        <p class="goalTitle poppins-regular">Read 2 Books Per Month</p>
-                        <p class="goalTitle poppins-light">50%</p>
-                    </div>
-                    <div class="loadingBackground">
-                        <div class="loadingItem"></div>
-                    </div>
+                    
                 </div>
             </div>
-            <a> + Add new Goal</a>
+            <a id="goalAdder"> + Add new Goal</a>
         </div>
         <div class="UrgentTasksContainer2">
             <h4 class="poppins-semibold">Skills</h4>
@@ -253,7 +238,7 @@
         </div>
         <div id="addingFriends">
             <p class="poppins-light" style="text-align: end; font-size: 0.775rem;" id="uniqueId">Your unique code:
-                A2E6GH1</p>
+            </p>
             <h2 id="header">Friends</h2>
             <div class="input">
                 <label>Username search</label>
@@ -264,78 +249,21 @@
                     <label>Results</label>
                 </div>
                 <div id="output2">
-                    <p id="NoUsers" style="text-align: center;">No users returned</p>
+                    <p id="NoUsers" style="text-align: center;">No users found</p>
                 </div>
                 <div id="Your-Friends" style="margin-top: 30px;">
                     <label>Your Friends</label>
                 </div>
                 <div id="output">
-                    <div class="userBox">
-                        <div class="user2">
-                            <div id="FriendHolder">
-                                <div class="profilePictureLeader"></div>
-                                <p class="poppins-bold">Jimmy Butler</p>
-                            </div>
-                            <div class="onlineHolder">
-                                <div class="online"></div>
-                                <p>Online</p>
-                            </div>
-                            <button style="background-color: #ff4d4d;">-</button>
-                        </div>
-                    </div>
-                    <div class="userBox">
-                        <div class="user2">
-                            <div id="FriendHolder">
-                                <div class="profilePictureLeader"></div>
-                                <p class="poppins-bold">Jimmy Butler</p>
-                            </div>
-                            <div class="onlineHolder">
-                                <div class="offline"></div>
-                                <p>Offline</p>
-                            </div>
-                            <button style="background-color: #ff4d4d;">-</button>
-                        </div>
-                    </div>
+                    <p id="NoUsers2" style="text-align: center;">No Friends</p>
                 </div>
                 <div id="Requests" style="margin-top: 30px;">
                     <label>Requests</label>
                 </div>
                 <div id="output3">
-                    <div class="userBox3" style="width: 50%;">
-                        <div class="user2">
-                            <div id="FriendHolder">
-                                <div class="profilePictureLeader"></div>
-                                <p class="poppins-bold">Jimmy Butler</p>
-                            </div>
-                            <div class="onlineHolder">
-                                <div class="online"></div>
-                                <p>Online</p>
-                            </div>
-                            <div>
-                                <button style="background-color: #32ce2a;">Accept</button>
-                                <button style="background-color: #ff4d4d;">Reject</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="userBox3" style="width: 50%;">
-                        <div class="user2">
-                            <div id="FriendHolder">
-                                <div class="profilePictureLeader"></div>
-                                <p class="poppins-bold">Jimmy Butler</p>
-                            </div>
-                            <div class="onlineHolder">
-                                <div class="offline"></div>
-                                <p>Offline</p>
-                            </div>
-                            <div>
-                                <button style="background-color: #32ce2a;">Accept</button>
-                                <button style="background-color: #ff4d4d;">Reject</button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div id="YourRequests" style="margin-top: 30px;">
-                    <label>Your Requests</label>
+                    <label onclick="cancelRequest(id)">Your Requests</label>
                 </div>
                 <div id="output4">
                     <div class="userBox3" style="width: 50%;">
@@ -360,6 +288,23 @@
             </div>
             <div id="buttonsSignUp">
                 <button id="cancel3" style="width: 40%;">Cancel</button>
+            </div>
+        </div>
+        <div id="addGoal">
+            <h2 id="header">Add a new goal</h2>
+            <div id="form">
+                <div class="input">
+                    <label for="goal">Goal</label>
+                    <input name="goal" type="text" id="goal" placeholder="Read 50 Books">
+                </div>
+
+            </div>
+            <div id="errors4">
+
+            </div>
+            <div id="buttonsSignUp">
+                <button id="signUpActual4" style="width: 40%; margin-top: 10px;">Add Goal</button>
+                <button id="cancel4" style="width: 40%;">Cancel</button>
             </div>
         </div>
     </div>
