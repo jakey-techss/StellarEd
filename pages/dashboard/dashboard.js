@@ -1698,7 +1698,7 @@ if (userInfo == null) {
             document.getElementById("floater").style.display = "flex"
             document.getElementById("profileView").style.display = "flex"
             document.getElementById("profilePicture2").style.backgroundImage =`url("${JSON.parse(userInfo).ProfilePicture}")`
-            document.getElementById("header2").innerText = `${JSON.parse(userInfo).Name}`
+            document.getElementById("header2").innerHTML = `${JSON.parse(userInfo).Name}`
             window.scrollTo(0, 0)
             document.body.style.overflowY = "hidden"
         })
