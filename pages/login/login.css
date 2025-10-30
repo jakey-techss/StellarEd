@@ -63,6 +63,21 @@
     width: 70%;
     font-family: "Poppins", sans-serif;
 }
+#signUpActual5{
+    font-size: 0.95rem;
+    background-color:#5C3E94;
+    border:none;
+    border-radius:8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    color: white;
+    font-weight: 300;
+    width: 70%;
+    font-family: "Poppins", sans-serif;
+}
 #signUpActual3{
     font-size: 0.95rem;
     background-color:#5C3E94;
@@ -83,6 +98,10 @@
     transition: background-color 2s;
 }
 #signUpActual4:hover{
+    background-color:hsl(261 41 31);
+    transition: background-color 2s;
+}
+#signUpActual5:hover{
     background-color:hsl(261 41 31);
     transition: background-color 2s;
 }

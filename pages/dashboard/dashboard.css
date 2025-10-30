@@ -829,6 +829,21 @@ a:hover{
     width: 70%;
     font-family: "Poppins", sans-serif;
 }
+#cancel6{
+    font-size: 0.95rem;
+    border:2px solid #FF9494;
+    background-color: transparent;
+    border-radius:8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    color: black;
+    font-weight: 400;
+    width: 70%;
+    font-family: "Poppins", sans-serif;
+}
 #cancel4{
     font-size: 0.95rem;
     border:2px solid #FF9494;
@@ -859,11 +874,34 @@ a:hover{
     width: 70%;
     font-family: "Poppins", sans-serif;
 }
+#cancel5{
+    font-size: 0.95rem;
+    border:2px solid #FF9494;
+    background-color: transparent;
+    border-radius:8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    color: black;
+    font-weight: 400;
+    width: 70%;
+    font-family: "Poppins", sans-serif;
+}
 #cancel:hover{
     background-color:#FF9494;
     transition: background-color 0.5s;
 }
+#cancel6:hover{
+    background-color:#FF9494;
+    transition: background-color 0.5s;
+}
 #cancel3:hover{
+    background-color:#FF9494;
+    transition: background-color 0.5s;
+}
+#cancel5:hover{
     background-color:#FF9494;
     transition: background-color 0.5s;
 }
@@ -944,6 +982,24 @@ a:hover{
     max-height: 75%;
     width: 50%;
     display:none;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 8px;
+    padding-top: 10px;
+    padding-left:80px;
+    padding-right:80px;
+    padding-bottom: 70px;
+    box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.25);
+}
+#Bank{
+    background-color: white;
+    max-height: 75%;
+    width: 50%;
+    display:none;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     border-radius: 8px;
     padding-top: 10px;
     padding-left:80px;
@@ -1066,7 +1122,7 @@ h2 {
 .icon>#Shop {
     width: 30px;
     height: 30px;
-    background-image: url("https://www.svgrepo.com/show/410931/shop.svg");
+    background-image: url("https://www.svgrepo.com/show/180389/bank-money.svg");
     background-size: cover;
 }
 

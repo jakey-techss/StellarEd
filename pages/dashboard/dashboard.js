@@ -27,6 +27,59 @@ let letters = {
     24: ["Y", "Y"],
     25: ["Z", "Z"]
 }
+let pointsAllocation = {
+    1: "LOK5E3BM2F",
+    2: "D9I6M85RAP",
+    3: "OM6GIQ5PRT",
+    4: "JC7IDMGE6Y",
+    5: "WJUE48FLR3",
+    6: "0HFZ2LQ7WU",
+    7: "JGO6S3DFYA",
+    8: "NAWH2ZF1QG",
+    9: "MHV1NXEBOJ",
+    10: "HRW94VU65Z",
+    11: "7GMPVD30HE",
+    12: "T469IXADFU",
+    13: "SDZ41KJ2OT",
+    14: "RXBJG3M1N8",
+    15: "KR48639FW0",
+    16: "ECFZOTV589",
+    17: "01CZXA35Y8",
+    18: "KI6LRFS7ZB",
+    19: "E3SQVM9XIW",
+    20: "0IH8QU57M3",
+    21: "ICQ74BG25T",
+    22: "GH85YKF0AU",
+    23: "TXC03WMJ5N",
+    24: "5UHMIJAW6P",
+    25: "6QPI9NOETR",
+    26: "MIDELZRN6F",
+    27: "SDY0IL82EX",
+    28: "OXBWTLK470",
+    29: "0OXZ9Q8EST",
+    30: "6H8KDSTN9L",
+    31: "9SJTZFQ1C4",
+    32: "VRI93KPDCX",
+    33: "OFX7KVDA8Q",
+    34: "48J5M2WAXF",
+    35: "7L6URZ25KJ",
+    36: "GS8HV2QKIU",
+    37: "AEZ5T1XY9W",
+    38: "RIPO61UJDM",
+    39: "RK2WS1AXEI",
+    40: "NLEA0IVQFO",
+    41: "F9PU68A2RW",
+    42: "TKY1FBO53I",
+    43: "0VYNJQ928L",
+    44: "WT8ESBGOIR",
+    45: "KDCEMSFX52",
+    46: "HPNGR4L89J",
+    47: "QRNJYT7X1C",
+    48: "ZYCWH4EIOP",
+    49: "2P8AMHQDWV",
+    50: "78VRC5FBUN"
+
+}
 document.getElementById("signUpActual2").addEventListener("click", () => {
     userRef.update({
         Online: false,
@@ -118,8 +171,8 @@ if (userInfo == null) {
         var docRef = db.collection("users").doc(JSON.parse(userInfo).Email);
         var EventBox = document.getElementById("Events")
         docRef.get().then((doc) => {
-            document.getElementById("streak").innerText =doc.data().Streak
-            document.getElementById('uniqueId').innerHTML = 'Your unique code: '+doc.data().FriendId
+            document.getElementById("streak").innerText = doc.data().Streak
+            document.getElementById('uniqueId').innerHTML = 'Your unique code: ' + doc.data().FriendId
             let j = 0
             if (doc.exists) {
                 userInfoDatabase = doc.data()
@@ -145,7 +198,7 @@ if (userInfo == null) {
                             Streak: firebase.firestore.FieldValue.increment(1),
                             LastLogin: new Date()
                         })
-                        
+
                     } else {
                         userRef.update({
                             LastLogin: new Date()
@@ -157,11 +210,11 @@ if (userInfo == null) {
                         LastLogin: new Date()
                     })
                 }
-                docRef.get().then((doc)=>{
-                            userInfoDatabase= doc.data()
-                            document.getElementById("streak").innerText =doc.data().Streak
-                            
-                        })
+                docRef.get().then((doc) => {
+                    userInfoDatabase = doc.data()
+                    document.getElementById("streak").innerText = doc.data().Streak
+
+                })
                 for (i = 1; i <= 12; i++) {
                     if (doc.data().Tasks[i] != undefined && doc.data().Tasks[i].When.includes(dayOfWeek2[d.getDay() + 1])) {
                         j++
@@ -1042,9 +1095,9 @@ if (userInfo == null) {
                     userInfoDatabase = doc.data()
                 }
                 if (userInfoDatabase.Points != undefined) {
-                    document.getElementById("TopPoints").innerHTML = userInfoDatabase.Points
+                    document.getElementById("TopPoints").innerHTML = userInfoDatabase.Points + "$"
                 } else {
-                    document.getElementById("TopPoints").innerHTML = 0
+                    document.getElementById("TopPoints").innerHTML = 0 + "$"
                 }
             })
         }
@@ -1561,12 +1614,92 @@ if (userInfo == null) {
             document.getElementById("addingFriends").style.display = "none"
             document.body.style.overflowY = "auto"
         })
+        document.getElementById("cancel6").addEventListener('click', () => {
+            document.body.removeChild(getElementById("timer"))
+            document.getElementById("timer").innerHTML = ''
+            document.getElementById("BankPoints").innerHTML = ''
+            document.getElementById("stellarPoints").value = ''
+            document.getElementById("floater").style.display = "none"
+            document.getElementById("Bank").style.display = "none"
+            document.body.style.overflowY = "auto"
+        })
+        document.getElementById("stellarPoints").addEventListener(`change`, () => {
 
-        document.getElementById("ProfileApp").addEventListener('click', () => {
-            document.getElementById("floater").style.display ="flex"
-            document.getElementById("profileView").style.display ="block"
+            let taskManager = {
+                amount: false
+            }
+            var docRef = db.collection("users").doc(JSON.parse(userInfo).Email);
+            docRef.get().then((doc) => {
+                if (doc.exists) {
+                    userInfoDatabase = doc.data()
+                }
+            })
+
+            if (document.getElementById("stellarPoints").value > userInfoDatabase.Points || document.getElementById("stellarPoints").value > 300000) {
+                taskManager.amount = false;
+                let errorBox = document.getElementById("errors5")
+                if (document.getElementById("Invalid amount") == undefined) {
+                    let errorNode = document.createElement("p")
+                    errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">error</span>Invalid amount`
+                    errorNode.id = "Invalid amount"
+                    errorBox.appendChild(errorNode)
+                } else {
+                    errorBox.removeChild(document.getElementById("Invalid amount"))
+
+                }
+            } else {
+                document.getElementById("BankPoints").innerHTML = document.getElementById("stellarPoints").value + 'SP = ' + "$" + Math.floor(document.getElementById("stellarPoints").value / 6000)
+                taskManager.amount = true
+            }
+            document.getElementById("signUpActual5").addEventListener('click', () => {
+                if (taskManager.amount && document.getElementById("stellarPoints").value > 0) {
+                    userRef.update({
+                        Points: firebase.firestore.FieldValue.increment(-1 * parseInt(document.getElementById("stellarPoints").value))
+                    }).then(() => {
+                        document.getElementById("BankPoints").innerHTML = `Your promo code is ${pointsAllocation[Math.floor(document.getElementById("stellarPoints").value / 6000)]}`
+                        let time = 5
+                        setInterval(() => {
+                            document.getElementById("timer").innerHTML = "This will close in " + time + "s"
+                            time--;
+                            if (time == 0) {
+                                window.clearInterval()
+                                window.
+                                document.getElementById("timer").innerHTML = ''
+                                document.getElementById("BankPoints").innerHTML = ''
+                                document.getElementById("stellarPoints").value  = ''
+                                document.getElementById("floater").style.display = "none"
+                                document.getElementById("Bank").style.display = "none"
+                                document.body.style.overflowY = "auto"
+                            }
+                        }, 1000)
+                    }).then(() => {
+                        updatePoints()
+                    })
+                }
+
+            })
+        })
+        document.getElementById("BankApp").addEventListener('click', () => {
+            document.getElementById("floater").style.display = "flex"
+            document.getElementById("Bank").style.display = "flex"
             window.scrollTo(0, 0)
             document.body.style.overflowY = "hidden"
+            document.getElementById("BankPoints").innerHTML = 6000 + "SP = " + "$" + 1 + " - Only whole dollars are calculated"
+        })
+
+        document.getElementById("ProfileApp").addEventListener('click', () => {
+            document.getElementById("floater").style.display = "flex"
+            document.getElementById("profileView").style.display = "flex"
+            window.scrollTo(0, 0)
+            document.body.style.overflowY = "hidden"
+        })
+
+        document.getElementById("cancel5").addEventListener('click', () => {
+            db.collection("users").doc(JSON.parse(userInfo).Email).delete().then(() => {
+                localStorage.clear()
+                window.location.assign('index.html')
+            })
+
         })
 
     }

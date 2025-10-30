@@ -46,11 +46,11 @@
                         </div>
                         <p class="poppins-semibold">Genie AI</p>
                     </div>
-                    <div class="app">
+                    <div class="app" id="BankApp">
                         <div class="icon">
                             <div id="Shop"></div>
                         </div>
-                        <p class="poppins-semibold">Shop</p>
+                        <p class="poppins-semibold">Bank</p>
                     </div>
                     <div class="app" id="ProfileApp">
                         <div class="icon">
@@ -282,22 +282,35 @@
                 <button id="cancel4" style="width: 40%;">Cancel</button>
             </div>
         </div>
-        <div id="profileView">
-             <div id="profilePicture2"></div>
+        <div id="profileView" style="padding-top: 20px;">
+            <a style="text-align: end; width: 100%;" href="dashboard.html"><span class="material-icons">close</span></a>
+            <div id="profilePicture2"></div>
             <h2 id="header">Joshua Fineboy-Mark</h2>
-            <div id="form">
-                <div class="input">
-                    <label for="goal">Goal</label>
-                    <input name="goal" type="text" id="goal" placeholder="Read 50 Books">
-                </div>
-
+            <div id="buttonsSignUp">
+                <button id="signUpActual2" style="width: 40%; margin-top: 10px;">Log out</button>
+                <button id="cancel5" style="width: 40%;">Delete your account</button>
             </div>
-            <div id="errors4">
+        </div>
+        <div id="Bank">
+            <h2 id="header">Stellar Bank</h2>
+            <div id="form">
+                <div id="form">
+                    <div class="input">
+                        <label for="goal">Convert Stellar Points</label>
+                        <input name="goal" type="number" id="stellarPoints" placeholder="">
+                        <p id="BankPoints"></p>
+                        <p id="timer"></p>
+                    </div>
+
+                </div>
+            </div>
+            <div id="errors5">
 
             </div>
             <div id="buttonsSignUp">
-                <button id="signUpActual4" style="width: 40%; margin-top: 10px;">Add Goal</button>
-                <button id="cancel4" style="width: 40%;">Cancel</button>
+                <button id="signUpActual5" style="width: 40%; margin-top: 0;">Convert</button>
+                <button id="cancel6" style="width: 40%;">Cancel</button>
+                <a href="https://my-store-ce79f4.creator-spring.com/" style="text-align: end; width: 100%;">Store</a>
             </div>
         </div>
     </div>
