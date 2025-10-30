@@ -134,6 +134,18 @@ button{
     gap:5px;
     margin: 0;
 }
+#errors5>#success{
+    background-color: #57C057;
+    border-radius: 5px;
+    padding-left: 8px;
+    color: white;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap:5px;
+    margin: 0;
+}
 #errors4>#success{
     background-color: #57C057;
     border-radius: 5px;
@@ -171,6 +183,18 @@ button{
     margin: 0;
 }
 #errors>p:not(#success){
+    background-color: red;
+    border-radius: 5px;
+    padding-left: 8px;
+    color: white;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap:5px;
+    margin: 0;
+}
+#errors5>p:not(#success){
     background-color: red;
     border-radius: 5px;
     padding-left: 8px;
@@ -227,6 +251,14 @@ button{
 
 }
 #errors4{
+    margin-top: 30px;
+    display: flex;
+    gap:5px;
+    width: 100%;
+    flex-direction: column;
+
+}
+#errors5{
     margin-top: 30px;
     display: flex;
     gap:5px;

@@ -119,6 +119,7 @@ if (userInfo == null) {
         var EventBox = document.getElementById("Events")
         docRef.get().then((doc) => {
             document.getElementById("streak").innerText =doc.data().Streak
+            document.getElementById('uniqueId').innerHTML = doc.data().FriendId
             let j = 0
             if (doc.exists) {
                 userInfoDatabase = doc.data()
@@ -152,12 +153,14 @@ if (userInfo == null) {
                     }
                 } else {
                     userRef.update({
+                        Streak: firebase.firestore.FieldValue.increment(1),
                         LastLogin: new Date()
                     })
                 }
                 docRef.get().then((doc)=>{
                             userInfoDatabase= doc.data()
                             document.getElementById("streak").innerText =doc.data().Streak
+                            
                         })
                 for (i = 1; i <= 12; i++) {
                     if (doc.data().Tasks[i] != undefined && doc.data().Tasks[i].When.includes(dayOfWeek2[d.getDay() + 1])) {
@@ -1559,6 +1562,17 @@ if (userInfo == null) {
             document.body.style.overflowY = "auto"
         })
 
+        document.getElementById("ProfileApp").addEventListener('click', () => {
+            document.getElementById("floater").style.display ="flex"
+            document.getElementById("skillsBar").style.display ="block"
+            document.getElementById("ResultSkills").style.display = "none"
+            document.getElementById("SkillResultsHeader").style.display = "none"
+            document.getElementById("Trending").style.display = "block"
+            document.getElementById("TrendingSkills").style.display = "flex"
+            document.getElementById("searchSkills").value = ""
+            window.scrollTo(0, 0)
+            document.body.style.overflowY = "hidden"
+        })
 
     }
 }
