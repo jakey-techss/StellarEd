@@ -178,8 +178,14 @@ if (userInfo == null) {
         var docRef = db.collection("users").doc(JSON.parse(userInfo).Email);
         var EventBox = document.getElementById("Events")
         docRef.get().then((doc) => {
+            if(doc.data().FriendId == undefined){
+                document.getElementById('uniqueId').innerHTML = 'Your unique code: ' + doc.data().FriendId
+            }else{
+                docRef.update({
+                    FriendId: letters[Math.floor(Math.random()*26)][1]+Math.random()*99+letters[Math.floor(Math.random()*26)][1]+letters[Math.floor(Math.random()*26)][1]+Math.random()*99
+                })
+            }
             document.getElementById("streak").innerText = doc.data().Streak
-            document.getElementById('uniqueId').innerHTML = 'Your unique code: ' + doc.data().FriendId
             let j = 0
             if (doc.exists) {
                 userInfoDatabase = doc.data()
