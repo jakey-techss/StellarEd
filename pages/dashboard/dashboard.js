@@ -1668,8 +1668,9 @@ if (userInfo == null) {
             }
             document.getElementById("signUpActual5").addEventListener('click', () => {
                 if (taskManager.amount && document.getElementById("stellarPoints").value > 0) {
+                    let result = parseInt(document.getElementById("TopPoints").innerText) - parseInt(document.getElementById("stellarPoints").value)
                     userRef.update({
-                        Points: firebase.firestore.FieldValue.increment(-1 * parseInt(document.getElementById("stellarPoints").value))
+                        Points: result
                     }).then(() => {
                         document.getElementById("BankPoints").innerHTML = `Your promo code is ${pointsAllocation[Math.floor(document.getElementById("stellarPoints").value / 6000)]}`
                         let time = 5
