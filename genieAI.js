@@ -186,7 +186,7 @@ if (userInfo == null) {
 
             const data = await response.json();
             const clean = stripMarkdown(data.candidates[0].content.parts[0].text);
-            clean.log(clean)
+
             message = document.createElement('div')
             message.classList.add("messageContainer")
             message.innerHTML = `<div class="profilePictureBot"></div>
