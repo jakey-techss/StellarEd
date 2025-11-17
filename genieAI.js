@@ -2,6 +2,22 @@ let userInfo = window.localStorage.getItem("currentUserInfo")
 if (userInfo == null) {
     window.location.assign("index.html")
 } else {
+    function stripMarkdown(text) {
+                console.log(text)
+                return text
+                    // Remove code blocks and inline code
+                    .replace(/```[\s\S]*?```/g, '')
+                    .replace(/`([^`]*)`/g, '$1')
+                    // Remove bold, italic, strikethrough
+                    .replace(/(\*\*|__)(.*?)\1/g, '$2')
+                    .replace(/(\*|_)(.*?)\1/g, '$2')
+                    .replace(/~~(.*?)~~/g, '$1')
+                    // Remove headings, lists, quotes
+                    // Collapse multiple newlines
+                    .replace(/[*]/g, '<br><br>')
+                    .replace(/[$]/g, '')
+                    .trim();
+            }
     if (JSON.parse(userInfo).Onboard == false) {
         window.location.assign("onboard.html")
     } else {
@@ -69,13 +85,13 @@ if (userInfo == null) {
                         let message = document.createElement('div')
                         message.classList.add("messageContainerOpposite")
                         message.innerHTML = `<div class="profilePictureUser" style="background-image: url(${userInfoDatabase.ProfilePicture});"></div>
-                    <p class="messageSender poppins-light">${prompt}</p>`
+                    <p class="messageSender poppins-light">${stripMarkdown(prompt)}</p>`
                         messageBox.appendChild(message)
                     } else {
                         let message = document.createElement('div')
                         message.classList.add("messageContainer")
                         message.innerHTML = `<div class="profilePictureBot"></div>
-                    <p class="message poppins-light">${userInfoDatabase.Chat[i].message}</p>`
+                    <p class="message poppins-light">${stripMarkdown(userInfoDatabase.Chat[i].message)}</p>`
                         messageBox.appendChild(message)
                     }
                 }
@@ -165,28 +181,12 @@ if (userInfo == null) {
                     })
                 }
             );
-            function stripMarkdown(text) {
-                return text
-                    // Remove code blocks and inline code
-                    .replace(/```[\s\S]*?```/g, '')
-                    .replace(/`([^`]*)`/g, '$1')
-                    // Remove bold, italic, strikethrough
-                    .replace(/(\*\*|__)(.*?)\1/g, '$2')
-                    .replace(/(\*|_)(.*?)\1/g, '$2')
-                    .replace(/~~(.*?)~~/g, '$1')
-                    // Remove headings, lists, quotes
-                    .replace(/^> /gm, '')
-                    .replace(/^#+\s/gm, '')
-                    .replace(/^- /gm, '')
-                    // Collapse multiple newlines
-                    .replace(/\n{2,}/g, '<br><br>')
-                    .replace(/`*`/g, '<br><br>')
-                    .trim();
-            }
+
 
 
             const data = await response.json();
-            const clean = stripMarkdown(stripMarkdown(data.candidates[0].content.parts[0].text));
+            const clean = stripMarkdown(data.candidates[0].content.parts[0].text);
+            clean.log(clean)
             message = document.createElement('div')
             message.classList.add("messageContainer")
             message.innerHTML = `<div class="profilePictureBot"></div>
