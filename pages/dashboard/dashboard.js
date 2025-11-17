@@ -178,11 +178,11 @@ if (userInfo == null) {
         var docRef = db.collection("users").doc(JSON.parse(userInfo).Email);
         var EventBox = document.getElementById("Events")
         docRef.get().then((doc) => {
-            if(doc.data().FriendId != undefined){
+            if (doc.data().FriendId != undefined) {
                 document.getElementById('uniqueId').innerHTML = 'Your unique code: ' + doc.data().FriendId
-            }else{
+            } else {
                 docRef.update({
-                    FriendId: letters[Math.floor(Math.random()*26)][1]+parseInt(Math.random()*99)+letters[Math.floor(Math.random()*26)][1]+letters[Math.floor(Math.random()*26)][1]+parseInt(Math.random()*99)
+                    FriendId: letters[Math.floor(Math.random() * 26)][1] + parseInt(Math.random() * 99) + letters[Math.floor(Math.random() * 26)][1] + letters[Math.floor(Math.random() * 26)][1] + parseInt(Math.random() * 99)
                 })
                 document.getElementById('uniqueId').innerHTML = 'Your unique code: ' + doc.data().FriendId
             }
@@ -390,6 +390,9 @@ if (userInfo == null) {
                             })
                         })
                             .then(() => {
+                                if (document.getElementById("success") == null || document.getElementById("success") == undefined) {
+                                    updateTasksList()
+                                }
                                 let errorNode = document.createElement("p")
                                 errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">check</span>Successfully added task`
                                 errorNode.id = "success"
@@ -402,7 +405,7 @@ if (userInfo == null) {
                                     document.getElementById("date").value = ""
                                     document.getElementById("TaskTitle").value = ""
                                     document.body.style.overflowY = "auto"
-                                    updateTasksList()
+                        
                                 }, 1000)
                             })
                     }
@@ -536,6 +539,9 @@ if (userInfo == null) {
                             })
                         })
                             .then(() => {
+                                if (document.getElementById("success") == null || document.getElementById("success") == undefined) {
+                                    updateTasksList()
+                                }
                                 let errorNode = document.createElement("p")
                                 errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">check</span>Successfully added task`
                                 errorNode.id = "success"
@@ -548,7 +554,6 @@ if (userInfo == null) {
                                     document.getElementById("date").value = ""
                                     document.getElementById("TaskTitle").value = ""
                                     document.body.style.overflowY = "auto"
-                                    updateTasksList()
                                 }, 1000)
                             })
                     }
@@ -720,7 +725,7 @@ if (userInfo == null) {
                 if ((dueAssignment == 0 && CompletedAssignment == 0) || dueAssignment == 0) {
                     google.charts.setOnLoadCallback(drawChart(100 / 100, dueAssignment, InProgress));
                 } else {
-                    google.charts.setOnLoadCallback(drawChart(CompletedAssignment / dueAssignment, dueAssignment, InProgress));
+                    google.charts.setOnLoadCallback(drawChart(CompletedAssignment, dueAssignment, InProgress));
                 }
                 document.getElementById("dueAssignments").innerText = dueAssignment
                 document.getElementById("completedAssignments").innerText = CompletedAssignment
@@ -742,7 +747,7 @@ if (userInfo == null) {
 
         function openEditScreeen(id) {
             id = id.id
-            
+
             document.getElementById("fileProof").value = ""
             window.scrollTo(0, 0)
             document.getElementById("proof").style.display = 'none'
@@ -876,6 +881,9 @@ if (userInfo == null) {
                             })
                         })
                             .then(() => {
+                                if (document.getElementById("success") == null || document.getElementById("success") == undefined) {
+                                    updateTasksList()
+                                }
                                 let errorNode = document.createElement("p")
                                 errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">check</span>Successfully updated task`
                                 errorNode.id = "success"
@@ -883,7 +891,6 @@ if (userInfo == null) {
                                 setTimeout(() => {
                                     errorBox.removeChild(document.getElementById("success"))
                                     setTimeout(() => {
-                                        updateTasksList()
                                         document.getElementById("floater").style.display = "none";
                                         document.getElementById("viewTask").style.display = "none";
                                         document.body.style.overflowY = "auto"
@@ -941,12 +948,14 @@ if (userInfo == null) {
                     userRef.update({
                         ToDo: firebase.firestore.FieldValue.arrayRemove(ToDoData),
                     }).then(() => {
+                        if (document.getElementById("success") == null || document.getElementById("success") == undefined) {
+                            updateTasksList()
+                        }
                         let errorBox = document.getElementById("errors2")
                         let errorNode = document.createElement("p")
                         errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">check</span>Successfully removed task`
                         errorNode.id = "success"
                         errorBox.appendChild(errorNode)
-                        updateTasksList()
                         setTimeout(() => {
 
                             errorBox.removeChild(document.getElementById("success"))
@@ -1004,7 +1013,7 @@ if (userInfo == null) {
                         userRef.update({
                             ToDo: firebase.firestore.FieldValue.arrayRemove(ToDoData),
                         })
-                        userRef.update({
+                        return userRef.update({
                             ToDo: firebase.firestore.FieldValue.arrayUnion({
                                 TaskTitle: document.getElementById("titleEdit").value,
                                 DueDate: dueDate,
@@ -1018,12 +1027,14 @@ if (userInfo == null) {
                             Points: firebase.firestore.FieldValue.increment(parseInt(document.getElementById("points").value))
                         })
                             .then(() => {
+                                updatePoints()
+                                if (document.getElementById("success") == null || document.getElementById("success") == undefined) {
+                                    updateTasksList()
+                                }
                                 let errorNode = document.createElement("p")
                                 errorNode.innerHTML = `<span class="material-icons" style="font-size: 15px;">check</span>Successfully completed task`
                                 errorNode.id = "success"
                                 errorBox.appendChild(errorNode)
-                                updatePoints()
-                                updateTasksList()
                                 setTimeout(() => {
                                     errorBox.removeChild(document.getElementById("success"))
                                     setTimeout(() => {
@@ -1679,9 +1690,9 @@ if (userInfo == null) {
                             if (time == 0) {
                                 window.clearInterval()
                                 window.
-                                document.getElementById("timer").innerHTML = ''
+                                    document.getElementById("timer").innerHTML = ''
                                 document.getElementById("BankPoints").innerHTML = ''
-                                document.getElementById("stellarPoints").value  = ''
+                                document.getElementById("stellarPoints").value = ''
                                 document.getElementById("floater").style.display = "none"
                                 document.getElementById("Bank").style.display = "none"
                                 document.body.style.overflowY = "auto"
@@ -1705,7 +1716,7 @@ if (userInfo == null) {
         document.getElementById("ProfileApp").addEventListener('click', () => {
             document.getElementById("floater").style.display = "flex"
             document.getElementById("profileView").style.display = "flex"
-            document.getElementById("profilePicture2").style.backgroundImage =`url("${JSON.parse(userInfo).ProfilePicture}")`
+            document.getElementById("profilePicture2").style.backgroundImage = `url("${JSON.parse(userInfo).ProfilePicture}")`
             document.getElementById("header2").innerHTML = `${JSON.parse(userInfo).Name}`
             window.scrollTo(0, 0)
             document.body.style.overflowY = "hidden"
