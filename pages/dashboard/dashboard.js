@@ -178,7 +178,6 @@ if (userInfo == null) {
         var docRef = db.collection("users").doc(JSON.parse(userInfo).Email);
         var EventBox = document.getElementById("Events")
         docRef.get().then((doc) => {
-            console.log(doc.data())
             if(doc.data().FriendId != undefined){
                 document.getElementById('uniqueId').innerHTML = 'Your unique code: ' + doc.data().FriendId
             }else{
@@ -743,6 +742,7 @@ if (userInfo == null) {
 
         function openEditScreeen(id) {
             id = id.id
+            
             document.getElementById("fileProof").value = ""
             window.scrollTo(0, 0)
             document.getElementById("proof").style.display = 'none'
@@ -754,8 +754,7 @@ if (userInfo == null) {
                     userInfoDatabase = doc.data()
                 }
             }).then(() => {
-
-                let ToDoData = userInfoDatabase.ToDo[id.at(id.length - 1)]
+                let ToDoData = userInfoDatabase.ToDo.find(task => task.id == id.at(id.length - 1));
                 let d = ToDoData.DueDate.toDate()
                 let Difficulty = ToDoData.DiffLevel
                 let currentDay = new Date()

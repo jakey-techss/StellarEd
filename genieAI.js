@@ -180,13 +180,13 @@ if (userInfo == null) {
                     .replace(/^- /gm, '')
                     // Collapse multiple newlines
                     .replace(/\n{2,}/g, '<br><br>')
-                    .replace(/`*`/g, '')
+                    .replace(/`*`/g, '<br><br>')
                     .trim();
             }
 
 
             const data = await response.json();
-            const clean = stripMarkdown(data.candidates[0].content.parts[0].text);
+            const clean = stripMarkdown(stripMarkdown(data.candidates[0].content.parts[0].text));
             message = document.createElement('div')
             message.classList.add("messageContainer")
             message.innerHTML = `<div class="profilePictureBot"></div>
