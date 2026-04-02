@@ -1640,7 +1640,6 @@ if (userInfo == null) {
             document.body.style.overflowY = "auto"
         })
         document.getElementById("cancel6").addEventListener('click', () => {
-            document.body.removeChild(getElementById("timer"))
             document.getElementById("timer").innerHTML = ''
             document.getElementById("BankPoints").innerHTML = ''
             document.getElementById("stellarPoints").value = ''

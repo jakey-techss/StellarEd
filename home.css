@@ -37,6 +37,11 @@ body{
     cursor: pointer;
     transition: background-color 2s;
 }
+#community:hover{
+    background-color: hsl(261 41 21);
+    cursor: pointer;
+    transition: background-color 2s;
+}
 .right > div > p{
     max-width: 90%;
     margin-top: 0;
@@ -175,6 +180,25 @@ nav{
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    border-radius:20px;
+    padding-left: 14px;
+    padding-right: 14px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    color: white;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+}
+#community{
+    font-size: 0.9rem;
+    background-color:#5C3E94;
+    display: flex;
+    gap:2px;
+    border: none;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top:8px;
     border-radius:20px;
     padding-left: 14px;
     padding-right: 14px;
